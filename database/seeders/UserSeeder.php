@@ -31,10 +31,9 @@ class UserSeeder extends Seeder
                 'username' => 'user',
                 'password' => 'secret',
                 'role' => 'user',
-                'depot_id' => 1
             ],
         ];
-        foreach($users as $user){
+        foreach ($users as $user) {
             User::create($user);
         }
     }
