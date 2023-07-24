@@ -16,3 +16,5 @@ use Milon\Barcode\DNS1D;
 */
 
 Route::get('login', [AuthController::class, 'login']);
+Route::post('login', [AuthController::class, '_login'])->name('login');
+Route::get('logout', [AuthController::class, 'logout']);

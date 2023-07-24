@@ -10,7 +10,7 @@
 }
 
 .input{
-    @apply border w-full focus:outline-none py-2.5 rounded mb-2 border-gray-400 px-2
+    @apply border w-full focus:outline-none py-2.5 rounded mb-2 px-2;
 }
 
 .input-indigo{
