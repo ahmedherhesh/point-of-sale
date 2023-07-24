@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.btn{
+    @apply rounded-md px-3 py-2.5  font-normal text-white shadow-sm mt-2 
+}
+.btn-indigo{
+    @apply bg-indigo-500 hover:bg-indigo-600 
+}
+
+.input{
+    @apply border w-full focus:outline-none py-2.5 rounded mb-2 border-gray-400 px-2
+}
+
+.input-indigo{
+    @apply focus:border-indigo-500 
+}
+
+.label{
+    @apply block mb-2 text-gray-600
+}
+.ctm-form{
+   @apply p-5 w-[32rem]  m-auto rounded drop-shadow-[0_5px_20px_rgba(173,181,189,.2)] bg-white mt-[80px] text-gray-600
+}

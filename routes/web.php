@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use Milon\Barcode\DNS1D;
 
@@ -14,6 +15,4 @@ use Milon\Barcode\DNS1D;
 |
 */
 
-Route::get('/', function () {
-    return DNS1D::getBarcodeHTML("01152958015", "CODABAR", 1, 40);
-});
+Route::get('login', [AuthController::class, 'login']);
