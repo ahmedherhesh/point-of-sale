@@ -23,7 +23,7 @@ class AuthController extends MasterController
             $request->session()->put('user', auth()->user());
             return redirect('/');
         }
-        return redirect()->back()->with('login_failed', 'إسم المستخدم أو كلمة السر غير صحيحة');
+        return redirect()->back()->with('failed', 'إسم المستخدم أو كلمة السر غير صحيحة');
     }
     public function changePassword()
     {

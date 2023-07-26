@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use Milon\Barcode\DNS1D;
 
@@ -18,3 +19,13 @@ use Milon\Barcode\DNS1D;
 Route::get('login', [AuthController::class, 'login']);
 Route::post('login', [AuthController::class, '_login'])->name('login');
 Route::get('logout', [AuthController::class, 'logout']);
+
+
+Route::group(['middleware' => 'auth.web'],function () {
+    view()->composer(['*'], function ($view) {
+        $user = session()->get('user');
+        $view->with('user', $user);
+
+    });
+    Route::get('/',[HomeController::class,'index']);
+});
