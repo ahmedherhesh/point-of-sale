@@ -76,7 +76,7 @@
         $('#dropdown-user-btn').on('click', function() {
             $('#dropdown-user').toggleClass('hidden').css({
                 top: '56px',
-                left: '5px'
+                left: '7px'
             })
         })
         $(document).on('click', function(e) {
