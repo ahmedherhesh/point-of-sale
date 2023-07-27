@@ -13,7 +13,7 @@ class AuthController extends MasterController
     {
         if (session()->has('user'))
             return redirect()->back();
-        return view('auth.login');
+        return inertia('Auth/Login');
     }
     public function _login(LoginRequest $request)
     {
@@ -21,7 +21,7 @@ class AuthController extends MasterController
         $user = auth()->attempt($user);
         if ($user) {
             $request->session()->put('user', auth()->user());
-            return redirect('/');
+            return to_route('home');
         }
         return redirect()->back()->with('failed', 'إسم المستخدم أو كلمة السر غير صحيحة');
     }

@@ -16,16 +16,15 @@ use Milon\Barcode\DNS1D;
 |
 */
 
-Route::get('login', [AuthController::class, 'login']);
-Route::post('login', [AuthController::class, '_login'])->name('login');
+Route::get('login', [AuthController::class, 'login'])->name('login');
+Route::post('login', [AuthController::class, '_login'])->name('_login');
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
 
-Route::group(['middleware' => 'auth.web'],function () {
+Route::group(['middleware' => 'auth.web'], function () {
     view()->composer(['*'], function ($view) {
         $user = session()->get('user');
         $view->with('user', $user);
-
     });
-    Route::get('/',[HomeController::class,'index']);
+    Route::get('/', [HomeController::class, 'index'])->name('home');
 });

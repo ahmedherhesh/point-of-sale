@@ -25,6 +25,6 @@ class HomeController extends MasterController
 
     function index()
     {
-        return view('welcome');
+        return inertia('Home');
     }
 }
