@@ -56,3 +56,15 @@ a {
 .ctm-form .border-red-600::placeholder{
     color: red;
 }
+
+.content{
+    --sidebar-width:255px;
+    width:calc(100% - var(--sidebar-width) - 20px);
+    margin-top: 78px;
+    margin-right:calc(var(--sidebar-width) + 20px);
+    border-radius: 12px;
+    padding: 10px;
+}
+select{
+    cursor: pointer;
+}

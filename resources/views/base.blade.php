@@ -13,8 +13,6 @@
 
 <body>
     @yield('content')
-    @if (session()->has('fail'))
-    @endif
 
     <script src="{{ asset('js/jquery-3.7.0.min.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>

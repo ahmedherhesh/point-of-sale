@@ -18,6 +18,11 @@
                 </li>
 
                 <li>
+                    <Link href="/pos" class="flex items-center gap-3 pb-2">
+                        <span class="flex-1 ml-3 whitespace-nowrap">نقطة بيع</span>
+                    </Link>
+                </li>
+                <li>
                     <a href="#" class="flex items-center gap-3 pb-2">
                         <span class="flex-1 ml-3 whitespace-nowrap">المستخدمين</span>
                     </a>
@@ -27,4 +32,6 @@
         </div>
     </aside>
 </template>
-<script setup></script>
+<script setup>
+    import { Link } from "@inertiajs/vue3";
+</script>

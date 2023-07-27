@@ -1,7 +1,7 @@
 <template>
     <navbar />
     <sidebar />
-    <h1>Hello</h1>
+    <div class="content">Hello</div>
 </template>
 <script setup>
 import Navbar from './components/NavBar.vue'
