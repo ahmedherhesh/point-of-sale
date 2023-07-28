@@ -59,7 +59,11 @@ a:hover {
 .shadow{
     box-shadow: var(--box-shadow);
 }
-
+.bg-indigo{
+    background-color: rgb(150, 151, 231);
+    color: #fff;
+    
+}
 .content {
     --sidebar-width: 255px;
     width: calc(100% - var(--sidebar-width));
@@ -95,7 +99,8 @@ a:hover {
 .ctm-btn {
     background-color: var(--main-color) !important;
     color: #fff !important;
-    margin-top: 10px;
+    outline: none;
+    min-width: 100px;
 }
 
 .ctm-btn:hover {
