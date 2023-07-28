@@ -13,25 +13,33 @@ $(".delete-btn").on("click", function (e) {
     let result = confirm(`هل انت متأكد من حذف ${$(this).data("type")}`);
     if (!result) e.preventDefault();
 });
-
+//active button move
+// $('body').on('click', '.nav-link', function () {
+//     $('.nav-link').removeClass('ctm-btn')
+//     $(this).addClass('ctm-btn')
+// })
 $('body').on('click', '.menu-btn', function () {
     $('.sidebar').toggleClass('translate-x-full')
 })
 $(window).on('resize', function () {
-    $('.sidebar').addClass('translate-x-full')
+    if ($(window).width() < 640)
+        $('.sidebar').css({ right: '-255px' })
+    else
+        $('.sidebar').css({ right: 0 })
+
 })
-let dropdownUser = $('#dropdown-user');
 $('body').on('click', '#dropdown-user-btn', function () {
     $('#dropdown-user').toggleClass('hidden').css({
-        top: '56px',
+        top: '57px',
         left: '7px'
     })
 })
 $(document).on('click', function (e) {
     if (!e.target.closest('.sidebar') && !e.target.closest('.menu-btn') && $(window).width() < 640) {
-        sidebar.addClass('translate-x-full')
-    } else if (!e.target.closest('#dropdown-user') && !e.target.closest('#dropdown-user-btn')) {
-        dropdownUser.addClass('hidden').removeClass('block')
+        $('.sidebar').css({ right: '-255px' })
+    }
+    if (!e.target.closest('#dropdown-user') && !e.target.closest('#dropdown-user-btn')) {
+        $('#dropdown-user').addClass('hidden').removeClass('block')
     }
 })
 

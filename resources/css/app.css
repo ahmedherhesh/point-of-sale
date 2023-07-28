@@ -1,8 +1,8 @@
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-.btn{
+.ctm-btn{
     @apply rounded-md px-3 py-2.5  font-normal text-white shadow-sm mt-2 
 }
 .btn-indigo{
@@ -22,4 +22,4 @@
 }
 .ctm-form{
    @apply p-5 w-[32rem]  m-auto rounded drop-shadow-[0_5px_20px_rgba(173,181,189,.2)] bg-white mt-[80px] text-gray-600
-}
+} */
