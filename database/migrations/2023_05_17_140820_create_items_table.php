@@ -21,7 +21,7 @@ return new class extends Migration
             $table->longText('notes')->nullable();
             $table->double('price');
             $table->double('price_of_sale');
-            $table->double('qty')->nullable();
+            $table->double('stock')->nullable();
             $table->string('image')->nullable();
             $table->string('code');
             $table->enum('status', ['new', 'used', 'expired']);

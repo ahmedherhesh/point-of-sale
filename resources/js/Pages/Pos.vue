@@ -3,12 +3,14 @@
     <sidebar />
     <div class="content">
         <div class="filter d-flex gap-2">
-            <input type="search" class="form-control" placeholder="بحث بالكود / العنوان">
-            <select class="form-select">
+            <input type="search" class="form-control" :class="errors.code ? 'border-danger' : 'border'"
+                placeholder="بحث بالكود" v-model="form.code" @input="itemsFilter">
+            <input type="search" class="form-control" placeholder="بحث العنوان" v-model="form.title" @input="itemsFilter">
+            <select class="form-select" @change="itemsFilter" v-model="form.cat_id">
                 <option value="">الأقسام</option>
                 <option v-for="cat in categories" :value="cat.id">{{ cat.name }}</option>
             </select>
-            <select class="form-select">
+            <select class="form-select" @change="itemsFilter" v-model="form.company_id">
                 <option value="">الشركات</option>
                 <option v-for="company in companies" :value="company.id">{{ company.name }}</option>
             </select>
@@ -18,9 +20,9 @@
                 <div v-for="item in items" @click="addToCart" class="item border rounded text-right p-1 position-relative"
                     :data-id="item.id"
                     :style="cartEls.includes(item.id) ? 'border-color:var(--border-color) !important' : 'border:1px solid #dee2e6!important'"
-                    :data-title="item.title" :data-price="item.price" :data-stock="item.qty">
+                    :data-title="item.title" :data-price="item.price" :data-stock="item.stock">
                     <span class="position-absolute top-0 start-0 badge p-1 rounded"
-                        :class="item.qty > 10 ? 'bg-dark' : 'bg-danger'">{{ item.qty }}</span>
+                        :class="item.stock > 10 ? 'bg-dark' : 'bg-danger'">{{ item.stock }}</span>
                     <span class="position-absolute top-0 end-0 badge p-1 rounded bg-primary">$100</span>
                     <div class="d-flex justify-content-center">
                         <img src="imgs/logo-80.png" alt="" srcset="">
@@ -48,6 +50,7 @@
                     <button class="btn ctm-btn">بيع</button>
                     <button class="btn btn-danger" @click="cancel">إلغاء</button>
                 </div>
+
             </div>
         </div>
     </div>
@@ -70,15 +73,45 @@
 .close-btn {
     cursor: pointer;
 }
+
+.increment-btn,
+.decrement-btn {
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+    box-shadow: var(--box-shadow);
+}
 </style>
 <script setup>
-defineProps({ items: Object, categories: Object, companies: Object })
+defineProps({ errors: Object, items: Object, categories: Object, companies: Object })
 import { reactive } from 'vue'
+import { usePage } from '@inertiajs/vue3';
 import Navbar from './components/NavBar.vue'
 import Sidebar from './components/Sidebar.vue'
+import axios from 'axios';
 
 let increment = 0;
 let cartEls = reactive([]);
+let form = reactive({
+    title: '',
+    company_id: '',
+    cat_id: '',
+    code: ''
+})
+const itemsFilter = () => {
+    let page = usePage();
+    axios.post('items-filter', form)
+        .then(res => {
+            page.props.items = res.data
+        }).catch(res => {
+            page.props.errors = res.response.data.errors
+        })
+}
 const addToCart = e => {
     let el = e.currentTarget;
     let itemId = el.dataset.id;
@@ -88,7 +121,11 @@ const addToCart = e => {
                                 <th scope="row">${++increment}</th>
                                 <td>${el.dataset.title}</td>
                                 <td>${el.dataset.price}</td>
-                                <td><input class="form-control" type="number" value="1" min="1" max="${el.dataset.stock}" style="width: 75px;"></td>
+                                <td class='d-flex justify-content-center'>
+                                    <span class='increment-btn bg-dark'>+</span>
+                                    <span class="ms-2 me-2 qty" data-max='${el.dataset.stock}'>1</span>
+                                    <span class='decrement-btn bg-dark'>-</span>
+                                </td>
                                 <td>${el.dataset.price}</td>
                                 <td class="close-btn" data-id="${itemId}"><img src="imgs/close.svg" width="30"></td>
                              </tr>`
@@ -106,8 +143,20 @@ const removeFromCart = e => {
 }
 
 const cancel = e => {
-    cartEls.splice(0,cartEls.length)
+    cartEls.splice(0, cartEls.length)
     tbody.innerHTML = '';
     increment = 0;
 }
+$('body').on('click', '.increment-btn', function () {
+    const self = $(this);
+    const next = self.next();
+    if (next.text() < next.data('max'))
+        next.text(parseInt(next.text()) + 1);
+})
+$('body').on('click', '.decrement-btn', function () {
+    const self = $(this);
+    const prev = self.prev();
+    if (prev.text() != 0)
+        prev.text(parseInt(prev.text()) - 1)
+})
 </script>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\SaleController;
 use Illuminate\Support\Facades\Route;
 use Milon\Barcode\DNS1D;
@@ -29,4 +30,5 @@ Route::group(['middleware' => 'auth.web'], function () {
     });
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('/pos', [SaleController::class, 'index'])->name('pos');
+    Route::post('items-filter', [ItemController::class, 'itemsFilter']);
 });
