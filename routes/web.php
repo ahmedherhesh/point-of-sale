@@ -30,5 +30,5 @@ Route::group(['middleware' => 'auth.web'], function () {
     });
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('/pos', [SaleController::class, 'index'])->name('pos');
-    Route::post('items-filter', [ItemController::class, 'itemsFilter']);
+    Route::post('items-filter', [SaleController::class, 'itemsFilter']);
 });
