@@ -1,6 +1,6 @@
 <template>
     <navbar />
-    <sidebar/>
+    <sidebar />
     <div class="content">
         <div class="filter d-flex gap-2">
             <input type="search" class="form-control" :class="errors.code && filterForm.code.trim() ? 'border-danger' : ''"
@@ -19,8 +19,8 @@
         <div class="d-flex flex-wrap justify-content-center gap-2">
             <div
                 class="items-section w-50 ctm-form justify-content-center align-items-center m-0 d-flex flex-wrap gap-2 mt-2">
-                <div v-for="item in items.data" @click="addToCart" class="item border rounded text-right p-1 position-relative"
-                    :data-id="item.id"
+                <div v-for="item in items.data" @click="addToCart"
+                    class="item border rounded text-right p-1 position-relative" :data-id="item.id"
                     :style="cartEls.includes(item.id) ? 'border-color:var(--border-color) !important' : 'border:1px solid #dee2e6!important'"
                     :data-title="item.title" :data-price="item.sale_price" :data-stock="item.stock">
                     <span class="position-absolute top-0 start-0 badge p-1 rounded"
@@ -60,10 +60,10 @@
                 </div>
             </div>
         </div>
-        <div class="d-flex justify-content-around mt-3">
+        <!-- <div class="d-flex justify-content-around mt-3">
             <Link class="ctm-btn p-1 rounded" :href="items.links.next">الصفحة التالية</Link>
             <Link class="ctm-btn p-1 rounded" :href="items.links.prev">الصفحة السابقة</Link>
-        </div>
+        </div> -->
     </div>
 </template>
 <style>
@@ -101,7 +101,7 @@
 <script setup>
 defineProps({ errors: Object, items: Object, categories: Object, companies: Object })
 import { reactive, ref } from 'vue'
-import { usePage,Link } from '@inertiajs/vue3';
+import { usePage, Link } from '@inertiajs/vue3';
 import Navbar from './components/NavBar.vue'
 import Sidebar from './components/Sidebar.vue'
 import axios from 'axios';
@@ -126,9 +126,10 @@ const totalPrice = () => {
     $('#finalPrice').text(result - (parseFloat(discount._value) || 0));
 };
 
+let entered = false;
 const itemsFilter = e => {
     const val = e.currentTarget.value.trim();
-    if (val.length >= 3) {
+    const getData = () => {
         let page = usePage();
         axios.post('items-filter', filterForm)
             .then(res => {
@@ -136,6 +137,14 @@ const itemsFilter = e => {
             }).catch(res => {
                 page.props.errors = res.response.data.errors
             })
+    }
+
+    if (val.length >= 3) {
+        entered = true;
+        getData();
+    } else if (!val.length && entered) {
+        getData();
+        entered = false;
     }
 }
 

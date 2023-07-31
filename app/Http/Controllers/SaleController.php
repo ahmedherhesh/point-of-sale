@@ -14,7 +14,7 @@ class SaleController extends Controller
     {
         $categories = Category::get();
         $companies = Company::get();
-        $items = ItemsResource::collection(Item::paginate(100));
+        $items = ItemsResource::collection(Item::latest()->paginate(100));
         return inertia('Pos', compact('categories', 'companies', 'items'));
     }
     //pos
@@ -32,7 +32,7 @@ class SaleController extends Controller
             if ($request->company_id)
                 $items->whereCompanyId($request->company_id);
         }
-        $items = ItemsResource::collection($items->paginate(100));
+        $items = $items->latest()->paginate(100);
 
         return response()->json($items);
     }
