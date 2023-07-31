@@ -1,10 +1,10 @@
 <template>
     <navbar />
-    <sidebar />
+    <sidebar/>
     <div class="content">
         <div class="filter d-flex gap-2">
-            <input type="search" class="form-control" :class="errors.code ? 'border-danger' : ''" placeholder="بحث بالكود"
-                v-model="filterForm.code" @input="itemsFilter">
+            <input type="search" class="form-control" :class="errors.code && filterForm.code.trim() ? 'border-danger' : ''"
+                placeholder="بحث بالكود" v-model="filterForm.code" @input="itemsFilter">
             <input type="search" class="form-control" placeholder="بحث العنوان" v-model="filterForm.title"
                 @input="itemsFilter">
             <select class="form-select" @change="itemsFilter" v-model="filterForm.cat_id">
@@ -19,13 +19,13 @@
         <div class="d-flex flex-wrap justify-content-center gap-2">
             <div
                 class="items-section w-50 ctm-form justify-content-center align-items-center m-0 d-flex flex-wrap gap-2 mt-2">
-                <div v-for="item in items" @click="addToCart" class="item border rounded text-right p-1 position-relative"
+                <div v-for="item in items.data" @click="addToCart" class="item border rounded text-right p-1 position-relative"
                     :data-id="item.id"
                     :style="cartEls.includes(item.id) ? 'border-color:var(--border-color) !important' : 'border:1px solid #dee2e6!important'"
-                    :data-title="item.title" :data-price="item.price_of_sale" :data-stock="item.stock">
+                    :data-title="item.title" :data-price="item.sale_price" :data-stock="item.stock">
                     <span class="position-absolute top-0 start-0 badge p-1 rounded"
                         :class="item.stock > 10 ? 'bg-dark' : 'bg-danger'">{{ item.stock }}</span>
-                    <span class="position-absolute top-0 end-0 badge p-1 rounded bg-primary">${{ item.price_of_sale
+                    <span class="position-absolute top-0 end-0 badge p-1 rounded bg-primary">${{ item.sale_price
                     }}</span>
                     <div class="d-flex justify-content-center">
                         <img src="imgs/logo-80.png" alt="" srcset="">
@@ -59,6 +59,10 @@
                     <button class="btn btn-danger" @click="cancel">إلغاء</button>
                 </div>
             </div>
+        </div>
+        <div class="d-flex justify-content-around mt-3">
+            <Link class="ctm-btn p-1 rounded" :href="items.links.next">الصفحة التالية</Link>
+            <Link class="ctm-btn p-1 rounded" :href="items.links.prev">الصفحة السابقة</Link>
         </div>
     </div>
 </template>
@@ -97,11 +101,10 @@
 <script setup>
 defineProps({ errors: Object, items: Object, categories: Object, companies: Object })
 import { reactive, ref } from 'vue'
-import { usePage } from '@inertiajs/vue3';
+import { usePage,Link } from '@inertiajs/vue3';
 import Navbar from './components/NavBar.vue'
 import Sidebar from './components/Sidebar.vue'
 import axios from 'axios';
-
 let cartEls = reactive([]),
     filterForm = reactive({
         title: '',
@@ -123,14 +126,17 @@ const totalPrice = () => {
     $('#finalPrice').text(result - (parseFloat(discount._value) || 0));
 };
 
-const itemsFilter = () => {
-    let page = usePage();
-    axios.post('items-filter', filterForm)
-        .then(res => {
-            page.props.items = res.data
-        }).catch(res => {
-            page.props.errors = res.response.data.errors
-        })
+const itemsFilter = e => {
+    const val = e.currentTarget.value.trim();
+    if (val.length >= 3) {
+        let page = usePage();
+        axios.post('items-filter', filterForm)
+            .then(res => {
+                page.props.items = res.data
+            }).catch(res => {
+                page.props.errors = res.response.data.errors
+            })
+    }
 }
 
 const addToCart = e => {

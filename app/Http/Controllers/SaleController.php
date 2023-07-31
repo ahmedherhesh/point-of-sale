@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ItemsResource;
 use App\Models\Category;
 use App\Models\Company;
 use App\Models\Item;
@@ -13,7 +14,7 @@ class SaleController extends Controller
     {
         $categories = Category::get();
         $companies = Company::get();
-        $items = Item::get();
+        $items = ItemsResource::collection(Item::paginate(100));
         return inertia('Pos', compact('categories', 'companies', 'items'));
     }
     //pos
@@ -31,7 +32,8 @@ class SaleController extends Controller
             if ($request->company_id)
                 $items->whereCompanyId($request->company_id);
         }
-        $items = $items->get();
+        $items = ItemsResource::collection($items->paginate(100));
+
         return response()->json($items);
     }
 }

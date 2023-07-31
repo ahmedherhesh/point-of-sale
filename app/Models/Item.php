@@ -18,8 +18,8 @@ class Item extends Model
         'image',
         'code',
         'price',
-        'price_of_sale',
-        'qty',
+        'sale_price',
+        'stock',
         'status',
         'created_at'
     ];

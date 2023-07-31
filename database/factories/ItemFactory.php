@@ -17,15 +17,15 @@ class ItemFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => rand(1,50),
-            'cat_id' => rand(1,50),
-            'company_id' =>  rand(1,50),
+            'user_id' => rand(1, 50),
+            'cat_id' => rand(1, 50),
+            'company_id' =>  rand(1, 50),
             'title'  => fake()->unique()->text(10),
             'notes' => fake()->unique()->text(50),
-            'code' => time(),
-            'price' => rand(52,160),
-            'price_of_sale' => rand(170,300),
-            'qty' => rand(1,50),
+            'code' => fake()->unique()->numberBetween(1111111111, 9999999999),
+            'price' => rand(52, 160),
+            'sale_price' => rand(170, 300),
+            'stock' => rand(1, 50),
         ];
     }
 }

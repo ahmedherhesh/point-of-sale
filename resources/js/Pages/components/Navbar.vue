@@ -4,7 +4,7 @@
             <div class="d-flex">
                 <span class="menu-btn d-none"><img src="imgs/menu.svg" alt="" width="30"></span>
                 <img src="imgs/logo-80.png" width="45">
-                <a class="navbar-brand" href="#">فاضل فون</a>
+                <Link class="navbar-brand" href="/">فاضل فون</Link>
             </div>
             <span class="rounded "><img src="imgs/manage_accounts.svg" alt="" width="45"></span>
         </div>

@@ -19,6 +19,6 @@ class FactorySeeder extends Seeder
         User::factory()->count(10)->create();
         Category::factory()->count(50)->create();
         Company::factory()->count(50)->create();
-        Item::factory()->count(50)->create();
+        Item::factory()->count(5000)->create();
     }
 }
