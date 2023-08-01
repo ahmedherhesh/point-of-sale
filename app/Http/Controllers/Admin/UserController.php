@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\MasterController;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Requests\Auth\UpdateUserRequest;
+use App\Http\Resources\UsersResource;
 use App\Models\Depository;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -17,7 +18,7 @@ class UserController extends MasterController
      */
     public function index()
     {
-        $users = User::where('role','!=','super-admin')->get();
+        $users = UsersResource::collection(User::where('role','!=','super-admin')->paginate(30));
         return inertia('Users/Users', compact('users'));
     }
 

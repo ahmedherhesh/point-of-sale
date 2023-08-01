@@ -14,7 +14,7 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items = Item::paginate(100);
+        $items = Item::paginate(30);
         return inertia('Items/Items',['items' => ItemsResource::collection($items)]);
     }
 

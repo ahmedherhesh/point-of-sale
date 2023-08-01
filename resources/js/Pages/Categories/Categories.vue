@@ -29,10 +29,16 @@
                 </tbody>
             </table>
         </div>
+        <div class="d-flex justify-content-around mt-2">
+            <Link v-if="categories.links.next" class="ctm-btn p-1 rounded shadow" :href="categories.links.next">الصفحة التالية</Link>
+            <Link v-if="categories.links.prev" class="ctm-btn p-1 rounded shadow" :href="categories.links.prev">الصفحة السابقة</Link>
+        </div>
     </div>
 </template>
 <script setup>
 import Navbar from '../components/Navbar.vue'
 import Sidebar from '../components/Sidebar.vue'
+import { Link } from '@inertiajs/vue3';
 defineProps({ categories: Object })
+
 </script>

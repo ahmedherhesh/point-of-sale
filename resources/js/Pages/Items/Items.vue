@@ -37,9 +37,9 @@
                 </tbody>
             </table>
         </div>
-        <div class="d-flex justify-content-around">
-            <Link class="ctm-btn p-1 rounded" :href="items.links.next">الصفحة التالية</Link>
-            <Link class="ctm-btn p-1 rounded" :href="items.links.prev">الصفحة السابقة</Link>
+        <div class="d-flex justify-content-around mt-2">
+            <Link v-if="items.links.next" class="ctm-btn p-1 rounded shadow" :href="items.links.next">الصفحة التالية</Link>
+            <Link v-if="items.links.prev" class="ctm-btn p-1 rounded shadow" :href="items.links.prev">الصفحة السابقة</Link>
         </div>
     </div>
 </template>

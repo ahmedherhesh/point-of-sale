@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CompaniesResource;
 use App\Models\Company;
 use Illuminate\Http\Request;
 
@@ -13,8 +14,8 @@ class CompaniesController extends Controller
      */
     public function index()
     {
-        $companies = Company::paginate(100);
-        return inertia('Companies/Companies',compact('companies'));
+        $companies = CompaniesResource::collection(Company::paginate(30));
+        return inertia('Companies/Companies', compact('companies'));
     }
 
     /**

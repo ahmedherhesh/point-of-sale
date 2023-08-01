@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CategoriesResource;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -13,8 +14,8 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $categories = Category::paginate(100);
-        return inertia('Categories/Categories',compact('categories'));
+        $categories = CategoriesResource::collection(Category::paginate(30));
+        return inertia('Categories/Categories', compact('categories'));
     }
 
     /**

@@ -14,7 +14,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(user, i) in users">
+                    <tr v-for="(user, i) in users.data">
                         <td>{{ i + 1 }}</td>
                         <td>{{ user.name }}</td>
                         <td>{{ user.role }}</td>
@@ -31,10 +31,15 @@
                 </tbody>
             </table>
         </div>
+        <div class="d-flex justify-content-around mt-2">
+            <Link v-if="users.links.next" class="ctm-btn p-1 rounded shadow" :href="users.links.next">الصفحة التالية</Link>
+            <Link v-if="users.links.prev" class="ctm-btn p-1 rounded shadow" :href="users.links.prev">الصفحة السابقة</Link>
+        </div>
     </div>
 </template>
 <script setup>
 import Navbar from '../components/Navbar.vue'
 import Sidebar from '../components/Sidebar.vue'
+import { Link } from '@inertiajs/vue3';
 defineProps({ users: Object })
 </script>
