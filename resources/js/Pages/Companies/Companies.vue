@@ -19,7 +19,7 @@
                             <div class="d-flex justify-content-center gap-2">
                                 <button class="text-secondary btn p-0 edit-btn"><i
                                         class="fa-solid fa-pen-to-square"></i></button>
-                                <button type="submit" class="text-secondary btn delete-btn p-0" data-type="المستخدم"><i
+                                        <button @click="deleteCompany" class="text-secondary btn delete-btn p-0" :data-companyId="company.id" data-type="الشركة"><i
                                         class="fa-solid fa-trash"></i></button>
                             </div>
                         </td>
@@ -36,6 +36,11 @@
 <script setup>
 import Navbar from '../components/Navbar.vue'
 import Sidebar from '../components/Sidebar.vue'
-import { Link } from '@inertiajs/vue3';
+import { Link, router } from '@inertiajs/vue3';
 defineProps({ companies: Object })
+let deleteCompany = e => {
+    let el = e.currentTarget;
+    if (confirm('هل انت متأكد من حذف هذه الشركة'))
+        router.delete(`companies/${el.getAttribute('data-companyId')}`)
+}
 </script>

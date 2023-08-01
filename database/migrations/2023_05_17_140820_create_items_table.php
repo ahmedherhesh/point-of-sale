@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('code');
             $table->enum('status', ['new', 'used', 'expired']);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -126,26 +126,15 @@ const totalPrice = () => {
     $('#finalPrice').text(result - (parseFloat(discount._value) || 0));
 };
 
-let entered = false;
 const itemsFilter = e => {
     const val = e.currentTarget.value.trim();
-    const getData = () => {
-        let page = usePage();
-        axios.post('items-filter', filterForm)
-            .then(res => {
-                page.props.items = res.data
-            }).catch(res => {
-                page.props.errors = res.response.data.errors
-            })
-    }
-
-    if (val.length >= 3) {
-        entered = true;
-        getData();
-    } else if (!val.length && entered) {
-        getData();
-        entered = false;
-    }
+    let page = usePage();
+    axios.post('items-filter', filterForm)
+        .then(res => {
+            page.props.items = res.data
+        }).catch(res => {
+            page.props.errors = res.response.data.errors
+        })
 }
 
 const addToCart = e => {

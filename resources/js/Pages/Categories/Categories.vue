@@ -21,7 +21,7 @@
                             <div class="d-flex justify-content-center gap-2">
                                 <button class="text-secondary btn p-0 edit-btn"><i
                                         class="fa-solid fa-pen-to-square"></i></button>
-                                <button class="text-secondary btn delete-btn p-0" data-type="المستخدم"><i
+                                <button @click="deleteCategory" class="text-secondary btn delete-btn p-0" :data-categoryId="category.id" data-type="القسم"><i
                                         class="fa-solid fa-trash"></i></button>
                             </div>
                         </td>
@@ -38,7 +38,12 @@
 <script setup>
 import Navbar from '../components/Navbar.vue'
 import Sidebar from '../components/Sidebar.vue'
-import { Link } from '@inertiajs/vue3';
-defineProps({ categories: Object })
+import { Link, router } from '@inertiajs/vue3';
 
+defineProps({ categories: Object })
+let deleteCategory = e => {
+    let el = e.currentTarget;
+    if (confirm('هل انت متأكد من حذف هذا القسم'))
+        router.delete(`categories/${el.getAttribute('data-categoryId')}`)
+}
 </script>

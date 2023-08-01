@@ -23,8 +23,8 @@
                             <div class="d-flex justify-content-center gap-2">
                                 <button class="text-secondary btn p-0 edit-btn"><i
                                         class="fa-solid fa-pen-to-square"></i></button>
-                                <button type="submit" class="text-secondary btn delete-btn p-0" data-type="المستخدم"><i
-                                        class="fa-solid fa-trash"></i></button>
+                                <button class="text-secondary btn delete-btn p-0" @click="deleteUser"
+                                    :data-userId="user.id"><i class="fa-solid fa-trash"></i></button>
                             </div>
                         </td>
                     </tr>
@@ -40,6 +40,12 @@
 <script setup>
 import Navbar from '../components/Navbar.vue'
 import Sidebar from '../components/Sidebar.vue'
-import { Link } from '@inertiajs/vue3';
+import { Link, router } from '@inertiajs/vue3';
+// import Inertia from '@inertiajs/inertia'
 defineProps({ users: Object })
+let deleteUser = e => {
+    let el = e.currentTarget;
+    if (confirm('هل انت متأكد من حذف هذا المستخدم'))
+        router.delete(`users/${el.getAttribute('data-userId')}`)
+}
 </script>

@@ -91,6 +91,7 @@ onMounted(() => {
         if (window.location.pathname == link.getAttribute('href')) {
             link.parentElement.classList.add('border-0')
             link.classList.add('ctm-btn')
+            document.title =  'فاضل فون | ' + link.innerText 
         }
     })
 })

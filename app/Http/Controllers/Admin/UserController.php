@@ -74,11 +74,10 @@ class UserController extends MasterController
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(User $user)
     {
-        $user = User::find($id);
         $delete_user = null;
-        if ($user && !in_array( $user->role,['admin','super-admin']))
+        if ($user && !in_array( $user->role,['super-admin']))
             $delete_user = $user->delete();
         if ($delete_user)
             return redirect()->back()->with('success', 'تم حذف المستخدم بنجاح');
