@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('operation_id');
             $table->longText('notes')->nullable();
             $table->double('price');
-            $table->double('price_of_sale');
+            $table->double('sale_price');
             $table->enum('status', ['new', 'used', 'expired']);
             $table->double('qty');
             $table->timestamps();

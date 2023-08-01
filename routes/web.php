@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoriesController;
+use App\Http\Controllers\Admin\CompaniesController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ItemController;
 use App\Http\Controllers\SaleController;
-use App\Models\Item;
+use App\Http\Controllers\Admin\ItemController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 use Milon\Barcode\DNS1D;
 
@@ -23,13 +25,15 @@ Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('login', [AuthController::class, '_login'])->name('_login');
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
-
 Route::group(['middleware' => 'auth.web'], function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('/pos', [SaleController::class, 'index'])->name('pos');
     Route::post('items-filter', [SaleController::class, 'itemsFilter']);
     //super-admin,admin
     Route::group(['middleware' => 'roles:super-admin,admin'], function () {
+        Route::resource('users',UserController::class);
         Route::resource('items',ItemController::class);
+        Route::resource('categories',CategoriesController::class);
+        Route::resource('companies',CompaniesController::class);
     });
 });

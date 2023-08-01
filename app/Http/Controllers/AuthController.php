@@ -21,7 +21,7 @@ class AuthController extends MasterController
         $user = auth()->attempt($user);
         if ($user) {
             $request->session()->put('user', auth()->user());
-            return to_route('home');
+            return redirect('/');
         }
         return redirect()->back()->with('failed', 'إسم المستخدم أو كلمة السر غير صحيحة');
     }

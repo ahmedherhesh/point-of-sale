@@ -56,14 +56,17 @@ a:hover {
     text-decoration: none;
     color: #000;
 }
-.shadow{
+
+.shadow {
     box-shadow: var(--box-shadow);
 }
-.bg-indigo{
+
+.bg-indigo {
     background-color: rgb(150, 151, 231);
     color: #fff;
-    
+
 }
+
 .content {
     --sidebar-width: 255px;
     width: calc(100% - var(--sidebar-width));
@@ -101,6 +104,7 @@ a:hover {
     color: #fff !important;
     outline: none;
     min-width: 100px;
+    font-size: 18px;
 }
 
 .ctm-btn:hover {
@@ -121,4 +125,22 @@ a:hover {
 
 .items-section .item {
     width: 150px
+}
+
+.table-indigo {
+    --bs-table-bg: var(--main-color) !important;
+    color: #fff;
+    --bs-table-striped-color: #fff;
+    --bs-table-active-color: #fff;
+    --bs-table-hover-color: #fff;
+    --bs-table-striped-bg: #d7d8da;
+    --bs-table-active-bg: #cbccce;
+    --bs-table-hover-bg: #d1d2d4;
+    border-color: #cbccce;
+}
+.table-indigo tr th{
+    padding: 10px 0;
+}
+svg{
+    fill:#fff
 }

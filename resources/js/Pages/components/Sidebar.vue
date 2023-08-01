@@ -20,31 +20,31 @@
                 </Link>
             </li>
             <li v-if="adminRoles.includes(user.role)">
-                <Link href="#" class="nav-link link-dark">
+                <Link href="/categories" class="nav-link link-dark">
                 <img src="imgs/category.svg" alt="">
                 الأقسام
                 </Link>
             </li>
             <li v-if="adminRoles.includes(user.role)">
-                <Link href="#" class="nav-link link-dark">
+                <Link href="/companies" class="nav-link link-dark">
                 <img src="imgs/apartment.svg" alt="">
                 الشركات
                 </Link>
             </li>
             <li v-if="adminRoles.includes(user.role)">
-                <Link href="#" class="nav-link link-dark">
+                <Link href="/users" class="nav-link link-dark">
                 <img src="imgs/users.svg" alt="">
                 المستخدمين
                 </Link>
             </li>
             <li v-if="adminRoles.includes(user.role)">
-                <Link href="#" class="nav-link link-dark">
+                <Link href="/sales" class="nav-link link-dark">
                 <img src="imgs/handshake.svg" alt="">
-                التسليمات
+                المبيعات
                 </Link>
             </li>
             <li v-if="adminRoles.includes(user.role)">
-                <Link href="#" class="nav-link link-dark">
+                <Link href="/returned-items" class="nav-link link-dark">
                 <img src="imgs/assignment_return.svg" alt="">
                 المرتجعات
                 </Link>
@@ -56,7 +56,7 @@
                 </Link>
             </li>
             <li v-if="adminRoles.includes(user.role)">
-                <Link href="#" class="nav-link link-dark">
+                <Link href="/reports" class="nav-link link-dark">
                 <img src="imgs/contract.svg" alt="">
                 التقارير
                 </Link>

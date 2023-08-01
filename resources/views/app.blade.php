@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
     @vite('resources/js/app.js')
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/all.min.css') }}">
     {{-- <link rel="stylesheet" href="{{ asset('css/main.css') }}"> --}}
     @vite('public/css/main.css')
     @inertiaHead

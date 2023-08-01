@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Http\Resources\ItemsResource;
-use App\Models\Item;
+use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
-class ItemController extends Controller
+class CategoriesController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $items = Item::paginate(100);
-        return inertia('Items/Items',['items' => ItemsResource::collection($items)]);
+        $categories = Category::paginate(100);
+        return inertia('Categories/Categories',compact('categories'));
     }
 
     /**

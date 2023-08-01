@@ -18,8 +18,7 @@ class UserController extends MasterController
     public function index()
     {
         $users = User::where('role','!=','super-admin')->get();
-        $depositories = Depository::all();
-        return view('admin.users', compact('users', 'depositories'));
+        return inertia('Users/Users', compact('users'));
     }
 
     /**
