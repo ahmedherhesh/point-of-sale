@@ -3,7 +3,7 @@
     <Sidebar />
     <div class="content">
         <div class="table-responsive shadow">
-            <table class="table table-light table-hover table-bordered align-middle text-center m-auto mb-5">
+            <table class="table table-light table-hover table-bordered align-middle text-center m-auto">
                 <thead class="table-indigo">
                     <tr>
                         <th class="text-center" scope="row">#</th>
@@ -17,8 +17,8 @@
                     </tr>
                 </thead>
                 <tbody id="tbody">
-                    <tr v-for="item in items.data">
-                        <td scope="row">{{ item.id }}</td>
+                    <tr v-for="(item, i) in items.data">
+                        <td scope="row">{{ ++i }}</td>
                         <td scope="row">{{ item.title }}</td>
                         <td scope="col">{{ item.stock }}</td>
                         <td scope="col">{{ item.price }}</td>

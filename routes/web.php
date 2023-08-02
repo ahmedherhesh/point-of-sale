@@ -33,6 +33,7 @@ Route::group(['middleware' => 'auth.web'], function () {
     Route::group(['middleware' => 'roles:super-admin,admin'], function () {
         Route::resource('users',UserController::class);
         Route::resource('items',ItemController::class);
+        Route::get('not-in-stock',[ItemController::class,'notInStock']);
         Route::resource('categories',CategoriesController::class);
         Route::resource('companies',CompaniesController::class);
     });

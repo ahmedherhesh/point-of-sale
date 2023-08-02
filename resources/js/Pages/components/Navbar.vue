@@ -2,11 +2,11 @@
     <nav class="navbar navbar-expand-lg bg-white shadow">
         <div class="container">
             <div class="d-flex">
-                <span class="menu-btn d-none"><img src="imgs/menu.svg" alt="" width="30"></span>
-                <img src="imgs/logo-80.png" width="45">
+                <span class="menu-btn d-none"><img src="/imgs/menu.svg" alt="" width="30"></span>
+                <img src="/imgs/logo-80.png" width="45">
                 <Link class="navbar-brand" href="/">فاضل فون</Link>
             </div>
-            <span class="rounded "><img src="imgs/manage_accounts.svg" alt="" width="45"></span>
+            <span class="rounded "><img src="/imgs/manage_accounts.svg" alt="" width="45"></span>
         </div>
     </nav>
 </template>

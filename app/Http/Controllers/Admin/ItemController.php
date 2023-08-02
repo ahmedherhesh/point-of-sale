@@ -14,10 +14,18 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items = Item::paginate(30);
-        return inertia('Items/Items',['items' => ItemsResource::collection($items)]);
+        $items = Item::InStock()->paginate(30);
+        return inertia('Items/Items', ['items' => ItemsResource::collection($items)]);
     }
 
+    /**
+     * Display a listing of the resource.
+     */
+    public function notInStock()
+    {
+        $items = Item::notInStock()->paginate(30);
+        return inertia('Items/Items', ['items' => ItemsResource::collection($items)]);
+    }
     /**
      * Show the form for creating a new resource.
      */

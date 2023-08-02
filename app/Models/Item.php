@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Item extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
     protected $fillable = [
         'user_id',
         'cat_id',
@@ -50,10 +50,10 @@ class Item extends Model
     }
     function scopeInStock($query)
     {
-        return $query->where('qty', '>', 0);
+        return $query->where('stock', '>', 0);
     }
-    function scopeEnabled($query)
+    function scopeNotInStock($query)
     {
-        return $query->whereDeleted(0);
+        return $query->whereStock(0);
     }
 }

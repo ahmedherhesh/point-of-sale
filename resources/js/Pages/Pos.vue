@@ -139,9 +139,9 @@ const itemsFilter = e => {
 
 const addToCart = e => {
     let el = e.currentTarget;
-    let itemId = el.dataset.id;
+    let itemId = parseInt(el.dataset.id);
     if (!cartEls.includes(itemId)) {
-        cartEls.push(parseInt(itemId))
+        cartEls.push(itemId)
         tbody.innerHTML += ` <tr class='cart-item' data-id="${itemId}">
                                 <td class='text-center'>${el.dataset.title}</td>
                                 <td class='price text-center'>${el.dataset.price}</td>

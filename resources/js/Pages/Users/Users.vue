@@ -3,7 +3,7 @@
     <sidebar />
     <div class="content">
         <div class="table-responsive shadow">
-            <table class="table table-light table-hover table-bordered align-middle text-center m-auto mb-5">
+            <table class="table table-light table-hover table-bordered align-middle text-center m-auto">
                 <thead class="table-indigo">
                     <tr>
                         <th>#</th>
@@ -21,8 +21,8 @@
                         <td>{{ user.status }}</td>
                         <td>
                             <div class="d-flex justify-content-center gap-2">
-                                <button class="text-secondary btn p-0 edit-btn"><i
-                                        class="fa-solid fa-pen-to-square"></i></button>
+                                <Link :href="`/users/${user.id}/edit`" class="text-secondary btn p-0 edit-btn"><i
+                                        class="fa-solid fa-pen-to-square"></i></Link>
                                 <button class="text-secondary btn delete-btn p-0" @click="deleteUser"
                                     :data-userId="user.id"><i class="fa-solid fa-trash"></i></button>
                             </div>
@@ -41,7 +41,6 @@
 import Navbar from '../components/Navbar.vue'
 import Sidebar from '../components/Sidebar.vue'
 import { Link, router } from '@inertiajs/vue3';
-// import Inertia from '@inertiajs/inertia'
 defineProps({ users: Object })
 let deleteUser = e => {
     let el = e.currentTarget;

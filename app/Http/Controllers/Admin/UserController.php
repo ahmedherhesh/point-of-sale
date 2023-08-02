@@ -18,7 +18,7 @@ class UserController extends MasterController
      */
     public function index()
     {
-        $users = UsersResource::collection(User::where('role','!=','super-admin')->paginate(30));
+        $users = UsersResource::collection(User::where('role', '!=', 'super-admin')->paginate(30));
         return inertia('Users/Users', compact('users'));
     }
 
@@ -49,18 +49,19 @@ class UserController extends MasterController
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(User $user)
     {
-        //
+        if ($user->role != 'super-admin')
+            return inertia('Users/Edit', ['user' => $user]);
+        return redirect()->back()->with('failed', 'لا تملك الصلاحية للتعديل على هذا المستخدم');
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUserRequest $request, string $id)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        $user = User::find($id);
-        if ($user && $user->role != 'super-admin') {
+        if ($user->role != 'super-admin') {
             $data = $request->all();
             if (!$data['password'])
                 $data = $request->except('password');
@@ -77,7 +78,7 @@ class UserController extends MasterController
     public function destroy(User $user)
     {
         $delete_user = null;
-        if ($user && !in_array( $user->role,['super-admin']))
+        if ($user->role != 'super-admin')
             $delete_user = $user->delete();
         if ($delete_user)
             return redirect()->back()->with('success', 'تم حذف المستخدم بنجاح');
