@@ -74,7 +74,7 @@
     z-index: 1000;
 }
 
-li {
+.sidebar  li {
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     margin: 5px 0;

@@ -2,7 +2,7 @@
     <navbar />
     <sidebar />
     <div class="content">
-        <div class="table-responsive shadow">
+        <div class="table-responsive shadow" style="min-width: 600px;">
             <table class="table table-light table-hover table-bordered align-middle text-center m-auto">
                 <thead class="table-indigo">
                     <tr>

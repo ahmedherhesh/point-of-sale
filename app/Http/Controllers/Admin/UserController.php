@@ -18,8 +18,8 @@ class UserController extends MasterController
      */
     public function index()
     {
-        $users = UsersResource::collection(User::where('role', '!=', 'super-admin')->paginate(30));
-        return inertia('Users/Users', compact('users'));
+        $users = User::where('role', '!=', 'super-admin')->latest()->paginate(30);
+        return inertia('Users/Users', ['users' => UsersResource::collection($users)]);
     }
 
     /**
@@ -27,7 +27,7 @@ class UserController extends MasterController
      */
     public function create()
     {
-        //
+        return inertia('Users/Create');
     }
 
     /**
@@ -36,7 +36,7 @@ class UserController extends MasterController
     public function store(RegisterRequest $request)
     {
         User::create($request->all());
-        return redirect()->back()->with('success', 'تم اضافة المستخدم بنجاح');
+        return redirect()->back();
     }
 
     /**

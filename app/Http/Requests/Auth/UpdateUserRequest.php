@@ -13,7 +13,7 @@ class UpdateUserRequest extends MasterRequest
         return [
             'name'     => 'required|min:4',
             'username' => 'required|min:4|unique:users,username,' . $id,
-            'email'    => 'required|min:4|unique:users,email,' . $id,
+            'email'    => 'nullable|min:4|unique:users,email,' . $id,
             'password' => 'nullable|min:6',
             'role'     => 'required|in:admin,user',
             'status'   => 'required|in:active,block',

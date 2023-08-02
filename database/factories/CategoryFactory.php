@@ -19,7 +19,6 @@ class CategoryFactory extends Factory
     {
         return [
             'user_id' => 1,
-            'parent_id' => 1,
             'name' =>$this->faker->unique()->text(10)
         ];
     }

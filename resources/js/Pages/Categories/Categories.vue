@@ -16,11 +16,11 @@
                     <tr v-for="(category, i) in categories.data">
                         <td>{{ i + 1 }}</td>
                         <td>{{ category.name }}</td>
-                        <td>{{ category.parent_id ? 'رئيسي' : 'فرعي' }}</td>
+                        <td>{{ category.parent_id ? 'فرعي' : 'رئيسي' }}</td>
                         <td>
                             <div class="d-flex justify-content-center gap-2">
-                                <button class="text-secondary btn p-0 edit-btn"><i
-                                        class="fa-solid fa-pen-to-square"></i></button>
+                                <Link :href="`/categories/${category.id}/edit`" class="text-secondary btn p-0 edit-btn"><i
+                                        class="fa-solid fa-pen-to-square"></i></Link>
                                 <button @click="deleteCategory" class="text-secondary btn delete-btn p-0" :data-categoryId="category.id" data-type="القسم"><i
                                         class="fa-solid fa-trash"></i></button>
                             </div>

@@ -12,8 +12,8 @@ class SaleController extends Controller
 {
     function index()
     {
-        $categories = Category::get();
-        $companies = Company::get();
+        $categories = Category::latest()->get();
+        $companies = Company::latest()->get();
         $items = ItemsResource::collection(Item::latest()->paginate(100));
         return inertia('Pos', compact('categories', 'companies', 'items'));
     }

@@ -18,8 +18,8 @@
                         <td>{{ company.name }}</td>
                         <td>
                             <div class="d-flex justify-content-center gap-2">
-                                <button class="text-secondary btn p-0 edit-btn"><i
-                                        class="fa-solid fa-pen-to-square"></i></button>
+                                <Link :href="`/companies/${company.id}/edit`" class="text-secondary btn p-0 edit-btn"><i
+                                        class="fa-solid fa-pen-to-square"></i></Link>
                                         <button @click="deleteCompany" class="text-secondary btn delete-btn p-0" :data-companyId="company.id" data-type="الشركة"><i
                                         class="fa-solid fa-trash"></i></button>
                             </div>

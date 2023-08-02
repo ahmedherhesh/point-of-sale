@@ -14,7 +14,7 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items = Item::InStock()->paginate(30);
+        $items = Item::InStock()->latest()->paginate(30);
         return inertia('Items/Items', ['items' => ItemsResource::collection($items)]);
     }
 

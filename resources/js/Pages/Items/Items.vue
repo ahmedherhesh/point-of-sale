@@ -24,7 +24,7 @@
                         <td scope="col">{{ item.price }}</td>
                         <td scope="col">{{ item.sale_price }}</td>
                         <td class="d-flex align-items-center  flex-column" scope="col" v-html="item.barcode"></td>
-                        <td scope="col"><img src="imgs/logo-80.png" width="50" alt=""></td>
+                        <td scope="col"><img src="/imgs/logo-80.png" width="50" alt=""></td>
                         <td scope="col">
                             <div class="d-flex justify-content-center gap-2">
                                 <button class="text-secondary btn p-0 edit-btn"><i

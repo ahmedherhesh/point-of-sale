@@ -3,18 +3,22 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\MasterController;
+use App\Http\Requests\CategoryRequest;
 use App\Http\Resources\CategoriesResource;
+use App\Http\Resources\ItemsResource;
 use App\Models\Category;
+use App\Models\Item;
 use Illuminate\Http\Request;
 
-class CategoriesController extends Controller
+class CategoriesController extends MasterController
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $categories = CategoriesResource::collection(Category::paginate(30));
+        $categories = CategoriesResource::collection(Category::latest()->paginate(30));
         return inertia('Categories/Categories', compact('categories'));
     }
 
@@ -23,15 +27,19 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::whereParentId(null)->latest()->get();
+        return inertia('Categories/Create', ['categories' => $categories]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        //
+        $data = $request->all();
+        $data['user_id'] = $this->user()->id;
+        Category::create($data);
+        return redirect()->back();
     }
 
     /**
@@ -39,23 +47,28 @@ class CategoriesController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $items = ItemsResource::collection(Item::whereCatId($id)->orWhere('sub_cat_id',$id)->paginate(18));
+        return inertia('Items/Items', compact('items'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Category $category)
     {
-        //
+        $categories = Category::whereParentId(null)->latest()->get();
+        return inertia('Categories/Edit', compact('categories','category'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(CategoryRequest $request, Category $category)
     {
-        //
+        $data = $request->all();
+        $data['user_id'] = $this->user()->id;
+        $category->update($data);
+        redirect()->back();
     }
 
     /**

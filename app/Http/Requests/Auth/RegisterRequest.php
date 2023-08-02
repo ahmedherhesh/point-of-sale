@@ -17,7 +17,6 @@ class RegisterRequest extends MasterRequest
             'password' => 'required|min:6',
             'role'     => 'required|in:admin,user',
             'status'   => 'required|in:active,block',
-            'depot_id' => 'required|exists:depositories,id',
         ];
     }
 }

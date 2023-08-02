@@ -76,6 +76,8 @@ a:hover {
     top: 60px;
     left: 0;
     overflow-y: scroll;
+    transition: width .5s;
+
 }
 
 .ctm-form {
