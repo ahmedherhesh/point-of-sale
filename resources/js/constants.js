@@ -1,12 +1,18 @@
 let enums = {
     user: {
         roles: {
-            'admin': 'مسؤول',
-            'user': 'مستخدم'
+            admin: 'مسؤول',
+            user: 'مستخدم'
         },
         status: {
-            'active': 'مفعل',
-            'block': 'محظور'
+            active: 'مفعل',
+            block: 'محظور'
+        }
+    },
+    item: {
+        status : {
+            new : 'جديد',
+            used : 'مستعمل'
         }
     }
 };

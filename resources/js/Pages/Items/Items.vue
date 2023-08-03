@@ -27,8 +27,8 @@
                         <td scope="col"><img src="/imgs/logo-80.png" width="50" alt=""></td>
                         <td scope="col">
                             <div class="d-flex justify-content-center gap-2">
-                                <button class="text-secondary btn p-0 edit-btn"><i
-                                        class="fa-solid fa-pen-to-square"></i></button>
+                                <Link :href="`/items/${item.id}/edit`" class="text-secondary btn p-0 edit-btn"><i
+                                        class="fa-solid fa-pen-to-square"></i></Link>
                                         <button @click="deleteItem" class="text-secondary btn delete-btn p-0" :data-itemId="item.id" data-type="القسم"><i
                                         class="fa-solid fa-trash"></i></button>
                             </div>

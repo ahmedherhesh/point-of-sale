@@ -74,7 +74,7 @@
     z-index: 1000;
 }
 
-.sidebar  li {
+.sidebar li {
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     margin: 5px 0;
@@ -85,12 +85,22 @@ import { Link, usePage } from "@inertiajs/vue3";
 import { onMounted } from "vue";
 let adminRoles = ['super-admin', 'admin'];
 let userSession = usePage().props.userSession;
+
+let moveActiveBtn = btn => {
+    btn.parentElement.classList.add('border-0')
+    btn.classList.add('ctm-btn')
+    document.title = 'فاضل فون | ' + btn.innerText
+}
+
 onMounted(() => {
-    document.querySelectorAll('.nav-link').forEach(link => {
-        if (window.location.pathname.includes(link.getAttribute('href'))) {
-            link.parentElement.classList.add('border-0')
-            link.classList.add('ctm-btn')
-            document.title =  'فاضل فون | ' + link.innerText 
+    let navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+        let href = link.getAttribute('href');
+        let pathname = window.location.pathname;
+        if (pathname.includes(href) && href != '/') {
+            moveActiveBtn(link)
+        } else if(pathname == href){
+            moveActiveBtn(document.querySelector('.nav-link'))
         }
     })
 })

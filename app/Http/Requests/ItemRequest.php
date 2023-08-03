@@ -9,21 +9,20 @@ class ItemRequest extends MasterRequest
 
     public function rules(): array
     {
+        $id = $this->route('item')->id ?? '';
         return [
             'user_id' => 'nullable|exists:users,id',
-            'title' => 'required|min:4',
-            'notes' => 'nullable|min:4',
-            'cat_id' => 'nullable|exists:categories,id',
+            'title'   => 'required|min:4',
+            'notes'   => 'nullable|min:4',
+            'cat_id'  => 'required|exists:categories,id',
             'sub_cat_id' => 'nullable|exists:categories,id',
             'company_id' => 'nullable|exists:companies,id',
-            'depot_id' => 'nullable|exists:depositories,id',
-            'price' => 'required|numeric|min:1',
-            'price_of_sale' => 'required|numeric|min:1',
-            'qty' => 'required|numeric|min:1|gt:0',
-            'allowed_qty' => 'nullable|numeric|min:1',
-            'image' => 'nullable|mimes:png,jpg,jpeg,gif,svg',
-            'status' => 'required|in:new,used,expired',
-            'created_at' => 'nullable',
+            'price'   => 'required|numeric|min:1|gt:0',
+            'sale_price' => 'required|numeric|min:1|gt:0',
+            'stock'   => 'required|numeric|min:1|gt:0',
+            'code'    => 'nullable|min:1|gt:0|unique:items,code,' . $id ,
+            'image'   => 'nullable|mimes:png,jpg,jpeg,gif,svg',
+            'status'  => 'required|in:new,used,expired',
         ];
     }
 }

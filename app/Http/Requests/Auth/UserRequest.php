@@ -4,12 +4,12 @@ namespace App\Http\Requests\Auth;
 
 use App\Http\Requests\MasterRequest;
 
-class UpdateUserRequest extends MasterRequest
+class UserRequest extends MasterRequest
 {
 
     public function rules(): array
     {
-        $id = $this->route('user')->id;
+        $id = $this->route('user')->id ?? '';
         return [
             'name'     => 'required|min:4',
             'username' => 'required|min:4|unique:users,username,' . $id,

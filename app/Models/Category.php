@@ -18,4 +18,16 @@ class Category extends Model
     {
         return $this->hasMany(Category::class, 'parent_id');
     }
+    static function tree()
+    {
+        $catsTree = self::orderByDesc('id')->whereParentId(null)->get();
+        $catsTree->filter(function ($cat) {
+            $cat->children;
+        });
+        return $catsTree;
+    }
+    function children()
+    {
+        return $this->hasMany(Category::class, 'parent_id')->with('children');
+    }
 }

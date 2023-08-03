@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\MasterController;
+use App\Http\Requests\ItemRequest;
 use App\Http\Resources\ItemsResource;
+use App\Models\Category;
 use App\Models\Item;
 use Illuminate\Http\Request;
 
-class ItemController extends Controller
+class ItemController extends MasterController
 {
     /**
      * Display a listing of the resource.
@@ -31,15 +34,23 @@ class ItemController extends Controller
      */
     public function create()
     {
-        //
+        $catsTree = Category::tree();
+        return inertia('Items/Create', compact('catsTree'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ItemRequest $request)
     {
-        //
+        $data = $request->all();
+        if (!$request->image)
+            $data = $request->except('image');
+        if (!$request->code)
+            $data['code'] = time();
+        $data['user_id'] = $this->user()->id;
+        Item::create($data);
+        return redirect()->back();
     }
 
     /**
@@ -53,17 +64,24 @@ class ItemController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Item $item)
     {
-        //
+        $catsTree = Category::tree();
+        return inertia('Items/Edit', compact('item', 'catsTree'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ItemRequest $request, Item $item)
     {
-        //
+        $data = $request->all();
+        if (!$request->image)
+            $data = $request->except('image');
+        if (!$request->code)
+            $data = $request->except('code');
+        $item->update($data);
+        return redirect()->back();
     }
 
     /**

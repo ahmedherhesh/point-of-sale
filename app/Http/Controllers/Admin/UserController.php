@@ -4,8 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\MasterController;
-use App\Http\Requests\Auth\RegisterRequest;
-use App\Http\Requests\Auth\UpdateUserRequest;
+use App\Http\Requests\Auth\UserRequest;
 use App\Http\Resources\UsersResource;
 use App\Models\Depository;
 use App\Models\User;
@@ -33,7 +32,7 @@ class UserController extends MasterController
     /**
      * Store a newly created resource in storage.
      */
-    public function store(RegisterRequest $request)
+    public function store(UserRequest $request)
     {
         User::create($request->all());
         return redirect()->back();
@@ -59,7 +58,7 @@ class UserController extends MasterController
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUserRequest $request, User $user)
+    public function update(UserRequest $request, User $user)
     {
         if ($user->role != 'super-admin') {
             $data = $request->all();
