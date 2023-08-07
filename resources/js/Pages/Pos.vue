@@ -100,8 +100,8 @@
 </style>
 <script setup>
 defineProps({ errors: Object, items: Object, categories: Object, companies: Object })
-import { reactive, ref } from 'vue'
-import { usePage, Link } from '@inertiajs/vue3';
+import { reactive, ref} from 'vue'
+import { usePage} from '@inertiajs/vue3';
 import Navbar from './components/NavBar.vue'
 import Sidebar from './components/Sidebar.vue'
 import axios from 'axios';
@@ -127,7 +127,6 @@ const totalPrice = () => {
 };
 
 const itemsFilter = e => {
-    const val = e.currentTarget.value.trim();
     let page = usePage();
     axios.post('items-filter', filterForm)
         .then(res => {
@@ -156,6 +155,17 @@ const addToCart = e => {
     }
     totalPrice();
 }
+
+const qtyController = (el, operator) => {
+    const parent = el.parentElement;
+    let qty = parseInt(el.innerText)
+    let maxQty = parseInt(el.dataset.max)
+    if (qty >= maxQty || (qty <= 1 && operator == '-')) return;
+    el.innerText = operator == '+' ? qty + 1 : qty - 1;
+    const grandParent = parent.parentElement
+    grandParent.querySelector('.total-price').innerText = parseInt(grandParent.querySelector('.price').innerText) * parseInt(el.innerText)
+}
+
 const sale = e => {
     saleForm.items = []
     let cartItems = document.querySelectorAll('.cart-item');
@@ -165,7 +175,6 @@ const sale = e => {
         saleForm.items.push({ id, qty })
     })
     saleForm.discount = discount._value || 0
-    console.log(saleForm);
 }
 
 const removeFromCart = e => {
@@ -174,7 +183,6 @@ const removeFromCart = e => {
     cartEls.pop(itemId)
     el.parentElement.remove()
     totalPrice();
-
 }
 
 const cancel = e => {
@@ -182,28 +190,17 @@ const cancel = e => {
     tbody.innerHTML = '';
 }
 
-$('body').on('click', '.increment-btn', function () {
-    const self = $(this);
-    const next = self.next();
-    const parent = next.parent();
-    if (next.text() < next.data('max'))
-        next.text(parseInt(next.text()) + 1);
-    parent.siblings('.total-price').text(parseInt(parent.siblings('.price').text()) * parseInt(next.text()))
-    totalPrice();
 
-})
-
-$('body').on('click', '.decrement-btn', function () {
-    const self = $(this);
-    const prev = self.prev();
-    const parent = prev.parent();
-    if (prev.text() > 1)
-        prev.text(parseInt(prev.text()) - 1)
-    parent.siblings('.total-price').text(parseInt(parent.siblings('.price').text()) * parseInt(prev.text()))
-    totalPrice();
-
-})
-
-$('body').on('click', '.close-btn', removeFromCart)
-
+document.onclick = e => {
+    let el = e.target;
+    if (el.classList.contains('increment-btn')) {
+        const next = el.nextElementSibling;
+        qtyController(next, '+')
+    } else if (el.classList.contains('decrement-btn')) {
+        const prev = el.previousElementSibling;
+        qtyController(prev, '-')
+    }
+    totalPrice()
+}
+$('body').on('click','.close-btn',removeFromCart);
 </script>
