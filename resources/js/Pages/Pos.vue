@@ -2,23 +2,32 @@
     <navbar />
     <sidebar />
     <div class="content">
-        <div class="filter d-flex gap-2">
-            <input type="search" class="form-control" :class="errors.code && filterForm.code.trim() ? 'border-danger' : ''"
-                placeholder="بحث بالكود" v-model="filterForm.code" @input="itemsFilter">
-            <input type="search" class="form-control" placeholder="بحث العنوان" v-model="filterForm.title"
-                @input="itemsFilter">
-            <select class="form-select" @change="itemsFilter" v-model="filterForm.cat_id">
-                <option value="">الأقسام</option>
-                <option v-for="cat in categories" :value="cat.id">{{ cat.name }}</option>
-            </select>
-            <select class="form-select" @change="itemsFilter" v-model="filterForm.company_id">
-                <option value="">الشركات</option>
-                <option v-for="company in companies" :value="company.id">{{ company.name }}</option>
-            </select>
+        <div class="filter row">
+            <div class="col-lg-3 col-md-6 col-sm-12 mb-2">
+                <input type="search" class="form-control"
+                    :class="errors.code && filterForm.code.trim() ? 'border-danger' : ''" placeholder="بحث بالكود"
+                    v-model="filterForm.code" @input="itemsFilter">
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 mb-2">
+                <input type="search" class="form-control" placeholder="بحث العنوان"
+                    v-model="filterForm.title" @input="itemsFilter">
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 mb-2">
+                <select class="form-select" @change="itemsFilter" v-model="filterForm.cat_id">
+                    <option value="">الأقسام</option>
+                    <option v-for="cat in categories" :value="cat.id">{{ cat.name }}</option>
+                </select>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 mb-2">
+                <select class="form-select" @change="itemsFilter" v-model="filterForm.company_id">
+                    <option value="">الشركات</option>
+                    <option v-for="company in companies" :value="company.id">{{ company.name }}</option>
+                </select>
+            </div>
         </div>
-        <div class="d-flex flex-wrap justify-content-center gap-2">
+        <div class="row justify-content-around align-items-start">
             <div
-                class="items-section w-50 ctm-form justify-content-center align-items-center m-0 d-flex flex-wrap gap-2 mt-2">
+                class="items-section col-lg-6 col-sm-12 bg-light justify-content-center align-items-center m-0 d-flex flex-wrap gap-2 p-2 mt-2 rounded">
                 <div v-for="item in items.data" @click="addToCart"
                     class="item border rounded text-right p-1 position-relative" :data-id="item.id"
                     :style="cartEls.includes(item.id) ? 'border-color:var(--border-color) !important' : 'border:1px solid #dee2e6!important'"
@@ -33,7 +42,7 @@
                     <h5>{{ item.title }}</h5>
                 </div>
             </div>
-            <div class="cart-section  w-100 mt-2 p-2 ctm-form">
+            <div class="cart-section col-lg-5 col-sm-12 mt-2 p-2 bg-light rounded">
                 <div class="cart-items">
                     <table class="table">
                         <thead>
@@ -60,10 +69,6 @@
                 </div>
             </div>
         </div>
-        <!-- <div class="d-flex justify-content-around mt-3">
-            <Link class="ctm-btn p-1 rounded" :href="items.links.next">الصفحة التالية</Link>
-            <Link class="ctm-btn p-1 rounded" :href="items.links.prev">الصفحة السابقة</Link>
-        </div> -->
     </div>
 </template>
 <style>
@@ -100,8 +105,8 @@
 </style>
 <script setup>
 defineProps({ errors: Object, items: Object, categories: Object, companies: Object })
-import { reactive, ref} from 'vue'
-import { usePage} from '@inertiajs/vue3';
+import { reactive, ref } from 'vue'
+import { usePage } from '@inertiajs/vue3';
 import Navbar from './components/NavBar.vue'
 import Sidebar from './components/Sidebar.vue'
 import axios from 'axios';
@@ -190,7 +195,6 @@ const cancel = e => {
     tbody.innerHTML = '';
 }
 
-
 document.onclick = e => {
     let el = e.target;
     if (el.classList.contains('increment-btn')) {
@@ -202,5 +206,5 @@ document.onclick = e => {
     }
     totalPrice()
 }
-$('body').on('click','.close-btn',removeFromCart);
+$('body').on('click', '.close-btn', removeFromCart);
 </script>
