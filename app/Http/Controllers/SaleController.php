@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 
 class SaleController extends MasterController
 {
-    function index()
+    function pos()
     {
         $categories = Category::latest()->get();
         $companies = Company::latest()->get();
@@ -38,7 +38,11 @@ class SaleController extends MasterController
 
         return response()->json($items);
     }
-    function sale(SaleRequest $request)
+    function index(Request $request){
+        $operations = Operation::paginate(50);
+        return inertia('Sales/Sales',['operations' => $operations]);
+    }
+    function store(SaleRequest $request)
     {
         $data = $request->except('items');
         $new_operation = Operation::create($data);
@@ -61,5 +65,17 @@ class SaleController extends MasterController
         $sale = $sales ? Sale::insert($sales) : null;
         if ($sale)
             redirect()->back();
+    }
+    function show($id){
+
+    }
+    function edit($id){
+
+    }
+    function update(SaleRequest $request,$id){
+
+    }
+    function destroy($id){
+        
     }
 }
