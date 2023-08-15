@@ -58,7 +58,7 @@
                     </table>
                 </div>
                 <div class="row  customer-info pt-2">
-                    <div class="col-md-6 col-sm-12">
+                    <div class="col-md-6 col-sm-12 mb-2">
                         <input class="form-control" type="text" v-model="saleForm.customer_name" placeholder="اسم العميل">
                     </div>
                     <div class="col-md-6 col-sm-12">

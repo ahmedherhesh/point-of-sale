@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SaleRequest;
 use App\Http\Resources\ItemsResource;
+use App\Http\Resources\SalesResource;
 use App\Models\Category;
 use App\Models\Company;
 use App\Models\Item;
@@ -39,7 +40,7 @@ class SaleController extends MasterController
         return response()->json($items);
     }
     function index(Request $request){
-        $operations = Operation::paginate(50);
+        $operations = SalesResource::collection(Operation::paginate(50));
         return inertia('Sales/Sales',['operations' => $operations]);
     }
     function store(SaleRequest $request)
@@ -76,6 +77,12 @@ class SaleController extends MasterController
 
     }
     function destroy($id){
-        
+        $operation = Operation::findOrFail($id);
+        foreach ($operation->sales as $sale){
+            $item = $sale->item;
+            $item->update(['stock' => $item->stock + $sale->qty]);
+            $sale->delete();
+        }
+        $operation->delete();
     }
 }
