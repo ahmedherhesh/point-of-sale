@@ -16,8 +16,8 @@
                 <tbody id="tbody">
                     <tr v-for="(operation) in operations.data">
                         <td scope="row">{{ operation.id }}</td>
-                        <td scope="row">{{ operation.customer_name }}</td>
-                        <td scope="col">{{ operation.customer_phone }}</td>
+                        <td scope="row">{{ operation.customer_name  ?? '-----'}}</td>
+                        <td scope="col">{{ operation.customer_phone  ?? '-----'}}</td>
                         <td scope="col">{{ operation.created_at.split('T')[0] }}</td>
                         <td scope="col">
                             <div class="d-flex justify-content-center gap-2">

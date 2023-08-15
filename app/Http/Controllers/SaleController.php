@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SaleRequest;
 use App\Http\Resources\ItemsResource;
+use App\Http\Resources\OperationsResource;
 use App\Http\Resources\SalesResource;
 use App\Models\Category;
 use App\Models\Company;
@@ -11,15 +12,22 @@ use App\Models\Item;
 use App\Models\Operation;
 use App\Models\Sale;
 use Illuminate\Http\Request;
+use PHPUnit\Framework\Constraint\Operator;
 
 class SaleController extends MasterController
 {
+    public $data;
+    function __construct()
+    {
+        $this->data = [
+            'categories' => Category::latest()->get(),
+            'companies' => Company::latest()->get(),
+            'items' => ItemsResource::collection(Item::inStock()->latest()->paginate(100)),
+        ];
+    }
     function pos()
     {
-        $categories = Category::latest()->get();
-        $companies = Company::latest()->get();
-        $items = ItemsResource::collection(Item::inStock()->latest()->paginate(100));
-        return inertia('Pos', compact('categories', 'companies', 'items'));
+        return inertia('Sales/Create', $this->data);
     }
     function itemsFilter(Request $request)
     {
@@ -39,9 +47,10 @@ class SaleController extends MasterController
 
         return response()->json($items);
     }
-    function index(Request $request){
+    function index(Request $request)
+    {
         $operations = SalesResource::collection(Operation::paginate(50));
-        return inertia('Sales/Sales',['operations' => $operations]);
+        return inertia('Sales/Sales', ['operations' => $operations]);
     }
     function store(SaleRequest $request)
     {
@@ -67,18 +76,20 @@ class SaleController extends MasterController
         if ($sale)
             redirect()->back();
     }
-    function show($id){
-
+    function show($id)
+    {
     }
-    function edit($id){
-
+    function edit($id)
+    {
+        $this->data['operation'] = (new OperationsResource(Operation::findOrFail($id)));
+        return inertia('Sales/Edit',$this->data);
     }
-    function update(SaleRequest $request,$id){
-
+    function update(SaleRequest $request, $id)
+    {
     }
-    function destroy($id){
-        $operation = Operation::findOrFail($id);
-        foreach ($operation->sales as $sale){
+    function destroy(Operation $operation)
+    {
+        foreach ($operation->sales as $sale) {
             $item = $sale->item;
             $item->update(['stock' => $item->stock + $sale->qty]);
             $sale->delete();
