@@ -27,7 +27,7 @@
         </div>
         <div class="row justify-content-around align-items-start">
             <div
-                class="items-section col-lg-6 col-sm-12 bg-light justify-content-center align-items-center m-0 d-flex flex-wrap gap-2 p-2 mt-2 rounded">
+                class="items-section col-lg-6 col-sm-12 bg-light justify-content-center align-items-center m-0 d-flex flex-wrap gap-2 p-2 mt-2 rounded" style="max-height: 500px ;">
                 <div v-for="item in items.data" @click="addToCart"
                     class="item border rounded text-right p-1 position-relative" :data-id="item.id"
                     :style="cartEls.includes(item.id) ? 'border-color:var(--border-color) !important' : 'border:1px solid #dee2e6!important'"
@@ -68,7 +68,7 @@
                 <div class="final-price-section row align-items-center">
                     <div class="col-md-6 col-sm-12">
                         <input type="number" min="0" class="discount form-control m-2 me-0" placeholder="الخصم"
-                            @input="totalPrice" v-model="discount">
+                            @input="totalPrice" v-model="saleForm.discount">
                     </div>
                     <h5 class="col-md-6 col-sm-12 final-price"><span>الإجمالي</span> : <span id="finalPrice">0</span>
                     </h5>
@@ -88,8 +88,9 @@
     overflow-y: scroll;
 }
 
-.items-section.ctm-form {
+.items-section {
     max-height: 500px;
+    overflow-y: scroll;
 }
 
 .items-section .item {
@@ -140,7 +141,7 @@ const totalPrice = () => {
     $('.total-price').each(function () {
         result += parseFloat($(this).text())
     })
-    $('#finalPrice').text(result - (parseFloat(discount._value) || 0));
+    $('#finalPrice').text(result - (parseFloat(saleForm.discount) || 0));
 };
 
 const itemsFilter = e => {
@@ -191,8 +192,9 @@ const sale = e => {
         let qty = parseFloat(el.querySelector('.qty').innerText);
         saleForm.items.push({ id, qty })
     })
-    saleForm.discount = discount._value || 0
+    saleForm.discount = saleForm.discount || 0
     useForm(saleForm).post('/sale')
+    cancel();
 }
 
 const removeFromCart = e => {
@@ -206,6 +208,9 @@ const removeFromCart = e => {
 const cancel = e => {
     cartEls.splice(0, cartEls.length)
     tbody.innerHTML = '';
+    saleForm.customer_name = ''
+    saleForm.customer_phone = ''
+    saleForm.discount = 0
 }
 
 document.onclick = e => {

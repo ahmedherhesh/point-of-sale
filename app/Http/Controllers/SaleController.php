@@ -17,13 +17,13 @@ class SaleController extends MasterController
     {
         $categories = Category::latest()->get();
         $companies = Company::latest()->get();
-        $items = ItemsResource::collection(Item::latest()->paginate(100));
+        $items = ItemsResource::collection(Item::inStock()->latest()->paginate(100));
         return inertia('Pos', compact('categories', 'companies', 'items'));
     }
     function itemsFilter(Request $request)
     {
         $request->validate(['code' => 'nullable|exists:items,code']);
-        $items = Item::query();
+        $items = Item::inStock();
         if ($request->code) {
             $items->whereCode($request->code);
         } else {
@@ -45,18 +45,20 @@ class SaleController extends MasterController
         $sales = [];
         foreach ($request->items as $ordered_item) {
             $item = Item::find($ordered_item['id']);
-            $sales[] = [
-                'user_id' => $this->user()->id,
-                'item_id' => $item->id,
-                'operation_id' => $new_operation->id,
-                'status' => $item->status,
-                'price' => $item->price,
-                'sale_price' => $item->sale_price,
-                'qty' => $ordered_item['qty'],
-            ];
-            $item->update(['stock' => (float)$item->stock -  (float)($ordered_item['qty'])]);
+            if ($item->stock >= $ordered_item['qty']) {
+                $sales[] = [
+                    'user_id' => $this->user()->id,
+                    'item_id' => $item->id,
+                    'operation_id' => $new_operation->id,
+                    'status' => $item->status,
+                    'price' => $item->price,
+                    'sale_price' => $item->sale_price,
+                    'qty' => $ordered_item['qty'],
+                ];
+                $item->update(['stock' => (float)$item->stock -  (float)($ordered_item['qty'])]);
+            }
         }
-        $sale = Sale::insert($sales);
+        $sale = $sales ? Sale::insert($sales) : null;
         if ($sale)
             redirect()->back();
     }
