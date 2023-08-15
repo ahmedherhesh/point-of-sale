@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('customer_name')->nullable();
             $table->string('customer_phone')->nullable();
+            $table->double('discount')->nullable();
             $table->timestamps();
         });
     }

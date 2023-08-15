@@ -9,8 +9,8 @@
                     v-model="filterForm.code" @input="itemsFilter">
             </div>
             <div class="col-lg-3 col-md-6 col-sm-12 mb-2">
-                <input type="search" class="form-control" placeholder="بحث العنوان"
-                    v-model="filterForm.title" @input="itemsFilter">
+                <input type="search" class="form-control" placeholder="بحث العنوان" v-model="filterForm.title"
+                    @input="itemsFilter">
             </div>
             <div class="col-lg-3 col-md-6 col-sm-12 mb-2">
                 <select class="form-select" @change="itemsFilter" v-model="filterForm.cat_id">
@@ -57,10 +57,20 @@
                         <tbody id="tbody"></tbody>
                     </table>
                 </div>
-                <div class="final-price-section d-flex align-items-center">
-                    <input type="number" min="0" class="discount form-control m-2 w-50" placeholder="الخصم"
-                        @input="totalPrice" v-model="discount">
-                    <h5 class="w-50 final-price"><span>الإجمالي</span> : <span id="finalPrice">0</span>
+                <div class="row  customer-info pt-2">
+                    <div class="col-md-6 col-sm-12">
+                        <input class="form-control" type="text" v-model="saleForm.customer_name" placeholder="اسم العميل">
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <input class="form-control" type="text" v-model="saleForm.customer_phone" placeholder="رقم المحمول">
+                    </div>
+                </div>
+                <div class="final-price-section row align-items-center">
+                    <div class="col-md-6 col-sm-12">
+                        <input type="number" min="0" class="discount form-control m-2 me-0" placeholder="الخصم"
+                            @input="totalPrice" v-model="discount">
+                    </div>
+                    <h5 class="col-md-6 col-sm-12 final-price"><span>الإجمالي</span> : <span id="finalPrice">0</span>
                     </h5>
                 </div>
                 <div class="cart-controller d-flex justify-content-center align-items-center gap-2">
@@ -106,7 +116,7 @@
 <script setup>
 defineProps({ errors: Object, items: Object, categories: Object, companies: Object })
 import { reactive, ref } from 'vue'
-import { usePage } from '@inertiajs/vue3';
+import { useForm, usePage } from '@inertiajs/vue3';
 import Navbar from './components/NavBar.vue'
 import Sidebar from './components/Sidebar.vue'
 import axios from 'axios';
@@ -120,6 +130,8 @@ let cartEls = reactive([]),
     discount = ref(),
     saleForm = {
         discount: 0,
+        customer_name: '',
+        customer_phone: '',
         items: []
     };
 
@@ -180,6 +192,7 @@ const sale = e => {
         saleForm.items.push({ id, qty })
     })
     saleForm.discount = discount._value || 0
+    useForm(saleForm).post('/sale')
 }
 
 const removeFromCart = e => {

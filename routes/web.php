@@ -27,14 +27,16 @@ Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::group(['middleware' => 'auth.web'], function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
-    Route::get('/pos', [SaleController::class, 'index'])->name('pos');
+    Route::get('pos', [SaleController::class, 'index'])->name('pos');
     Route::post('items-filter', [SaleController::class, 'itemsFilter']);
+    Route::post('sale', [SaleController::class, 'sale'])->name('sale');
+
     //super-admin,admin
     Route::group(['middleware' => 'roles:super-admin,admin'], function () {
-        Route::resource('users',UserController::class);
-        Route::resource('items',ItemController::class);
-        Route::get('not-in-stock',[ItemController::class,'notInStock']);
-        Route::resource('categories',CategoriesController::class);
-        Route::resource('companies',CompaniesController::class);
+        Route::resource('users', UserController::class);
+        Route::resource('items', ItemController::class);
+        Route::get('not-in-stock', [ItemController::class, 'notInStock']);
+        Route::resource('categories', CategoriesController::class);
+        Route::resource('companies', CompaniesController::class);
     });
 });

@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SaleRequest;
 use App\Http\Resources\ItemsResource;
 use App\Models\Category;
 use App\Models\Company;
 use App\Models\Item;
+use App\Models\Operation;
+use App\Models\Sale;
 use Illuminate\Http\Request;
 
-class SaleController extends Controller
+class SaleController extends MasterController
 {
     function index()
     {
@@ -17,7 +20,6 @@ class SaleController extends Controller
         $items = ItemsResource::collection(Item::latest()->paginate(100));
         return inertia('Pos', compact('categories', 'companies', 'items'));
     }
-    //pos
     function itemsFilter(Request $request)
     {
         $request->validate(['code' => 'nullable|exists:items,code']);
@@ -35,5 +37,27 @@ class SaleController extends Controller
         $items = $items->latest()->paginate(100);
 
         return response()->json($items);
+    }
+    function sale(SaleRequest $request)
+    {
+        $data = $request->except('items');
+        $new_operation = Operation::create($data);
+        $sales = [];
+        foreach ($request->items as $ordered_item) {
+            $item = Item::find($ordered_item['id']);
+            $sales[] = [
+                'user_id' => $this->user()->id,
+                'item_id' => $item->id,
+                'operation_id' => $new_operation->id,
+                'status' => $item->status,
+                'price' => $item->price,
+                'sale_price' => $item->sale_price,
+                'qty' => $ordered_item['qty'],
+            ];
+            $item->update(['stock' => (float)$item->stock -  (float)($ordered_item['qty'])]);
+        }
+        $sale = Sale::insert($sales);
+        if ($sale)
+            redirect()->back();
     }
 }
