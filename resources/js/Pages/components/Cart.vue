@@ -71,18 +71,19 @@
 </style>
 <script setup>
 defineProps({ operation: Object })
-import { useForm } from '@inertiajs/vue3';
+import { router, useForm } from '@inertiajs/vue3';
 import { totalPrice, saleForm, cartEls } from '../../main';
 import { usePage } from '@inertiajs/vue3';
-import { onMounted } from 'vue';
+import { onMounted,ref } from 'vue';
 let props = usePage().props;
 onMounted(() => {
     cancel();
     if (props.operation) {
-        saleForm.customer_name = props.operation.data.customer_name ?? '';
-        saleForm.customer_phone = props.operation.data.customer_phone ?? '';
-        saleForm.discount = props.operation.data.discount ?? 0;
-        let operation_sales = props.operation.data.sales ?? [];
+        let {customer_name,customer_phone,discount,sales} = props.operation.data
+        saleForm.customer_name = customer_name;
+        saleForm.customer_phone = customer_phone;
+        saleForm.discount = discount;
+        let operation_sales = sales;
         operation_sales.forEach(sale => {
             let itemId = parseFloat(sale.item_id)
             if (!cartEls.includes(sale.item_id)) {
@@ -92,7 +93,7 @@ onMounted(() => {
                                         <td class='price text-center'>${sale.sale_price}</td>
                                         <td class='d-flex justify-content-center'>
                                             <span class='increment-btn bg-dark'>+</span>
-                                            <span class="ms-2 me-2 qty" data-max='${sale.item.stock}'>${sale.qty}</span>
+                                            <span class="ms-2 me-2 qty" data-max='${sale.item.stock + sale.qty}'>${sale.qty}</span>
                                             <span class='decrement-btn bg-dark'>-</span>
                                         </td>
                                         <td class='total-price text-center'>${sale.sale_price * sale.qty}</td>
@@ -109,8 +110,10 @@ const qtyController = (el, operator) => {
     const parent = el.parentElement;
     let qty = parseInt(el.innerText)
     let maxQty = parseInt(el.dataset.max)
-    if (qty >= maxQty || (qty <= 1 && operator == '-')) return;
-    el.innerText = operator == '+' ? qty + 1 : qty - 1;
+    if (operator == '+' && qty != maxQty)
+        el.innerText = qty + 1;
+    else if (operator == '-' && qty > 1)
+        el.innerText = qty - 1;
     const grandParent = parent.parentElement
     grandParent.querySelector('.total-price').innerText = parseInt(grandParent.querySelector('.price').innerText) * parseInt(el.innerText)
 }
@@ -125,8 +128,14 @@ const sale = e => {
     })
     saleForm.discount = saleForm.discount || 0
     console.log(saleForm);
-    useForm(saleForm).post('/sale')
-    cancel();
+    if (props.operation) {
+        console.log(props.operation.data);
+        router.put(`/sales/${props.operation.data.id}`, saleForm);
+    }
+    else {
+        useForm(saleForm).post('/sale');
+        cancel();
+    }
 }
 
 const removeFromCart = e => {

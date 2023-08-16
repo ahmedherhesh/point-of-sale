@@ -25,10 +25,7 @@ class SaleController extends MasterController
             'items' => ItemsResource::collection(Item::inStock()->latest()->paginate(100)),
         ];
     }
-    function pos()
-    {
-        return inertia('Sales/Create', $this->data);
-    }
+
     function itemsFilter(Request $request)
     {
         $request->validate(['code' => 'nullable|exists:items,code']);
@@ -47,15 +44,8 @@ class SaleController extends MasterController
 
         return response()->json($items);
     }
-    function index(Request $request)
+    function makeSale($request, $operation)
     {
-        $operations = SalesResource::collection(Operation::paginate(50));
-        return inertia('Sales/Sales', ['operations' => $operations]);
-    }
-    function store(SaleRequest $request)
-    {
-        $data = $request->except('items');
-        $new_operation = Operation::create($data);
         $sales = [];
         foreach ($request->items as $ordered_item) {
             $item = Item::find($ordered_item['id']);
@@ -63,7 +53,7 @@ class SaleController extends MasterController
                 $sales[] = [
                     'user_id' => $this->user()->id,
                     'item_id' => $item->id,
-                    'operation_id' => $new_operation->id,
+                    'operation_id' => $operation->id,
                     'status' => $item->status,
                     'price' => $item->price,
                     'sale_price' => $item->sale_price,
@@ -72,28 +62,56 @@ class SaleController extends MasterController
                 $item->update(['stock' => (float)$item->stock -  (float)($ordered_item['qty'])]);
             }
         }
-        $sale = $sales ? Sale::insert($sales) : null;
-        if ($sale)
-            redirect()->back();
+        return $sales ? Sale::insert($sales) : null;
     }
-    function show($id)
-    {
-    }
-    function edit($id)
-    {
-        $this->data['operation'] = (new OperationsResource(Operation::findOrFail($id)));
-        return inertia('Sales/Edit',$this->data);
-    }
-    function update(SaleRequest $request, $id)
-    {
-    }
-    function destroy(Operation $operation)
+    function destroySale($operation)
     {
         foreach ($operation->sales as $sale) {
             $item = $sale->item;
             $item->update(['stock' => $item->stock + $sale->qty]);
             $sale->delete();
         }
+        return true;
+    }
+    function index(Request $request)
+    {
+        $operations = SalesResource::collection(Operation::paginate(50));
+        return inertia('Sales/Sales', ['operations' => $operations]);
+    }
+    function pos()
+    {
+        return inertia('Sales/Create', $this->data);
+    }
+    function store(SaleRequest $request)
+    {
+        $data = $request->except('items');
+        $new_operation = Operation::create($data);
+        $this->makeSale($request, $new_operation);
+    }
+
+    function show($id)
+    {
+    }
+
+    function edit($id)
+    {
+        $this->data['operation'] = (new OperationsResource(Operation::findOrFail($id)));
+        return inertia('Sales/Edit', $this->data);
+    }
+
+    function update(SaleRequest $request, $id)
+    {
+        $operation = Operation::findOrFail($id);
+        $data = $request->except('items');
+        $this->destroySale($operation);
+        $operation->update($data);
+        $this->makeSale($request, $operation);
+        return redirect()->back();
+    }
+
+    function destroy(Operation $operation)
+    {
+        $this->destroySale($operation);
         $operation->delete();
     }
 }

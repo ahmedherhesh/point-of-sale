@@ -35,7 +35,7 @@ let filterForm = reactive({
 });
 const itemsFilter = e => {
     let page = usePage();
-    axios.post('items-filter', filterForm)
+    axios.post('/items-filter', filterForm)
         .then(res => {
             page.props.items = res.data
         }).catch(res => {

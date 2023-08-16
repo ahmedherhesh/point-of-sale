@@ -1,11 +1,11 @@
 import { reactive } from "vue";
 
-let saleForm = {
+let saleForm = reactive({
     discount: 0,
     customer_name: '',
     customer_phone: '',
     items: []
-};
+});
 let cartEls = reactive([]);
 const totalPrice = () => {
     let result = 0;
