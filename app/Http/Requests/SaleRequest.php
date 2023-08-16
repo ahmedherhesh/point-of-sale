@@ -15,10 +15,11 @@ class SaleRequest extends MasterRequest
     public function rules(): array
     {
         return [
-            'customer_name' => 'nullable|string',
+            'user_id'        => 'nullable',
+            'customer_name'  => 'nullable|string',
             'customer_phone' => 'nullable|string',
-            'discount' => 'nullable|numeric',
-            'items' => 'required',
+            'discount'       => 'nullable|numeric',
+            'items'          => 'required',
         ];
     }
 }

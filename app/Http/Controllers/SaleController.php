@@ -51,7 +51,6 @@ class SaleController extends MasterController
             $item = Item::find($ordered_item['id']);
             if ($item->stock >= $ordered_item['qty']) {
                 $sales[] = [
-                    'user_id' => $this->user()->id,
                     'item_id' => $item->id,
                     'operation_id' => $operation->id,
                     'status' => $item->status,
@@ -85,6 +84,7 @@ class SaleController extends MasterController
     function store(SaleRequest $request)
     {
         $data = $request->except('items');
+        $data['user_id'] = $this->user()->id;
         $new_operation = Operation::create($data);
         $this->makeSale($request, $new_operation);
     }
