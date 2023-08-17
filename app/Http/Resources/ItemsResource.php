@@ -23,7 +23,7 @@ class ItemsResource extends JsonResource
             'sale_price' => $this->sale_price,
             'code' => $this->code,
             'barcode' => DNS1D::getBarcodeHTML($this->code, 'CODABAR', 1.2, 40) . $this->code,
-            'image' => $this->image,
+            'image' => $this->image ?? '/imgs/logo-80.png',
         ];
     }
 }

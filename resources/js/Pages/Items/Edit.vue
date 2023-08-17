@@ -70,7 +70,7 @@
 import Navbar from '../components/Navbar.vue';
 import Sidebar from '../components/Sidebar.vue';
 import { router, usePage } from '@inertiajs/vue3';
-import { onMounted } from 'vue';
+import { onMounted, reactive } from 'vue';
 import enums from '../../constants';
 
 defineProps({ errors: Object, catsTree: Object, item: Object })
@@ -89,7 +89,7 @@ let showSubCats = () => {
     }
 }
 
-let itemForm = {
+let itemForm = reactive({
     cat_id: props.item.cat_id,
     sub_cat_id: props.item.sub_cat_id,
     title: props.item.title,
@@ -100,7 +100,7 @@ let itemForm = {
     image: '',
     code: props.item.code,
     status: props.item.status,
-}
+})
 const updateItem = () => {
     router.put(`/items/${props.item.id}`, itemForm)
 }

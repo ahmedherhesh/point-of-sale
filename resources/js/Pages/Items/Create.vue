@@ -56,7 +56,7 @@
             <div class="mb-3">
                 <label for="status" class="form-label">حالة المنتج</label>
                 <select v-model="itemForm.status" id="status" class="form-select">
-                    <option v-for="(status, key) in enums.item.status" :value="key">{{ status }}</option>
+                    <option v-for="(status, key) in enums.item.status" :value="key" :selected="key == 'new'">{{ status }}</option>
                 </select>
                 <span v-if="errors.status" class="text-danger text-direction-rtl mt-1 mb-1">{{ errors.status }}</span>
             </div>
