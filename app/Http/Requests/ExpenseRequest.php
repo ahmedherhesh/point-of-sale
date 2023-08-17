@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SaleRequest extends MasterRequest
+class ExpenseRequest extends MasterRequest
 {
 
     /**
@@ -15,11 +15,8 @@ class SaleRequest extends MasterRequest
     public function rules(): array
     {
         return [
-            'user_id'        => 'nullable',
-            'customer_name'  => 'nullable|string',
-            'customer_phone' => 'nullable|string',
-            'discount'       => 'nullable|numeric|max:999999999',
-            'items'          => 'required',
+            'title' => 'required|string|min:3|max:255',
+            'amount' => 'required|numeric|max:999999999',
         ];
     }
 }

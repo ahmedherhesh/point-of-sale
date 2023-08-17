@@ -12,13 +12,33 @@ use Illuminate\Http\Request;
 
 class ItemController extends MasterController
 {
+    function itemsFilter(Request $request)
+    {
+        $request->validate(['code' => 'nullable|exists:items,code']);
+        $items = Item::query();
+        if ($request->code) {
+            $items->whereCode($request->code);
+        } else {
+            if ($request->title)
+                $items->where('title', 'LIKE', "%$request->title%");
+            if ($request->cat_id)
+                $items->whereCatId($request->cat_id);
+            if ($request->company_id)
+                $items->whereCompanyId($request->company_id);
+        }
+        if ($request->inStock)
+            $items->inStock();
+        if ($request->notInStock)
+            $items->notInStock();
+        $items = $items->latest()->paginate(100);
+        return ItemsResource::collection($items);
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $items = Item::InStock()->latest()->paginate(30);
-        return inertia('Items/Items', ['items' => ItemsResource::collection($items)]);
+        return inertia('Items/Items', $this->data);
     }
 
     /**
@@ -26,8 +46,8 @@ class ItemController extends MasterController
      */
     public function notInStock()
     {
-        $items = Item::notInStock()->paginate(30);
-        return inertia('Items/Items', ['items' => ItemsResource::collection($items)]);
+        $this->data['items'] = ItemsResource::collection(Item::notInStock()->paginate(100));
+        return inertia('Items/Items', $this->data);
     }
     /**
      * Show the form for creating a new resource.

@@ -31,10 +31,11 @@ let filterForm = reactive({
     title: '',
     company_id: '',
     cat_id: '',
-    code: ''
+    code: '',
 });
 const itemsFilter = e => {
     let page = usePage();
+    window.location.pathname.includes('not-in-stock') ? filterForm['notInStock'] = true : filterForm['inStock'] = true
     axios.post('/items-filter', filterForm)
         .then(res => {
             page.props.items = res.data

@@ -1,14 +1,14 @@
 <template>
     <div class="sidebar d-flex flex-column flex-shrink-0 p-3 bg-light shadow h-full" style="width: 255px">
         <ul class="nav nav-pills flex-column mb-auto">
-            <li>
+            <!-- <li>
                 <Link href="/" class="nav-link link-dark ">
                 <img src="/imgs/store.svg" alt="">
                 الصفحة الرئيسية
                 </Link>
-            </li>
+            </li> -->
             <li>
-                <Link href="/pos" class="nav-link link-dark ">
+                <Link href="/" class="nav-link link-dark ">
                 <img src="/imgs/library_add.svg" alt="">
                 نقطة بيع
                 </Link>
@@ -51,13 +51,13 @@
                 </Link>
             </li>
             <li v-if="adminRoles.includes(userSession.role)">
-                <Link href="/" class="nav-link link-dark">
+                <Link href="/expenses" class="nav-link link-dark">
                 <img src="/imgs/contract.svg" alt="">
                 المصروفات
                 </Link>
             </li>
             <li v-if="adminRoles.includes(userSession.role)">
-                <Link href="/" class="nav-link link-dark">
+                <Link href="" class="nav-link link-dark">
                 <img src="/imgs/contract.svg" alt="">
                 الأرباح
                 </Link>
@@ -97,7 +97,7 @@ onMounted(() => {
     let navLinks = document.querySelectorAll('.nav-link');
     navLinks.forEach(link => {
         let href = link.getAttribute('href');
-        let pathname = window.location.pathname;
+        let pathname = window.location.pathname.trim();
         if (pathname.includes(href) && href != '/') {
             moveActiveBtn(link)
         } else if (pathname == href) {

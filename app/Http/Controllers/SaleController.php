@@ -16,34 +16,6 @@ use PHPUnit\Framework\Constraint\Operator;
 
 class SaleController extends MasterController
 {
-    public $data;
-    function __construct()
-    {
-        $this->data = [
-            'categories' => Category::latest()->get(),
-            'companies' => Company::latest()->get(),
-            'items' => ItemsResource::collection(Item::inStock()->latest()->paginate(100)),
-        ];
-    }
-
-    function itemsFilter(Request $request)
-    {
-        $request->validate(['code' => 'nullable|exists:items,code']);
-        $items = Item::inStock();
-        if ($request->code) {
-            $items->whereCode($request->code);
-        } else {
-            if ($request->title)
-                $items->where('title', 'LIKE', "%$request->title%");
-            if ($request->cat_id)
-                $items->whereCatId($request->cat_id);
-            if ($request->company_id)
-                $items->whereCompanyId($request->company_id);
-        }
-        $items = $items->latest()->paginate(100);
-
-        return response()->json($items);
-    }
     function makeSale($request, $operation)
     {
         $sales = [];

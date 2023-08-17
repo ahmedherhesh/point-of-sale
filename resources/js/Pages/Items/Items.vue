@@ -2,6 +2,7 @@
     <NavBar />
     <Sidebar />
     <div class="content">
+        <items-filter :errors="errors" :items="items" :categories="categories" :companies="companies" />
         <div class="table-responsive shadow">
             <table class="table table-light table-hover table-bordered align-middle text-center m-auto">
                 <thead class="table-indigo">
@@ -28,9 +29,9 @@
                         <td scope="col">
                             <div class="d-flex justify-content-center gap-2">
                                 <Link :href="`/items/${item.id}/edit`" class="text-secondary btn p-0 edit-btn"><i
-                                        class="fa-solid fa-pen-to-square"></i></Link>
-                                        <button @click="deleteItem" class="text-secondary btn delete-btn p-0" :data-itemId="item.id" data-type="القسم"><i
-                                        class="fa-solid fa-trash"></i></button>
+                                    class="fa-solid fa-pen-to-square"></i></Link>
+                                <button @click="deleteItem" class="text-secondary btn delete-btn p-0" :data-itemId="item.id"
+                                    data-type="القسم"><i class="fa-solid fa-trash"></i></button>
                             </div>
                         </td>
                     </tr>
@@ -46,8 +47,9 @@
 <script setup>
 import NavBar from '../components/NavBar.vue';
 import Sidebar from '../components/Sidebar.vue';
+import ItemsFilter from '../components/ItemsFilter.vue';
 import { Link, router } from '@inertiajs/vue3';
-defineProps({ items: Object })
+defineProps({ errors: Object, items: Object, categories: Object, companies: Object })
 let deleteItem = e => {
     let el = e.currentTarget;
     if (confirm('هل انت متأكد من حذف هذا المنتج'))

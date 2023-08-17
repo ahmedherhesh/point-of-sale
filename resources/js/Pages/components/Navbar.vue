@@ -15,6 +15,7 @@
                             <li><Link href="/categories/create" class="dropdown-item text-center">اضافة قسم</Link></li>
                             <li><Link href="/companies/create" class="dropdown-item text-center">اضافة شركة</Link></li>
                             <li><Link href="/items/create" class="dropdown-item text-center">اضافة منتج</Link></li>
+                            <li><Link href="/expenses/create" class="dropdown-item text-center">اضافة مصروف</Link></li>
                         </ul>
                     </div>
                     <div class="dropdown">

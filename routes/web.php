@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Admin\CompaniesController;
+use App\Http\Controllers\Admin\ExpenseController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SaleController;
@@ -26,9 +27,9 @@ Route::post('login', [AuthController::class, '_login'])->name('_login');
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::group(['middleware' => 'auth.web'], function () {
-    Route::get('/', [HomeController::class, 'index'])->name('home');
-    Route::get('pos', [SaleController::class, 'pos'])->name('pos');
-    Route::post('items-filter', [SaleController::class, 'itemsFilter']);
+    // Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('/', [SaleController::class, 'pos'])->name('pos');
+    Route::post('items-filter', [ItemController::class, 'itemsFilter']);
     Route::post('sale', [SaleController::class, 'store'])->name('sale');
 
     //super-admin,admin
@@ -39,5 +40,6 @@ Route::group(['middleware' => 'auth.web'], function () {
         Route::resource('categories', CategoriesController::class);
         Route::resource('companies', CompaniesController::class);
         Route::resource('sales', SaleController::class);
+        Route::resource('expenses', ExpenseController::class);
     });
 });
