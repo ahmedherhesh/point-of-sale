@@ -1,7 +1,7 @@
 import { reactive } from "vue";
 
 let saleForm = reactive({
-    discount: 0,
+    discount: '',
     customer_name: '',
     customer_phone: '',
     items: []

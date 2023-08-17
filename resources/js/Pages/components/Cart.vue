@@ -82,7 +82,7 @@ onMounted(() => {
         let {customer_name,customer_phone,discount,sales} = props.operation.data
         saleForm.customer_name = customer_name;
         saleForm.customer_phone = customer_phone;
-        saleForm.discount = discount;
+        saleForm.discount = discount || '';
         let operation_sales = sales;
         operation_sales.forEach(sale => {
             let itemId = parseFloat(sale.item_id)
@@ -127,7 +127,6 @@ const sale = e => {
         saleForm.items.push({ id, qty })
     })
     saleForm.discount = saleForm.discount || 0
-    console.log(saleForm);
     if (props.operation) {
         console.log(props.operation.data);
         router.put(`/sales/${props.operation.data.id}`, saleForm);
@@ -151,7 +150,7 @@ const cancel = e => {
     tbody.innerHTML = '';
     saleForm.customer_name = ''
     saleForm.customer_phone = ''
-    saleForm.discount = 0
+    saleForm.discount = ''
 }
 
 document.onclick = e => {

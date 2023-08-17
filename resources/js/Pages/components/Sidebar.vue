@@ -13,11 +13,17 @@
                 نقطة بيع
                 </Link>
             </li>
-            
+
             <li v-if="adminRoles.includes(userSession.role)">
                 <Link href="/items" class="nav-link link-dark">
                 <img src="/imgs/widgets.svg" alt="">
                 المنتجات
+                </Link>
+            </li>
+            <li v-if="adminRoles.includes(userSession.role)">
+                <Link href="/not-in-stock" class="nav-link link-dark">
+                <img src="/imgs/remove_done.svg" alt="">
+                النواقص
                 </Link>
             </li>
             <li v-if="adminRoles.includes(userSession.role)">
@@ -40,26 +46,20 @@
             </li>
             <li v-if="adminRoles.includes(userSession.role)">
                 <Link href="/sales" class="nav-link link-dark">
-                <img src="/imgs/handshake.svg" alt="">
+                <img src="/imgs/contract.svg" alt="">
                 المبيعات
                 </Link>
             </li>
-            <!-- <li v-if="adminRoles.includes(userSession.role)">
-                <Link href="/returned-items" class="nav-link link-dark">
-                <img src="/imgs/assignment_return.svg" alt="">
-                المرتجعات
-                </Link>
-            </li> -->
             <li v-if="adminRoles.includes(userSession.role)">
-                <Link href="/not-in-stock" class="nav-link link-dark">
-                <img src="/imgs/remove_done.svg" alt="">
-                النواقص
+                <Link href="/" class="nav-link link-dark">
+                <img src="/imgs/contract.svg" alt="">
+                المصروفات
                 </Link>
             </li>
             <li v-if="adminRoles.includes(userSession.role)">
-                <Link href="/reports" class="nav-link link-dark">
+                <Link href="/" class="nav-link link-dark">
                 <img src="/imgs/contract.svg" alt="">
-                التقارير
+                الأرباح
                 </Link>
             </li>
         </ul>
@@ -100,7 +100,7 @@ onMounted(() => {
         let pathname = window.location.pathname;
         if (pathname.includes(href) && href != '/') {
             moveActiveBtn(link)
-        } else if(pathname == href){
+        } else if (pathname == href) {
             moveActiveBtn(document.querySelector('.nav-link'))
         }
     })
