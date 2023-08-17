@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\MasterController;
 use App\Http\Requests\CompanyRequest;
 use App\Http\Resources\CompaniesResource;
 use App\Http\Resources\ItemsResource;
@@ -10,7 +10,7 @@ use App\Models\Company;
 use App\Models\Item;
 use Illuminate\Http\Request;
 
-class CompaniesController extends Controller
+class CompaniesController extends MasterController
 {
     /**
      * Display a listing of the resource.
@@ -43,8 +43,8 @@ class CompaniesController extends Controller
      */
     public function show(string $id)
     {
-        $items = ItemsResource::collection(Item::whereCompanyId($id)->paginate(18));
-        return inertia('Items/Items', compact('items'));
+        $this->data['items'] = ItemsResource::collection(Item::whereCompanyId($id)->paginate(100));
+        return inertia('Items/Items', $this->data);
     }
 
     /**

@@ -15,7 +15,7 @@
                 <tbody>
                     <tr v-for="(category, i) in categories.data">
                         <td>{{ i + 1 }}</td>
-                        <td>{{ category.name }}</td>
+                        <td> <Link :href="`/categories/${category.id}`">{{ category.name }}</Link></td>
                         <td>{{ category.parent_id ? 'فرعي' : 'رئيسي' }}</td>
                         <td>
                             <div class="d-flex justify-content-center gap-2">

@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Http\Controllers\MasterController;
 use App\Http\Requests\CategoryRequest;
 use App\Http\Resources\CategoriesResource;
 use App\Http\Resources\ItemsResource;
 use App\Models\Category;
 use App\Models\Item;
-use Illuminate\Http\Request;
 
 class CategoriesController extends MasterController
 {
@@ -47,8 +45,8 @@ class CategoriesController extends MasterController
      */
     public function show(string $id)
     {
-        $items = ItemsResource::collection(Item::whereCatId($id)->orWhere('sub_cat_id',$id)->paginate(18));
-        return inertia('Items/Items', compact('items'));
+        $this->data['items'] = ItemsResource::collection(Item::whereCatId($id)->orWhere('sub_cat_id',$id)->paginate(100));
+        return inertia('Items/Items', $this->data);
     }
 
     /**

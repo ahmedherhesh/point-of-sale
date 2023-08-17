@@ -57,7 +57,7 @@
                 </Link>
             </li>
             <li v-if="adminRoles.includes(userSession.role)">
-                <Link href="" class="nav-link link-dark">
+                <Link href="/profits" class="nav-link link-dark">
                 <img src="/imgs/contract.svg" alt="">
                 الأرباح
                 </Link>
