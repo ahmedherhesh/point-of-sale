@@ -64,9 +64,14 @@ a:hover {
 .bg-indigo {
     background-color: rgb(150, 151, 231);
     color: #fff;
-
 }
-
+.btn-indigo{
+    background-color: var(--main-color);
+    color:#fff
+}
+.btn-indigo:hover{
+    color:#fff
+}
 .content {
     --sidebar-width: 255px;
     width: calc(100% - var(--sidebar-width));

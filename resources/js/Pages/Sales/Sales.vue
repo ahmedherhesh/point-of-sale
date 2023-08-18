@@ -9,6 +9,7 @@
                         <th class="text-center" scope="row">#</th>
                         <th class="text-center" scope="row">اسم العميل</th>
                         <th class="text-center" scope="col">رقم المحمول</th>
+                        <th class="text-center" scope="col">الخصم</th>
                         <th class="text-center" scope="col">تاريخ العملية</th>
                         <th class="text-center" scope="col">تعديل</th>
                     </tr>
@@ -18,6 +19,7 @@
                         <td scope="row">{{ operation.id }}</td>
                         <td scope="row">{{ operation.customer_name  ?? '-----'}}</td>
                         <td scope="col">{{ operation.customer_phone  ?? '-----'}}</td>
+                        <td scope="col">{{ operation.discount ?? 0}}</td>
                         <td scope="col">{{ operation.created_at.split('T')[0] }}</td>
                         <td scope="col">
                             <div class="d-flex justify-content-center gap-2">

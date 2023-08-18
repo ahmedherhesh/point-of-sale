@@ -16,6 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('customer_name')->nullable();
             $table->string('customer_phone')->nullable();
+            $table->double('price')->nullable();
+            $table->double('sale_price')->nullable();
             $table->double('discount')->nullable();
             $table->timestamps();
         });

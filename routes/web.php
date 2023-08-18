@@ -41,6 +41,7 @@ Route::group(['middleware' => 'auth.web'], function () {
         Route::resource('companies', CompaniesController::class);
         Route::resource('sales', SaleController::class);
         Route::resource('expenses', ExpenseController::class);
-        Route::get('profits', ProfitController::class)->name('profits');
+        Route::get('profits', [ProfitController::class,'index'])->name('profits');
+        Route::post('profits-filter', [ProfitController::class,'profitsFilter']);
     });
 });

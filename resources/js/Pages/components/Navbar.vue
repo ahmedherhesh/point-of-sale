@@ -40,6 +40,9 @@
     width: 100%;
     z-index: 1000;
 }
+.menu-btn{
+    cursor: pointer;
+}
 </style>
 <script setup>
 import { Link } from "@inertiajs/vue3";

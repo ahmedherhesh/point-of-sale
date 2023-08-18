@@ -9,6 +9,7 @@
                         <th>#</th>
                         <th>العنوان</th>
                         <th>المبلغ</th>
+                        <th>التاريخ</th>
                         <th>تعديل</th>
                     </tr>
                 </thead>
@@ -17,6 +18,7 @@
                         <td>{{ i + 1 }}</td>
                         <td>{{ expense.title }}</td>
                         <td>{{ expense.amount }}</td>
+                        <td>{{ expense.created_at.split('T')[0] }}</td>
                         <td>
                             <div class="d-flex justify-content-center gap-2">
                                 <Link :href="`/expenses/${expense.id}/edit`" class="text-secondary btn p-0 edit-btn"><i

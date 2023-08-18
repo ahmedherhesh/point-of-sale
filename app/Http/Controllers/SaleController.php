@@ -18,10 +18,13 @@ class SaleController extends MasterController
 {
     function makeSale($request, $operation)
     {
+        $price = 0;
+        $sale_price = 0;
         $sales = [];
-        foreach ($request->items as $ordered_item) {
+        foreach ($request->items as $key => $ordered_item) {
             $item = Item::find($ordered_item['id']);
             if ($item->stock >= $ordered_item['qty']) {
+                $qty = (float)($ordered_item['qty']);
                 $sales[] = [
                     'item_id' => $item->id,
                     'operation_id' => $operation->id,
@@ -30,9 +33,12 @@ class SaleController extends MasterController
                     'sale_price' => $item->sale_price,
                     'qty' => $ordered_item['qty'],
                 ];
-                $item->update(['stock' => (float)$item->stock -  (float)($ordered_item['qty'])]);
+                $price += ((float)$item->price * $qty);
+                $sale_price += ((float)$item->sale_price * $qty);
+                $item->update(['stock' => (float)$item->stock - $qty]);
             }
         }
+        $operation->update(['price' => $price, 'sale_price' => $sale_price]);
         return $sales ? Sale::insert($sales) : null;
     }
     function destroySale($operation)

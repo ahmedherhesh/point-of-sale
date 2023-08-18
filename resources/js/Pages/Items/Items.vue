@@ -1,5 +1,5 @@
 <template>
-    <NavBar />
+    <Navbar />
     <Sidebar />
     <div class="content">
         <items-filter :errors="errors" :items="items" :categories="categories" :companies="companies" />
@@ -45,7 +45,7 @@
     </div>
 </template>
 <script setup>
-import NavBar from '../components/NavBar.vue';
+import Navbar from '../components/Navbar.vue';
 import Sidebar from '../components/Sidebar.vue';
 import ItemsFilter from '../components/ItemsFilter.vue';
 import { Link, router } from '@inertiajs/vue3';

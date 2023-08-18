@@ -73,6 +73,8 @@
     right: 0;
     transition: right .5s;
     z-index: 1000;
+    overflow-x: hidden;
+    overflow-y: scroll ;
 }
 
 .sidebar li {
