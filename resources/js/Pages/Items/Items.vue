@@ -25,7 +25,7 @@
                         <td scope="col">{{ item.price }}</td>
                         <td scope="col">{{ item.sale_price }}</td>
                         <td class="d-flex align-items-center  flex-column" scope="col" v-html="item.barcode"></td>
-                        <td scope="col"><img :src="item.image" width="50" alt=""></td>
+                        <td scope="col"><img :src="item.image" alt=""></td>
                         <td scope="col">
                             <div class="d-flex justify-content-center gap-2">
                                 <Link :href="`/items/${item.id}/edit`" class="text-secondary btn p-0 edit-btn"><i
@@ -44,6 +44,14 @@
         </div>
     </div>
 </template>
+<style>
+    #tbody img{
+        width:50px;
+        height: 50px;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+</style>
 <script setup>
 import Navbar from '../components/Navbar.vue';
 import Sidebar from '../components/Sidebar.vue';

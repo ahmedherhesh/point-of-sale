@@ -1,7 +1,7 @@
 <template>
     <div class="items-section col-lg-6 col-sm-12 bg-light justify-content-center align-items-center m-0 d-flex flex-wrap gap-2 p-2 mt-2 rounded"
         style="max-height: 500px ;">
-        <div v-for="item in items.data" @click="addToCart" class="item border rounded text-right p-1 position-relative"
+        <div v-for="item in items.data" @click="addToCart" class="item border rounded text-right position-relative"
             :data-id="item.id"
             :style="cartEls.includes(item.id) ? 'border-color:var(--border-color) !important' : 'border:1px solid #dee2e6!important'"
             :data-title="item.title" :data-price="item.sale_price" :data-stock="item.stock">
@@ -10,9 +10,9 @@
             <span class="position-absolute top-0 end-0 badge p-1 rounded bg-primary">${{ item.sale_price
             }}</span>
             <div class="d-flex justify-content-center">
-                <img src="/imgs/logo-80.png" alt="" srcset="">
+                <img :src="item.image" class="rounded" alt="" srcset="">
             </div>
-            <h5>{{ item.title }}</h5>
+            <h5 class="p-1">{{ item.title }}</h5>
         </div>
     </div>
 </template>
@@ -24,6 +24,11 @@
 
 .items-section .item {
     cursor: pointer;
+}
+.items-section .item img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
 }
 </style>
 <script setup>
