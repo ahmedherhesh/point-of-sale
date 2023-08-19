@@ -12,9 +12,11 @@ class ProfitController extends Controller
 {
     function profits($operations, $expenses)
     {
+        $profits = 0;
         foreach ($operations as $operation) {
-            return $operation->sale_price - ($operation->price + $operation->discount + $expenses);
+            $profits += $operation->sale_price - ($operation->price + $operation->discount);
         }
+        return $profits - $expenses;
     }
     /**
      * Handle the incoming request.
@@ -47,10 +49,10 @@ class ProfitController extends Controller
             $expenses = $expenses->whereDate('created_at', '<=', $request->to);
         }
         if (!$request->from && !$request->to)
-            return response()->json([], 404);
+            return response()->json([], 422);
         return  [
             'operations' => OperationsResource::collection($operations->latest()->paginate(50)),
-            'allProfits' => $this->profits($operations, $expenses->sum('amount'))
+            'allProfits' => $this->profits($operations->get(), $expenses->sum('amount'))
         ];
     }
 }
