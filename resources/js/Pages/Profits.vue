@@ -37,7 +37,10 @@
                 </div>
                 <button class="btn btn-indigo" id="submitBtn">بحث</button>
             </form>
-            <h4 class="title text-center">إجمالي الأرباح : <span id="profit">{{ allProfits }}</span></h4>
+            <div class="d-flex justify-content-between gap-3">
+                <h4 class="title text-center"> الأرباح : <span id="profit">{{ allProfits }}</span></h4>
+                <h4 class="title text-center"> المصروفات : <span id="profit">{{ expenses }}</span></h4>
+            </div>
         </div>
         <div class="table-responsive shadow mt-3">
             <table class="table table-light table-hover table-bordered align-middle text-center m-auto">
@@ -134,6 +137,7 @@ import { reactive } from 'vue';
 
 defineProps({
     allProfits: Number,
+    expenses: Number,
     monthProfits: Number,
     threeMonthProfits: Number,
     sixMonthProfits: Number,
@@ -155,10 +159,10 @@ const profitsFilter = () => {
             submitBtn.innerHTML = `بحث`
             props.allProfits = res.data.allProfits
             props.operations.data = res.data.operations
+            console.log(res.data.allProfits);
         }).catch(err => {
             loading = false;
             submitBtn.innerHTML = `بحث`
-            console.log(err);
         })
     }
 }
