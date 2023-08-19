@@ -27,7 +27,7 @@ class AuthController extends MasterController
     }
     public function changePassword()
     {
-        return view('auth.change-password');
+        return inertia('Auth/ChangePassword');
     }
     public function _changePassword(ChangePasswordRequest $request)
     {

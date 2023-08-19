@@ -21,7 +21,7 @@
                     <div class="dropdown">
                         <span class="rounded dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><img src="/imgs/manage_accounts.svg" alt="" width="45"></span>
                         <ul class="dropdown-menu">
-                            <li><Link href="" class="dropdown-item text-center ">تغيير كلمة السر</Link></li>
+                            <li><Link href="/change-password" class="dropdown-item text-center ">تغيير كلمة السر</Link></li>
                             <li><Link href="/logout" class="dropdown-item text-center ">تسجيل خروج</Link></li>
                         </ul>
                     </div>

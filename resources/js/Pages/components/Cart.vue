@@ -1,18 +1,20 @@
 <template>
     <div class="cart-section col-lg-5 col-sm-12 mt-2 p-2 bg-light rounded">
         <div class="cart-items">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th class="text-center" scope="row">المنتج</th>
-                        <th class="text-center" scope="col">السعر</th>
-                        <th class="text-center" scope="col">الكمية</th>
-                        <th class="text-center" scope="col">الإجمالي</th>
-                        <th class="text-center" scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody id="tbody"></tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="text-center" scope="row">المنتج</th>
+                            <th class="text-center" scope="col">السعر</th>
+                            <th class="text-center" scope="col">الكمية</th>
+                            <th class="text-center" scope="col">الإجمالي</th>
+                            <th class="text-center" scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody"></tbody>
+                </table>
+            </div>
         </div>
         <div class="row  customer-info pt-2">
             <div class="col-md-6 col-sm-12 mb-2">
