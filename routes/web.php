@@ -28,22 +28,24 @@ Route::post('login', [AuthController::class, '_login'])->name('_login');
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::group(['middleware' => 'auth.web'], function () {
-    Route::get('/', [SaleController::class, 'pos'])->name('pos');
+
+    Route::inertia('/', 'Home')->name('home');
+    Route::get('/pos', [SaleController::class, 'pos'])->name('pos');
     Route::post('items-filter', [ItemController::class, 'itemsFilter']);
     Route::post('sale', [SaleController::class, 'store'])->name('sale');
-    Route::get('change-password',[AuthController::class,'changePassword']);
-    Route::post('change-password',[AuthController::class,'_changePassword']);
+    Route::get('change-password', [AuthController::class, 'changePassword']);
+    Route::post('change-password', [AuthController::class, '_changePassword']);
+    Route::resource('sales', SaleController::class);
     //super-admin,admin
     Route::group(['middleware' => 'roles:super-admin,admin'], function () {
         Route::resource('users', UserController::class);
         Route::resource('items', ItemController::class);
-        Route::post('items/{item}',[ItemController::class,'update'])->name('items-update');
+        Route::post('items/{item}', [ItemController::class, 'update'])->name('items-update');
         Route::get('not-in-stock', [ItemController::class, 'notInStock']);
         Route::resource('categories', CategoriesController::class);
         Route::resource('companies', CompaniesController::class);
-        Route::resource('sales', SaleController::class);
         Route::resource('expenses', ExpenseController::class);
-        Route::get('profits', [ProfitController::class,'index'])->name('profits');
-        Route::post('profits-filter', [ProfitController::class,'profitsFilter']);
+        Route::get('profits', [ProfitController::class, 'index'])->name('profits');
+        Route::post('profits-filter', [ProfitController::class, 'profitsFilter']);
     });
 });
