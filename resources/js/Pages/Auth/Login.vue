@@ -20,17 +20,6 @@
     </form>
 </template>
 <style>
-#app {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.ctm-form {
-    margin: 0;
-    width: 33rem;
-}
 
 @media(max-width:33rem) {
     .ctm-form {

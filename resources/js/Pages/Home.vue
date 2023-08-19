@@ -1,19 +1,21 @@
 <template>
     <navbar />
     <sidebar />
-    <div class="content d-flex justify-content-center align-items-center">
+    <div class="content p-0 rounded-0 d-flex justify-content-center align-items-center">
         <img class="home-logo" src="/imgs/home-logo.jpg" alt="">
     </div>
 </template>
 <style>
-.content{
-    height: 90vh;
+
+.home-logo {
+    height: 100vh;
+    object-fit: cover;
+    border-radius: 0;
+    position: fixed;
+    top: 60px;
 }
-.home-logo{
-    min-width:300px;
-    max-width:700px;
-    border-radius: 50px;
-    box-shadow: var(--box-shadow);
+.bg-black{
+    background-color: #000;
 }
 </style>
 <script setup>

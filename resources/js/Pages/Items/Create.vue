@@ -28,6 +28,13 @@
                 </select>
             </div>
             <div class="mb-3">
+                <label for="company_id" class="form-label">الشركات</label>
+                <select v-model="itemForm.company_id" id="company_id" class="form-select">
+                    <option v-for="company in companies" :value="company.id">{{
+                        company.name }}</option>
+                </select>
+            </div>
+            <div class="mb-3">
                 <label for="price" class="form-label">السعر الأصلي</label>
                 <input type="number" class="form-control" id="price" v-model="itemForm.price">
                 <span v-if="errors.price" class="text-danger text-direction-rtl mt-1 mb-1">{{ errors.price }}</span>
@@ -56,7 +63,8 @@
             <div class="mb-3">
                 <label for="status" class="form-label">حالة المنتج</label>
                 <select v-model="itemForm.status" id="status" class="form-select">
-                    <option v-for="(status, key) in enums.item.status" :value="key" :selected="key == 'new'">{{ status }}</option>
+                    <option v-for="(status, key) in enums.item.status" :value="key" :selected="key == 'new'">{{ status }}
+                    </option>
                 </select>
                 <span v-if="errors.status" class="text-danger text-direction-rtl mt-1 mb-1">{{ errors.status }}</span>
             </div>
@@ -69,7 +77,7 @@ import Navbar from '../components/Navbar.vue';
 import Sidebar from '../components/Sidebar.vue';
 import { router } from '@inertiajs/vue3';
 import enums from '../../constants';
-defineProps({ errors: Object, catsTree: Object })
+defineProps({ errors: Object, catsTree: Object, companies: Object })
 
 let showSubCats = e => {
     let el = $(e.currentTarget).find(':selected');
@@ -86,6 +94,7 @@ let showSubCats = e => {
 let itemForm = {
     cat_id: '',
     sub_cat_id: '',
+    company_id: '',
     title: '',
     notes: '',
     price: '',

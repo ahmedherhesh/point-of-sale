@@ -7,6 +7,7 @@ use App\Http\Controllers\MasterController;
 use App\Http\Requests\ItemRequest;
 use App\Http\Resources\ItemsResource;
 use App\Models\Category;
+use App\Models\Company;
 use App\Models\Item;
 use Illuminate\Http\Request;
 
@@ -55,7 +56,8 @@ class ItemController extends MasterController
     public function create()
     {
         $catsTree = Category::tree();
-        return inertia('Items/Create', compact('catsTree'));
+        $companies = Company::get();
+        return inertia('Items/Create', compact('catsTree','companies'));
     }
 
     /**
