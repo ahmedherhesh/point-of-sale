@@ -31,6 +31,7 @@ defineProps({ errors: Object })
 import { router } from '@inertiajs/vue3';
 import Navbar from '../components/Navbar.vue';
 import Sidebar from '../components/Sidebar.vue';
+import { onMounted } from 'vue';
 
 let passwordForm = {
     oldPassword : '',
@@ -40,4 +41,8 @@ let passwordForm = {
 const changePassword = () => {
     router.post('/change-password',passwordForm)
 }
+
+onMounted(() => {
+    document.title = 'فاضل فون | ' + 'تغيير كلمة السر'
+})
 </script>
