@@ -89,7 +89,7 @@ let showSubCats = () => {
     }
 }
 
-let itemForm = reactive({
+let itemForm = {
     cat_id: props.item.cat_id,
     sub_cat_id: props.item.sub_cat_id,
     title: props.item.title,
@@ -100,9 +100,9 @@ let itemForm = reactive({
     image: '',
     code: props.item.code,
     status: props.item.status,
-})
+}
 const updateItem = () => {
-    router.put(`/items/${props.item.id}`, itemForm)
+    router.post(`/items/${props.item.id}`, itemForm)
 }
 onMounted(() => {
     showSubCats();
