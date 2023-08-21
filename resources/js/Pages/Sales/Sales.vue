@@ -2,6 +2,11 @@
     <Navbar />
     <Sidebar />
     <div class="content">
+        <div class="filter">
+            <div class="mb-3">
+                <input type="number" class="form-control" @input="getInvoice" min="0" placeholder="رقم الفاتورة">
+            </div>
+        </div>
         <div class="table-responsive shadow">
             <table class="table table-light table-hover table-bordered align-middle text-center m-auto">
                 <thead class="table-indigo">
@@ -17,12 +22,17 @@
                 <tbody id="tbody">
                     <tr v-for="(operation) in operations.data">
                         <td scope="row">{{ operation.id }}</td>
-                        <td scope="row"><a :href="'/invoices/' + operation.id">{{ operation.customer_name ?? '-----' }}</a> 
+                        <td scope="row">
+                            <Link :href="'/invoices/' + operation.id">{{ operation.customer_name ?? '-----' }}</Link>
                         </td>
-                        <td scope="col"><a :href="'/invoices/' + operation.id">{{ operation.customer_phone ?? '-----' }}</a> 
+                        <td scope="col">
+                            <Link :href="'/invoices/' + operation.id">{{ operation.customer_phone ?? '-----' }}</Link>
                         </td>
-                        <td scope="col"><a :href="'/invoices/' + operation.id">{{ operation.discount ?? 0 }}</a> </td>
-                        <td scope="col"><a :href="'/invoices/' + operation.id">{{ operation.created_at.split('T')[0] }}</a> 
+                        <td scope="col">
+                            <Link :href="'/invoices/' + operation.id">{{ operation.discount ?? 0 }}</Link>
+                        </td>
+                        <td scope="col">
+                            <Link :href="'/invoices/' + operation.id">{{ operation.created_at.split('T')[0] }}</Link>
                         </td>
                         <td scope="col">
                             <div class="d-flex justify-content-center gap-2">
@@ -49,7 +59,11 @@
 import Navbar from '../components/Navbar.vue';
 import Sidebar from '../components/Sidebar.vue';
 import { Link, router } from '@inertiajs/vue3';
+
 defineProps({ operations: Object })
+const getInvoice = e =>{
+    router.get(`/sales?invoice_id=${e.target.value}`)
+}
 let deleteOperation = e => {
     let el = e.currentTarget;
     if (confirm('هل انت متأكد من حذف هذه العملية'))

@@ -3,16 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SaleRequest;
-use App\Http\Resources\ItemsResource;
 use App\Http\Resources\OperationsResource;
 use App\Http\Resources\SalesResource;
-use App\Models\Category;
-use App\Models\Company;
 use App\Models\Item;
 use App\Models\Operation;
 use App\Models\Sale;
 use Illuminate\Http\Request;
-use PHPUnit\Framework\Constraint\Operator;
+use Milon\Barcode\DNS1D;
 
 class SaleController extends MasterController
 {
@@ -53,7 +50,7 @@ class SaleController extends MasterController
     function index(Request $request)
     {
         $operations = SalesResource::collection(Operation::paginate(50));
-        return inertia('Sales/Sales', ['operations' => $operations]);
+        return inertia('Sales/Sales', compact('operations'));
     }
     function pos()
     {
@@ -62,7 +59,8 @@ class SaleController extends MasterController
     function invoice(Operation $operation)
     {
         $invoice =  new OperationsResource($operation);
-        return inertia('Invoice', compact('invoice'));
+        $barcode = DNS1D::getBarcodeHTML($invoice->id, 'CODABAR', 1.2, 40) . $invoice->id;
+        return inertia('Invoice', compact('invoice', 'barcode'));
     }
     function store(SaleRequest $request)
     {

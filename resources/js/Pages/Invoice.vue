@@ -10,7 +10,7 @@
         </p>
         <div class="table-responsive">
             <table class="table table-light table-hover table-bordered align-middle text-center m-auto">
-                <thead class="table-indigo">
+                <thead class="">
                     <tr>
                         <th class="text-center" scope="row">المنتج</th>
                         <th class="text-center" scope="col">الكمية</th>
@@ -24,24 +24,26 @@
                         <td scope="col">{{ sale.item.title }}</td>
                         <td scope="col">{{ sale.qty }}</td>
                         <td scope="col">{{ sale.sale_price }}</td>
-                        <td scope="col" :data-calc="totalPrice += (sale.qty * sale.sale_price)">{{ sale.qty * sale.sale_price }}</td>
+                        <td scope="col" :data-total="totalPrice += (sale.qty * sale.sale_price)">{{ sale.qty * sale.sale_price }}</td>
                     </tr>
                 </tbody>
             </table>
             <span class="d-block span-border mt-4 mb-4"></span>
-            <div class="total-price">
-               <h4> الإجمالي : {{ totalPrice }}</h4>
+            <div class="total-price" :class="invoice.data.discount ? 'd-flex justify-content-between' : ''">
+                <h5> الإجمالي : {{ totalPrice - invoice.data.discount }}</h5>
+                <h5 v-if="invoice.data.discount"> الخصم : {{ invoice.data.discount }}</h5>
             </div>
+            <div class="barcode mt-5 d-flex flex-column align-items-end" v-html="barcode"></div>
         </div>
     </div>
 </template>
 <style>
 .invoice {
-    border: 5px solid var(--main-color);
-    min-height: 500px;
+    border: 5px solid gray;
+    /* min-height: 500px; */
     max-width: 500px;
     min-width: 400px;
-    margin: 60px auto 0;
+    margin: 50px auto 0;
     position: relative;
     padding: 20px;
     padding-top: 60px;
@@ -50,21 +52,20 @@
 .invoice .invoice-header {
     --width: calc(100% - 50px);
     position: absolute;
-    top: -50px;
+    top: -25px;
     left: calc(50% - (var(--width)/ 2));
-    background-color: var(--main-color);
-    height: 100px;
+    background-color: gray;
+    height: 50px;
     width: var(--width);
     color: #fff;
 }
 .span-border{
-    height: 2px;
-    background-color: var(--main-color);
-
+    height: 1px;
+    background-color: gray;
 }
 </style>
 <script setup>
 
-defineProps({ invoice: Object })
+defineProps({ invoice: Object,barcode:String })
 let totalPrice = 0
 </script>
