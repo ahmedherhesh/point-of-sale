@@ -57,7 +57,7 @@ class ItemController extends MasterController
     {
         $catsTree = Category::tree();
         $companies = Company::get();
-        return inertia('Items/Create', compact('catsTree','companies'));
+        return inertia('Items/Create', compact('catsTree', 'companies'));
     }
 
     /**
@@ -89,7 +89,8 @@ class ItemController extends MasterController
     public function edit(Item $item)
     {
         $catsTree = Category::tree();
-        return inertia('Items/Edit', compact('item', 'catsTree'));
+        $companies = Company::get();
+        return inertia('Items/Edit', compact('item', 'catsTree', 'companies'));
     }
 
     /**

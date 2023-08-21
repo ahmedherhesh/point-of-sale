@@ -36,6 +36,7 @@ Route::group(['middleware' => 'auth.web'], function () {
     Route::get('change-password', [AuthController::class, 'changePassword']);
     Route::post('change-password', [AuthController::class, '_changePassword']);
     Route::resource('sales', SaleController::class);
+    Route::get('invoices/{operation}',[SaleController::class,'invoice']);
     //super-admin,admin
     Route::group(['middleware' => 'roles:super-admin,admin'], function () {
         Route::resource('users', UserController::class);

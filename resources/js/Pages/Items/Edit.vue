@@ -29,6 +29,14 @@
                 </select>
             </div>
             <div class="mb-3">
+                <label for="company_id" class="form-label">الشركات</label>
+                <select v-model="itemForm.company_id" id="company_id" class="form-select">
+                    <option value=""></option>
+                    <option v-for="company in companies" :value="company.id" :selected="company.id == itemForm.company_id">{{
+                        company.name }}</option>
+                </select>
+            </div>
+            <div class="mb-3">
                 <label for="price" class="form-label">السعر الأصلي</label>
                 <input type="number" class="form-control" id="price" v-model="itemForm.price">
                 <span v-if="errors.price" class="text-danger text-direction-rtl mt-1 mb-1">{{ errors.price }}</span>
@@ -73,7 +81,7 @@ import { router, usePage } from '@inertiajs/vue3';
 import { onMounted, reactive } from 'vue';
 import enums from '../../constants';
 
-defineProps({ errors: Object, catsTree: Object, item: Object })
+defineProps({ errors: Object, catsTree: Object, item: Object, companies: Object })
 let props = usePage().props;
 
 let showSubCats = () => {
@@ -92,6 +100,7 @@ let showSubCats = () => {
 let itemForm = {
     cat_id: props.item.cat_id,
     sub_cat_id: props.item.sub_cat_id,
+    company_id: props.item.company_id,
     title: props.item.title,
     notes: props.item.notes,
     price: props.item.price,

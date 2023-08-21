@@ -1,5 +1,5 @@
 <template>
-    <NavBar />
+    <Navbar />
     <Sidebar />
     <div class="content">
         <div class="table-responsive shadow">
@@ -17,10 +17,13 @@
                 <tbody id="tbody">
                     <tr v-for="(operation) in operations.data">
                         <td scope="row">{{ operation.id }}</td>
-                        <td scope="row">{{ operation.customer_name  ?? '-----'}}</td>
-                        <td scope="col">{{ operation.customer_phone  ?? '-----'}}</td>
-                        <td scope="col">{{ operation.discount ?? 0}}</td>
-                        <td scope="col">{{ operation.created_at.split('T')[0] }}</td>
+                        <td scope="row"><a :href="'/invoices/' + operation.id">{{ operation.customer_name ?? '-----' }}</a> 
+                        </td>
+                        <td scope="col"><a :href="'/invoices/' + operation.id">{{ operation.customer_phone ?? '-----' }}</a> 
+                        </td>
+                        <td scope="col"><a :href="'/invoices/' + operation.id">{{ operation.discount ?? 0 }}</a> </td>
+                        <td scope="col"><a :href="'/invoices/' + operation.id">{{ operation.created_at.split('T')[0] }}</a> 
+                        </td>
                         <td scope="col">
                             <div class="d-flex justify-content-center gap-2">
                                 <Link :href="`/sales/${operation.id}/edit`" class="text-secondary btn p-0 edit-btn"><i
@@ -43,7 +46,7 @@
     </div>
 </template>
 <script setup>
-import NavBar from '../components/NavBar.vue';
+import Navbar from '../components/Navbar.vue';
 import Sidebar from '../components/Sidebar.vue';
 import { Link, router } from '@inertiajs/vue3';
 defineProps({ operations: Object })

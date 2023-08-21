@@ -59,6 +59,11 @@ class SaleController extends MasterController
     {
         return inertia('Sales/Create', $this->data);
     }
+    function invoice(Operation $operation)
+    {
+        $invoice =  new OperationsResource($operation);
+        return inertia('Invoice', compact('invoice'));
+    }
     function store(SaleRequest $request)
     {
         $data = $request->except('items');

@@ -16,7 +16,12 @@ class ProfitController extends Controller
         foreach ($operations as $operation) {
             $profits += $operation->sale_price - ($operation->price + $operation->discount);
         }
-        return $profits - $expenses;
+        return [
+            'profits' =>  $profits - $expenses,
+            'discounts' => $operations->sum('discount'),
+            'price' => $operations->sum('price'),
+            'sale_price' => $operations->sum('sale_price')
+        ];
     }
     /**
      * Handle the incoming request.
@@ -50,9 +55,11 @@ class ProfitController extends Controller
         }
         if (!$request->from && !$request->to)
             return response()->json([], 422);
-        return  [
+        $expenses = $expenses->sum('amount');
+        return  response()->json([
             'operations' => OperationsResource::collection($operations->latest()->paginate(50)),
-            'allProfits' => $this->profits($operations->get(), $expenses->sum('amount'))
-        ];
+            'allProfits' => $this->profits($operations->get(), $expenses),
+            'expenses'   => $expenses
+        ]);
     }
 }
