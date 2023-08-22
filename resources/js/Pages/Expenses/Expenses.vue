@@ -31,15 +31,14 @@
                 </tbody>
             </table>
         </div>
-        <div class="d-flex justify-content-around mt-2">
-            <Link v-if="expenses.links.next" class="ctm-btn p-1 rounded shadow" :href="expenses.links.next">الصفحة التالية</Link>
-            <Link v-if="expenses.links.prev" class="ctm-btn p-1 rounded shadow" :href="expenses.links.prev">الصفحة السابقة</Link>
-        </div>
+        <Pagination :links="expenses.links" />
+
     </div>
 </template>
 <script setup>
 import Navbar from '../components/Navbar.vue'
 import Sidebar from '../components/Sidebar.vue'
+import Pagination from '../components/Pagination.vue';
 import { Link, router } from '@inertiajs/vue3';
 defineProps({ expenses: Object })
 let deleteExpense = e => {

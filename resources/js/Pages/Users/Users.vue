@@ -22,7 +22,7 @@
                         <td>
                             <div class="d-flex justify-content-center gap-2">
                                 <Link :href="`/users/${user.id}/edit`" class="text-secondary btn p-0 edit-btn"><i
-                                        class="fa-solid fa-pen-to-square"></i></Link>
+                                    class="fa-solid fa-pen-to-square"></i></Link>
                                 <button class="text-secondary btn delete-btn p-0" @click="deleteUser"
                                     :data-userId="user.id"><i class="fa-solid fa-trash"></i></button>
                             </div>
@@ -31,15 +31,13 @@
                 </tbody>
             </table>
         </div>
-        <div class="d-flex justify-content-around mt-2">
-            <Link v-if="users.links.next" class="ctm-btn p-1 rounded shadow" :href="users.links.next">الصفحة التالية</Link>
-            <Link v-if="users.links.prev" class="ctm-btn p-1 rounded shadow" :href="users.links.prev">الصفحة السابقة</Link>
-        </div>
+        <Pagination :links="users.links" />
     </div>
 </template>
 <script setup>
 import Navbar from '../components/Navbar.vue'
 import Sidebar from '../components/Sidebar.vue'
+import Pagination from '../components/Pagination.vue';
 import { Link, router } from '@inertiajs/vue3';
 defineProps({ users: Object })
 let deleteUser = e => {

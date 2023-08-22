@@ -23,7 +23,7 @@ class ItemController extends MasterController
             if ($request->title)
                 $items->where('title', 'LIKE', "%$request->title%");
             if ($request->cat_id)
-                $items->whereCatId($request->cat_id);
+                $items->whereCatId($request->cat_id)->orWhere('sub_cat_id',$request->cat_id);
             if ($request->company_id)
                 $items->whereCompanyId($request->company_id);
         }

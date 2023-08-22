@@ -49,18 +49,18 @@ class SaleController extends MasterController
     }
     function index(Request $request)
     {
-        $operations = SalesResource::collection(Operation::paginate(50));
+        $request->validate(['invoice_id' => 'nullable|exists:operations,id']);
+        $operation = Operation::query();
+        if ($request->invoice_id)
+            $operation = $operation->whereId($request->invoice_id)->paginate(1);
+        else
+            $operation = $operation->paginate(50);
+        $operations = SalesResource::collection($operation);
         return inertia('Sales/Sales', compact('operations'));
     }
     function pos()
     {
         return inertia('Sales/Create', $this->data);
-    }
-    function invoice(Operation $operation)
-    {
-        $invoice =  new OperationsResource($operation);
-        $barcode = DNS1D::getBarcodeHTML($invoice->id, 'CODABAR', 1.2, 40) . $invoice->id;
-        return inertia('Invoice', compact('invoice', 'barcode'));
     }
     function store(SaleRequest $request)
     {
@@ -72,6 +72,13 @@ class SaleController extends MasterController
 
     function show($id)
     {
+        $operation = Operation::findOrFail($id);
+        $invoice =  new OperationsResource($operation);
+        $zeros = '';
+        if (strlen($invoice->id) < 3)
+            $zeros = '00';
+        $barcode = DNS1D::getBarcodeHTML($zeros . $invoice->id, 'CODABAR', 1.5, 40) . '#' . $zeros . '-' . $invoice->id;
+        return inertia('Invoice', compact('invoice', 'barcode'));
     }
 
     function edit($id)

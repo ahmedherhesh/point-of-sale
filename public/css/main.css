@@ -151,3 +151,12 @@ a:hover {
 .svg-light{
     fill:#fff
 }
+
+@media print{
+    .navbar,.sidebar,.ctm-pagination{
+        display: none !important;
+    }
+    .content{
+        width: 100% !important;
+    }
+}

@@ -4,7 +4,10 @@
     <div class="content">
         <div class="filter">
             <div class="mb-3">
-                <input type="number" class="form-control" @input="getInvoice" min="0" placeholder="رقم الفاتورة">
+                <form @submit.prevent="getInvoice">
+                    <input type="number" class="form-control" min="0" v-model="invoice_id" placeholder="رقم الفاتورة">
+                    <button class="d-none">بحث</button>
+                </form>
             </div>
         </div>
         <div class="table-responsive shadow">
@@ -23,16 +26,16 @@
                     <tr v-for="(operation) in operations.data">
                         <td scope="row">{{ operation.id }}</td>
                         <td scope="row">
-                            <Link :href="'/invoices/' + operation.id">{{ operation.customer_name ?? '-----' }}</Link>
+                            <Link :href="'/sales/' + operation.id">{{ operation.customer_name ?? '-----' }}</Link>
                         </td>
                         <td scope="col">
-                            <Link :href="'/invoices/' + operation.id">{{ operation.customer_phone ?? '-----' }}</Link>
+                            <Link :href="'/sales/' + operation.id">{{ operation.customer_phone ?? '-----' }}</Link>
                         </td>
                         <td scope="col">
-                            <Link :href="'/invoices/' + operation.id">{{ operation.discount ?? 0 }}</Link>
+                            <Link :href="'/sales/' + operation.id">{{ operation.discount ?? 0 }}</Link>
                         </td>
                         <td scope="col">
-                            <Link :href="'/invoices/' + operation.id">{{ operation.created_at.split('T')[0] }}</Link>
+                            <Link :href="'/sales/' + operation.id">{{ operation.created_at.split('T')[0] }}</Link>
                         </td>
                         <td scope="col">
                             <div class="d-flex justify-content-center gap-2">
@@ -47,22 +50,21 @@
                 </tbody>
             </table>
         </div>
-        <div class="d-flex justify-content-around mt-2">
-            <Link v-if="operations.links.next" class="ctm-btn p-1 rounded shadow" :href="operations.links.next">الصفحة
-            التالية</Link>
-            <Link v-if="operations.links.prev" class="ctm-btn p-1 rounded shadow" :href="operations.links.prev">الصفحة
-            السابقة</Link>
-        </div>
+        <Pagination :links="operations.links" />
+
     </div>
 </template>
 <script setup>
 import Navbar from '../components/Navbar.vue';
 import Sidebar from '../components/Sidebar.vue';
+import Pagination from '../components/Pagination.vue';
 import { Link, router } from '@inertiajs/vue3';
 
 defineProps({ operations: Object })
-const getInvoice = e =>{
-    router.get(`/sales?invoice_id=${e.target.value}`)
+let invoice_id;
+const getInvoice = e => {
+    router.get(`/sales?invoice_id=${invoice_id}`)
+    console.log(e);
 }
 let deleteOperation = e => {
     let el = e.currentTarget;

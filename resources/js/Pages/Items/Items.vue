@@ -38,10 +38,8 @@
                 </tbody>
             </table>
         </div>
-        <div class="d-flex justify-content-around mt-2">
-            <Link v-if="items.links.next" class="ctm-btn p-1 rounded shadow" :href="items.links.next">الصفحة التالية</Link>
-            <Link v-if="items.links.prev" class="ctm-btn p-1 rounded shadow" :href="items.links.prev">الصفحة السابقة</Link>
-        </div>
+        <Pagination :links="items.links" />
+
     </div>
 </template>
 <style>
@@ -56,6 +54,7 @@
 import Navbar from '../components/Navbar.vue';
 import Sidebar from '../components/Sidebar.vue';
 import ItemsFilter from '../components/ItemsFilter.vue';
+import Pagination from '../components/Pagination.vue';
 import { Link, router } from '@inertiajs/vue3';
 defineProps({ errors: Object, items: Object, categories: Object, companies: Object })
 let deleteItem = e => {
