@@ -33,12 +33,31 @@
             </h5>
         </div>
         <div class="cart-controller d-flex justify-content-center align-items-center gap-2">
-            <button class="btn ctm-btn" @click="sale">{{ operation ? 'حفظ' : 'بيع' }}</button>
+            <button class="btn ctm-btn" @click="sale" :data-title="operation ? 'حفظ' : 'بيع'">{{ operation ? 'حفظ' : 'بيع'
+            }}</button>
             <button class="btn btn-danger" @click="cancel">إلغاء</button>
         </div>
     </div>
+    <div class="outlay" id="outlay">
+        <Link :href="`/sales/${invoice_data.invoice_id}`" class="print_invoice btn btn-indigo">طباعة</Link>
+        <a class="cancel_print btn btn-danger" @click="cancelPrint">إلغاء</a>
+    </div>
 </template>
 <style>
+.outlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    background-color: rgb(0, 0, 0, .7);
+    z-index: 10000;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
 .cart-items {
     min-height: 200px;
     max-height: 300px;
@@ -73,15 +92,16 @@
 </style>
 <script setup>
 defineProps({ operation: Object })
-import { router, useForm } from '@inertiajs/vue3';
 import { totalPrice, saleForm, cartEls } from '../../main';
-import { usePage } from '@inertiajs/vue3';
-import { onMounted,ref } from 'vue';
+import { usePage, Link } from '@inertiajs/vue3';
+import { onMounted, reactive } from 'vue';
+import axios from 'axios';
 let props = usePage().props;
+let invoice_data = reactive({ invoice_id: 0 });
 onMounted(() => {
     cancel();
     if (props.operation) {
-        let {customer_name,customer_phone,discount,sales} = props.operation.data
+        let { customer_name, customer_phone, discount, sales } = props.operation.data
         saleForm.customer_name = customer_name;
         saleForm.customer_phone = customer_phone;
         saleForm.discount = discount || '';
@@ -121,6 +141,7 @@ const qtyController = (el, operator) => {
 }
 
 const sale = e => {
+    let btn = e.target;
     saleForm.items = []
     let cartItems = document.querySelectorAll('.cart-item');
     cartItems.forEach(el => {
@@ -129,13 +150,27 @@ const sale = e => {
         saleForm.items.push({ id, qty })
     })
     saleForm.discount = saleForm.discount || 0
-    if (props.operation) {
-        console.log(props.operation.data);
-        router.put(`/sales/${props.operation.data.id}`, saleForm);
-    }
-    else {
-        useForm(saleForm).post('/sale');
-        cancel();
+    if (saleForm.items.length && ['حفظ', 'بيع'].includes(btn.innerText)) {
+        btn.innerHTML = `<i class="fa-solid fa-spinner spinner"></i>`
+        if (props.operation) {
+            axios.put(`/sales/${props.operation.data.id}`, saleForm).then(res => {
+                if (res.status == 200) {
+                    outlay.style.display = 'flex'
+                    invoice_data.invoice_id = res.data.invoice_id
+                }
+                btn.innerHTML = btn.getAttribute('data-title');
+            });
+        }
+        else {
+            axios.post('/sale', saleForm).then(res => {
+                if (res.status == 200) {
+                    outlay.style.display = 'flex'
+                    invoice_data.invoice_id = res.data.invoice_id
+                }
+                btn.innerHTML = btn.getAttribute('data-title');
+            });
+            cancel();
+        }
     }
 }
 
@@ -154,7 +189,9 @@ const cancel = e => {
     saleForm.customer_phone = ''
     saleForm.discount = ''
 }
-
+const cancelPrint = () => {
+    outlay.style.display = 'none'
+}
 document.onclick = e => {
     let el = e.target;
     if (el.classList.contains('increment-btn')) {

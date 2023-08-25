@@ -1,5 +1,14 @@
 import { reactive } from "vue";
-
+function getParams() {
+    let params = window.location.search.replace("?", "");
+    let paramsObj = {};
+    params = params.split("&");
+    params.forEach((element) => {
+        let el = element.split("=");
+        paramsObj[el[0]] = el[1];
+    });
+    return paramsObj;
+}
 let saleForm = reactive({
     discount: '',
     customer_name: '',
@@ -14,4 +23,4 @@ const totalPrice = () => {
     })
     $('#finalPrice').text(result - (parseFloat(saleForm.discount) || 0));
 };
-export { totalPrice, saleForm ,cartEls};
+export { totalPrice, getParams, saleForm, cartEls };

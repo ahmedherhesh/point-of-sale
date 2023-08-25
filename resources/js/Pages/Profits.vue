@@ -88,12 +88,8 @@
                 </tbody>
             </table>
         </div>
-        <div class="d-flex justify-content-around mt-2">
-            <Link v-if="operations.links.next" class="ctm-btn p-1 rounded shadow" :href="operations.links.next">الصفحة
-            التالية</Link>
-            <Link v-if="operations.links.prev" class="ctm-btn p-1 rounded shadow" :href="operations.links.prev">الصفحة
-            السابقة</Link>
-        </div>
+        <Pagination :links="operations.links" />
+
     </div>
 </template>
 <style>
@@ -150,8 +146,10 @@
 import axios from 'axios';
 import Navbar from './components/Navbar.vue';
 import Sidebar from './components/Sidebar.vue';
-import { Link, usePage } from '@inertiajs/vue3';
+import { Link, usePage, router } from '@inertiajs/vue3';
 import { onMounted, reactive } from 'vue';
+import Pagination from './components/Pagination.vue';
+
 
 defineProps({
     allProfits: Object,
@@ -162,26 +160,15 @@ defineProps({
     yearProfits: Object,
     operations: Object
 })
-let props = usePage().props;
+onMounted(() => {
+    console.log(window.location.search);
+})
 let dateForm = reactive({
     from: '',
     to: ''
 })
-let loading = false;
 const profitsFilter = () => {
-    if (loading == false && (dateForm.from || dateForm.to)) {
-        loading = true;
-        submitBtn.innerHTML = `<i class="fa-solid fa-spinner spinner"></i>`
-        axios.post('/profits-filter', dateForm).then(res => {
-            loading = false;
-            submitBtn.innerHTML = `بحث`
-            props.allProfits = res.data.allProfits
-            props.operations.data = res.data.operations
-            props.expenses = res.data.expenses
-        }).catch(err => {
-            loading = false;
-            submitBtn.innerHTML = `بحث`
-        })
-    }
+    if (dateForm.from || dateForm.to)
+        router.get(`/profits/?from=${dateForm.from || ''}&to=${dateForm.to || ''}`)
 }
 </script>

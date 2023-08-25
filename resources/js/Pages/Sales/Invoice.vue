@@ -65,7 +65,10 @@
 }
 </style>
 <script setup>
-
+import {onMounted} from 'vue'
 defineProps({ invoice: Object,barcode:String })
 let totalPrice = 0
+onMounted(() => {
+    print()
+})
 </script>

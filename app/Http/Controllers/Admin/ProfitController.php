@@ -30,15 +30,23 @@ class ProfitController extends Controller
     {
 
         $operations = Operation::query();
-        $expenses = Expense::sum('amount');
+        $expenses = Expense::query();
+        if ($request->from) {
+            $operations = $operations->whereDate('created_at', '>=', $request->from);
+            $expenses = $expenses->whereDate('created_at', '>=', $request->from);
+        }
+        if ($request->to) {
+            $operations = $operations->whereDate('created_at', '<=', $request->to);
+            $expenses = $expenses->whereDate('created_at', '<=', $request->to);
+        }
         //profits
-        $allProfits = $this->profits($operations->get(), $expenses);
+        $allProfits = $this->profits($operations->get(), $expenses->sum('amount'));
         $monthProfits = $this->profits($operations->whereMonth('created_at', date('m'))->get(), Expense::whereMonth('created_at', date('m'))->sum('amount'));
         $threeMonthProfits = $this->profits($operations->whereMonth('created_at', '>', date('m', strtotime('-3months')))->get(), Expense::whereMonth('created_at', '>', date('m', strtotime('-3months')))->sum('amount'));
         $sixMonthProfits = $this->profits($operations->whereMonth('created_at', '>', date('m', strtotime('-6months')))->get(), Expense::whereMonth('created_at', '>', date('m', strtotime('-6months')))->sum('amount'));
         $yearProfits = $this->profits($operations->whereYear('created_at', date('Y'))->get(), Expense::whereYear('created_at', date('Y'))->sum('amount'));
-        $operations = OperationsResource::collection($operations->latest()->paginate(50));
-
+        $operations = OperationsResource::collection($operations->latest()->paginate(20));
+        $expenses = $expenses->sum('amount');
         return inertia('Profits', compact('allProfits', 'expenses', 'monthProfits', 'threeMonthProfits', 'sixMonthProfits', 'yearProfits', 'operations'));
     }
     function profitsFilter(Request $request)

@@ -13,9 +13,8 @@ use Illuminate\Http\Request;
 
 class ItemController extends MasterController
 {
-    function itemsFilter(Request $request)
+    function itemsWithFilter($request)
     {
-        $request->validate(['code' => 'nullable|exists:items,code']);
         $items = Item::query();
         if ($request->code) {
             $items->whereCode($request->code);
@@ -23,22 +22,29 @@ class ItemController extends MasterController
             if ($request->title)
                 $items->where('title', 'LIKE', "%$request->title%");
             if ($request->cat_id)
-                $items->whereCatId($request->cat_id)->orWhere('sub_cat_id',$request->cat_id);
+                $items->whereCatId($request->cat_id)->orWhere('sub_cat_id', $request->cat_id);
             if ($request->company_id)
                 $items->whereCompanyId($request->company_id);
         }
-        if ($request->inStock)
+        if ($request->inStock || (!$request->inStock && !$request->notInStock))
             $items->inStock();
         if ($request->notInStock)
             $items->notInStock();
-        $items = $items->latest()->paginate(100);
+
+        return $items;
+    }
+    function itemsFilter(Request $request)
+    {
+        $request->validate(['code' => 'nullable|exists:items,code']);
+        $items = $this->itemsWithFilter($request)->latest()->paginate(100);
         return ItemsResource::collection($items);
     }
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $this->data['items'] = ItemsResource::collection($this->itemsWithFilter($request)->latest()->paginate(100));
         return inertia('Items/Items', $this->data);
     }
 

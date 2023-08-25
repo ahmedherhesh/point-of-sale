@@ -67,7 +67,9 @@ class SaleController extends MasterController
         $data = $request->except('items');
         $data['user_id'] = $this->user()->id;
         $new_operation = Operation::create($data);
-        $this->makeSale($request, $new_operation);
+        $makeSale = $this->makeSale($request, $new_operation);
+        if ($makeSale)
+            return response()->json(['invoice_id'  => $new_operation->id]);
     }
 
     function show($id)
@@ -78,7 +80,7 @@ class SaleController extends MasterController
         if (strlen($invoice->id) < 3)
             $zeros = '00';
         $barcode = DNS1D::getBarcodeHTML($zeros . $invoice->id, 'CODABAR', 1.5, 40) . '#' . $zeros . '-' . $invoice->id;
-        return inertia('Invoice', compact('invoice', 'barcode'));
+        return inertia('Sales/Invoice', compact('invoice', 'barcode'));
     }
 
     function edit($id)
@@ -93,8 +95,9 @@ class SaleController extends MasterController
         $data = $request->except('items');
         $this->destroySale($operation);
         $operation->update($data);
-        $this->makeSale($request, $operation);
-        return redirect()->back();
+        $makeSale = $this->makeSale($request, $operation);
+        if ($makeSale)
+            return response()->json(['invoice_id'  => $operation->id]);
     }
 
     function destroy(Operation $operation)
