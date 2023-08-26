@@ -47,6 +47,7 @@
     position: relative;
     padding: 20px;
     padding-top: 60px;
+    scale: .5;
 }
 
 .invoice .invoice-header {
