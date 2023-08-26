@@ -19,7 +19,7 @@
                         <th class="text-center" scope="col">رقم المحمول</th>
                         <th class="text-center" scope="col">الخصم</th>
                         <th class="text-center" scope="col">تاريخ العملية</th>
-                        <th class="text-center" scope="col">تعديل</th>
+                        <th class="text-center btns-controller" scope="col">تعديل</th>
                     </tr>
                 </thead>
                 <tbody id="tbody">
@@ -38,7 +38,7 @@
                             <Link :href="'/sales/' + operation.id">{{ operation.created_at.split('T')[0] }}</Link>
                         </td>
                         <td scope="col">
-                            <div class="d-flex justify-content-center gap-2">
+                            <div class="d-flex justify-content-center gap-2 btns-controller">
                                 <Link :href="`/sales/${operation.id}/edit`" class="text-secondary btn p-0 edit-btn"><i
                                     class="fa-solid fa-pen-to-square"></i></Link>
                                 <button @click="deleteOperation" class="text-secondary btn delete-btn p-0"

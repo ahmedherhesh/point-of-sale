@@ -153,7 +153,7 @@ a:hover {
 }
 
 @media print{
-    .navbar,.sidebar,.ctm-pagination{
+    .navbar,.sidebar,.ctm-pagination,.btns-controller,.items-filter{
         display: none !important;
     }
     .content{

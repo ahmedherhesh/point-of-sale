@@ -1,5 +1,5 @@
 <template>
-    <div class="filter row justify-content-center w-100">
+    <div class="filter row justify-content-center w-100 items-filter">
         <div class="col-lg-3 col-md-6 col-sm-12 mb-2">
             <input type="number" min="0" class="form-control"
                 :class="errors.code && filterForm.code.trim() ? 'border-danger' : ''" placeholder="بحث بالكود"

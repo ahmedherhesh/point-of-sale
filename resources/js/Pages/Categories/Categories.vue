@@ -9,7 +9,7 @@
                         <th>#</th>
                         <th>الإسم</th>
                         <th>نوع القسم</th>
-                        <th>تعديل</th>
+                        <th class="btns-controller">تعديل</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -17,7 +17,7 @@
                         <td>{{ i + 1 }}</td>
                         <td> <Link :href="`/categories/${category.id}`">{{ category.name }}</Link></td>
                         <td>{{ category.parent_id ? 'فرعي' : 'رئيسي' }}</td>
-                        <td>
+                        <td class="btns-controller">
                             <div class="d-flex justify-content-center gap-2">
                                 <Link :href="`/categories/${category.id}/edit`" class="text-secondary btn p-0 edit-btn"><i
                                         class="fa-solid fa-pen-to-square"></i></Link>

@@ -23,7 +23,7 @@ const toggleSidebar = () => {
     }
     else {
         sidebar.css({ right: '0px' });
-        content.css('width',`calc(100% - 255px)`)
+        content.css('width', `calc(100% - 255px)`)
     }
 }
 $('body').on('click', '.menu-btn', function () {
@@ -35,7 +35,7 @@ $('body').on('click', '.menu-btn', function () {
     }
     else {
         sidebar.css({ right: '0px' });
-        content.css('width',`calc(100% - 255px)`)
+        content.css('width', `calc(100% - 255px)`)
     }
 })
 
@@ -57,3 +57,11 @@ $(document).on('click', function (e) {
     }
 })
 
+//before print
+window.onbeforeprint = function () {
+
+}
+//after print
+window.onafterprint = function () {
+    
+}

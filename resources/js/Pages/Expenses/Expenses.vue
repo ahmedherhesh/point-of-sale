@@ -10,7 +10,7 @@
                         <th>العنوان</th>
                         <th>المبلغ</th>
                         <th>التاريخ</th>
-                        <th>تعديل</th>
+                        <th class="btns-controller">تعديل</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -19,7 +19,7 @@
                         <td>{{ expense.title }}</td>
                         <td>{{ expense.amount }}</td>
                         <td>{{ expense.created_at.split('T')[0] }}</td>
-                        <td>
+                        <td class="btns-controller">
                             <div class="d-flex justify-content-center gap-2">
                                 <Link :href="`/expenses/${expense.id}/edit`" class="text-secondary btn p-0 edit-btn"><i
                                         class="fa-solid fa-pen-to-square"></i></Link>

@@ -141,6 +141,11 @@
         transform: rotate(360000000deg);
     }
 }
+@media print{
+    .profit-sections,.profits-calc{
+        display: none !important;
+    }
+}
 </style>
 <script setup>
 import axios from 'axios';

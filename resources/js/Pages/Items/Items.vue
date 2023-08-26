@@ -14,7 +14,7 @@
                         <th class="text-center" scope="col">سعر البيع</th>
                         <th class="text-center" scope="col">البار كود</th>
                         <th class="text-center" scope="col">صورة المنتج</th>
-                        <th class="text-center" scope="col">تعديل</th>
+                        <th class="text-center btns-controller" scope="col">تعديل</th>
                     </tr>
                 </thead>
                 <tbody id="tbody">
@@ -26,7 +26,7 @@
                         <td scope="col">{{ item.sale_price }}</td>
                         <td class="d-flex align-items-center  flex-column" scope="col" v-html="item.barcode"></td>
                         <td scope="col"><img class="item-img" :src="item.image" alt=""></td>
-                        <td scope="col">
+                        <td scope="col" class="btns-controller">
                             <div class="d-flex justify-content-center gap-2">
                                 <Link :href="`/items/${item.id}/edit`" class="text-secondary btn p-0 edit-btn"><i
                                     class="fa-solid fa-pen-to-square"></i></Link>
