@@ -1,14 +1,14 @@
 <template>
     <div class="sidebar d-flex flex-column flex-shrink-0 p-3 bg-light shadow h-full" style="width: 255px">
         <ul class="nav nav-pills flex-column mb-auto">
-            <li>
+            <!-- <li>
                 <Link href="/" class="nav-link link-dark ">
                 <img src="/imgs/store.svg" alt="">
                 الصفحة الرئيسية
                 </Link>
-            </li>
+            </li> -->
             <li>
-                <Link href="/pos" class="nav-link link-dark ">
+                <Link href="/" class="nav-link link-dark ">
                 <img src="/imgs/library_add.svg" alt="">
                 نقطة بيع
                 </Link>

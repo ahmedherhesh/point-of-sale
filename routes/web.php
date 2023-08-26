@@ -29,8 +29,8 @@ Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::group(['middleware' => 'auth.web'], function () {
 
-    Route::inertia('/', 'Home')->name('home');
-    Route::get('/pos', [SaleController::class, 'pos'])->name('pos');
+    // Route::inertia('/', 'Home')->name('home');
+    Route::get('/', [SaleController::class, 'pos'])->name('pos');
     Route::post('items-filter', [ItemController::class, 'itemsFilter']);
     Route::post('sale', [SaleController::class, 'store'])->name('sale');
     Route::get('change-password', [AuthController::class, 'changePassword']);

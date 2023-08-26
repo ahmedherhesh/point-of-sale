@@ -2,11 +2,11 @@
     <nav class="navbar navbar-expand-lg bg-white shadow">
         <div class="container">
             <div class="d-flex justify-content-between w-100">
-                <div>
-                    <span class="menu-btn m-3"><img src="/imgs/menu.svg" alt="" width="30"></span>
+                <div class="d-flex align-items-center">
                     <!-- <img src="/imgs/logo-80.png" width="45"> -->
-                    <Link class="navbar-brand" href="/">فاضل فون</Link>
+                    <span class="menu-btn m-3"><img src="/imgs/menu.svg" alt="" width="30"></span>
                 </div>
+                <Link class="navbar-brand" href="/">فاضل فون</Link>
                 <div class="d-flex align-items-center">
                     <div class="dropdown">
                         <span class="rounded dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><img src="/imgs/library_add.svg" alt="" width="45"></span>
@@ -39,6 +39,12 @@
     right: 0;
     width: 100%;
     z-index: 1000;
+}
+.navbar-brand{
+    font-size: 1.75rem;
+}
+.navbar-brand:hover{
+    color:var(--main-color)
 }
 .menu-btn{
     cursor: pointer;

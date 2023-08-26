@@ -20,8 +20,11 @@ class AuthController extends MasterController
         $user = $request->only('username', 'password');
         $user = auth()->attempt($user);
         if ($user) {
-            $request->session()->put('user', auth()->user());
-            return redirect('/');
+            $user = auth()->user();
+            if ($user->status == 'active') {
+                $request->session()->put('user', $user);
+                return redirect('/');
+            }
         }
         return redirect()->back()->with('failed', 'إسم المستخدم أو كلمة السر غير صحيحة');
     }

@@ -1,10 +1,12 @@
 @import url(cairo_font.css);
 
 :root {
-    /* --main-color: #34495e; */
-    --main-color: rgb(99 102 241);
+    /* --main-color: rgb(99 102 241);
     --hover-color: #4f46e5;
-    --border-color: #4f46e5;
+    --border-color: #4f46e5; */
+    --main-color:#31beab;
+    --hover-color:var(--main-color);
+    --border-color:var(--main-color);
     --box-shadow: 0 5px 20px rgba(173, 181, 189, .2);
     --secondary-color: #6c757d;
     --shadow-color: #ccc;
