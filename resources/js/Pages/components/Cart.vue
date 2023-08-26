@@ -38,8 +38,8 @@
             <button class="btn btn-danger" @click="cancel">إلغاء</button>
         </div>
     </div>
-    <div class="outlay" id="outlay">
-        <Link :href="`/sales/${invoice_data.invoice_id}`" class="print_invoice btn btn-indigo">طباعة</Link>
+    <div v-if="$page.props.flash.operation_id" class="outlay" id="outlay">
+        <Link :href="`/sales/${$page.props.flash.operation_id}`" class="print_invoice btn btn-indigo">طباعة</Link>
         <a class="cancel_print btn btn-danger" @click="cancelPrint">إلغاء</a>
     </div>
 </template>
@@ -52,7 +52,7 @@
     width: 100%;
     background-color: rgb(0, 0, 0, .7);
     z-index: 10000;
-    display: none;
+    display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
@@ -93,7 +93,7 @@
 <script setup>
 defineProps({ operation: Object })
 import { totalPrice, saleForm, cartEls } from '../../main';
-import { usePage, Link } from '@inertiajs/vue3';
+import { usePage, Link, useForm, router } from '@inertiajs/vue3';
 import { onMounted, reactive } from 'vue';
 import axios from 'axios';
 let props = usePage().props;
@@ -150,25 +150,12 @@ const sale = e => {
         saleForm.items.push({ id, qty })
     })
     saleForm.discount = saleForm.discount || 0
-    if (saleForm.items.length && ['حفظ', 'بيع'].includes(btn.innerText)) {
-        btn.innerHTML = `<i class="fa-solid fa-spinner spinner"></i>`
+    if (saleForm.items.length) {
         if (props.operation) {
-            axios.put(`/sales/${props.operation.data.id}`, saleForm).then(res => {
-                if (res.status == 200) {
-                    outlay.style.display = 'flex'
-                    invoice_data.invoice_id = res.data.invoice_id
-                }
-                btn.innerHTML = btn.getAttribute('data-title');
-            });
+            router.put(`/sales/${props.operation.data.id}`, saleForm)
         }
         else {
-            axios.post('/sale', saleForm).then(res => {
-                if (res.status == 200) {
-                    outlay.style.display = 'flex'
-                    invoice_data.invoice_id = res.data.invoice_id
-                }
-                btn.innerHTML = btn.getAttribute('data-title');
-            });
+            useForm(saleForm).post('/sale')
             cancel();
         }
     }
@@ -191,6 +178,7 @@ const cancel = e => {
 }
 const cancelPrint = () => {
     outlay.style.display = 'none'
+    location.reload();
 }
 document.onclick = e => {
     let el = e.target;

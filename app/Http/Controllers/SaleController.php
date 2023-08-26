@@ -69,7 +69,7 @@ class SaleController extends MasterController
         $new_operation = Operation::create($data);
         $makeSale = $this->makeSale($request, $new_operation);
         if ($makeSale)
-            return response()->json(['invoice_id'  => $new_operation->id]);
+            return redirect()->back()->with('operation_id', $new_operation->id);
     }
 
     function show($id)
@@ -97,7 +97,7 @@ class SaleController extends MasterController
         $operation->update($data);
         $makeSale = $this->makeSale($request, $operation);
         if ($makeSale)
-            return response()->json(['invoice_id'  => $operation->id]);
+            return redirect()->back()->with('operation_id', $operation->id);
     }
 
     function destroy(Operation $operation)
