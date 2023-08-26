@@ -177,8 +177,7 @@ const cancel = e => {
     saleForm.discount = ''
 }
 const cancelPrint = () => {
-    outlay.style.display = 'none'
-    location.reload();
+    router.get('/pos')
 }
 document.onclick = e => {
     let el = e.target;
