@@ -2,7 +2,7 @@
     <div class="filter row justify-content-center w-100 items-filter">
         <div class="col-lg-3 col-md-6 col-sm-12 mb-2">
             <input type="number" min="0" class="form-control"
-                :class="errors.code && filterForm.code.trim() ? 'border-danger' : ''" placeholder="بحث بالكود"
+                :class="errors.code && filterForm.code ? 'border-danger' : ''" placeholder="بحث بالكود"
                 v-model="filterForm.code" @input="itemsFilter">
         </div>
         <div class="col-lg-3 col-md-6 col-sm-12 mb-2">
@@ -44,7 +44,7 @@ onMounted(() => {
     filterForm.company_id = params.company_id || ''
     filterForm.cat_id = params.cat_id || ''
     filterForm.code = params.code || ''
-    if (window.location.pathname.includes('pos'))
+    if (window.location.pathname == '/')
         searchBtn.remove()
 
 })
@@ -52,7 +52,7 @@ const itemsFilter = e => {
     let page = usePage();
     let pathname = window.location.pathname;
     pathname.includes('not-in-stock') ? filterForm['notInStock'] = true : filterForm['inStock'] = true
-    if (pathname.includes('pos')) {
+    if (pathname == '/') {
         axios.post('/items-filter', filterForm)
             .then(res => {
                 page.props.items = res.data
