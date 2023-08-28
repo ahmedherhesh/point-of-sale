@@ -40,7 +40,7 @@ let filterForm = reactive({
 });
 onMounted(() => {
     let params = getParams();
-    filterForm.title = params.title || ''
+    // filterForm.title = params.title || ''
     filterForm.company_id = params.company_id || ''
     filterForm.cat_id = params.cat_id || ''
     filterForm.code = params.code || ''
@@ -61,7 +61,10 @@ const itemsFilter = e => {
             })
     } else if (e.currentTarget.classList.contains('search-btn')) {
         let params = JSON.stringify(filterForm).replaceAll('"', '').replaceAll(',', '&').replaceAll(':', '=').replace('{', '').replace('}', '')
-        router.get(`/items?${params}`)
+        if (pathname.includes('barcode'))
+            router.get(`/barcode?${params}`)
+        else
+            router.get(`/items?${params}`)
     }
 }
 

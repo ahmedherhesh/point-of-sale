@@ -55,11 +55,11 @@
                 <input type="file" class="form-control" id="image" @input="itemForm.image = $event.target.files[0]">
                 <span v-if="errors.image" class="text-danger text-direction-rtl mt-1 mb-1">{{ errors.image }}</span>
             </div>
-            <div class="mb-3">
+            <!-- <div class="mb-3">
                 <label for="code" class="form-label">كود المنتج</label>
                 <input type="number" class="form-control" id="code" v-model="itemForm.code">
                 <span v-if="errors.code" class="text-danger text-direction-rtl mt-1 mb-1">{{ errors.code }}</span>
-            </div>
+            </div> -->
             <div class="mb-3">
                 <label for="status" class="form-label">حالة المنتج</label>
                 <select v-model="itemForm.status" id="status" class="form-select">

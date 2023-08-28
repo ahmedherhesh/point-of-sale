@@ -88,6 +88,7 @@
                 </tbody>
             </table>
         </div>
+        <PrintButton />
         <Pagination :links="operations.links" />
 
     </div>
@@ -141,19 +142,22 @@
         transform: rotate(360000000deg);
     }
 }
-@media print{
-    .profit-sections,.profits-calc{
+
+@media print {
+
+    .profit-sections,
+    .profits-calc {
         display: none !important;
     }
 }
 </style>
 <script setup>
-import axios from 'axios';
 import Navbar from './components/Navbar.vue';
 import Sidebar from './components/Sidebar.vue';
 import { Link, usePage, router } from '@inertiajs/vue3';
 import { onMounted, reactive } from 'vue';
 import Pagination from './components/Pagination.vue';
+import PrintButton from './components/PrintButton.vue';
 
 
 defineProps({

@@ -23,7 +23,7 @@ return new class extends Migration
             $table->double('sale_price');
             $table->double('stock')->nullable();
             $table->string('image')->nullable();
-            $table->string('code');
+            $table->bigInteger('code')->nullable();
             $table->enum('status', ['new', 'used', 'expired']);
             $table->softDeletes();
             $table->timestamps();

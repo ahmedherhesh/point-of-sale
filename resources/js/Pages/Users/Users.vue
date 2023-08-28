@@ -31,6 +31,7 @@
                 </tbody>
             </table>
         </div>
+        <PrintButton />
         <Pagination :links="users.links" />
     </div>
 </template>
@@ -39,6 +40,7 @@ import Navbar from '../components/Navbar.vue'
 import Sidebar from '../components/Sidebar.vue'
 import Pagination from '../components/Pagination.vue';
 import { Link, router } from '@inertiajs/vue3';
+import PrintButton from '../components/PrintButton.vue';
 defineProps({ users: Object })
 let deleteUser = e => {
     let el = e.currentTarget;

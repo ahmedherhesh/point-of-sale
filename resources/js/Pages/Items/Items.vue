@@ -38,6 +38,7 @@
                 </tbody>
             </table>
         </div>
+        <PrintButton />
         <Pagination :links="items.links" />
 
     </div>
@@ -56,6 +57,7 @@ import Sidebar from '../components/Sidebar.vue';
 import ItemsFilter from '../components/ItemsFilter.vue';
 import Pagination from '../components/Pagination.vue';
 import { Link, router } from '@inertiajs/vue3';
+import PrintButton from '../components/PrintButton.vue';
 defineProps({ errors: Object, items: Object, categories: Object, companies: Object })
 let deleteItem = e => {
     let el = e.currentTarget;

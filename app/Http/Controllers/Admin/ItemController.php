@@ -39,6 +39,11 @@ class ItemController extends MasterController
         $items = $this->itemsWithFilter($request)->latest()->paginate(100);
         return ItemsResource::collection($items);
     }
+    function barcode(Request $request)
+    {
+        $this->data['items'] = ItemsResource::collection($this->itemsWithFilter($request)->latest()->paginate(100));
+        return inertia('Items/Barcode', $this->data);
+    }
     /**
      * Display a listing of the resource.
      */
@@ -74,10 +79,12 @@ class ItemController extends MasterController
         $data = $request->all();
         if (!$request->image)
             $data = $request->except('image');
-        if (!$request->code)
-            $data['code'] = time();
         $data['user_id'] = $this->user()->id;
-        Item::create($data);
+        $item = Item::create($data);
+        if (!$request->code) {
+            $code = strlen("$item->id") < 3 ? '00' . $item->id : $item->id;
+            $item->update(['code' => $code]);
+        }
         return redirect()->back();
     }
 

@@ -13,7 +13,6 @@
                 نقطة بيع
                 </Link>
             </li>
-
             <li v-if="adminRoles.includes(userSession.role)">
                 <Link href="/items" class="nav-link link-dark">
                 <img src="/imgs/widgets.svg" alt="">
@@ -21,15 +20,21 @@
                 </Link>
             </li>
             <li v-if="adminRoles.includes(userSession.role)">
+                <Link href="/barcode" class="nav-link link-dark">
+                <img src="/imgs/contract.svg" alt="">
+                الباركود
+                </Link>
+            </li>
+            <li v-if="adminRoles.includes(userSession.role)">
                 <Link href="/not-in-stock" class="nav-link link-dark">
-                <img src="/imgs/remove_done.svg" alt="">
-                النواقص
+                    <img src="/imgs/remove_done.svg" alt="">
+                    النواقص
                 </Link>
             </li>
             <li v-if="adminRoles.includes(userSession.role)">
                 <Link href="/categories" class="nav-link link-dark">
-                <img src="/imgs/category.svg" alt="">
-                الأقسام
+                    <img src="/imgs/category.svg" alt="">
+                    الأقسام
                 </Link>
             </li>
             <li v-if="adminRoles.includes(userSession.role)">

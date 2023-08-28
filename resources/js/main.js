@@ -21,6 +21,8 @@ const totalPrice = () => {
     $('.total-price').each(function () {
         result += parseFloat($(this).text())
     })
-    $('#finalPrice').text(result - (parseFloat(saleForm.discount) || 0));
+    result = result - (parseFloat(saleForm.discount) || 0);
+    $('#finalPrice').text(result);
+    $('#leftCost').text((parseFloat($('.left-cost').val()) - result) || 0)
 };
 export { totalPrice, getParams, saleForm, cartEls };

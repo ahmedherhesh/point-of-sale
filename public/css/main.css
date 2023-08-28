@@ -155,7 +155,7 @@ a:hover {
 }
 
 @media print{
-    .navbar,.sidebar,.ctm-pagination,.btns-controller,.items-filter{
+    .navbar,.sidebar,.ctm-pagination,.btns-controller,.btn-print,.items-filter{
         display: none !important;
     }
     .content{

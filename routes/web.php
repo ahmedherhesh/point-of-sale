@@ -40,6 +40,7 @@ Route::group(['middleware' => 'auth.web'], function () {
     Route::group(['middleware' => 'roles:super-admin,admin'], function () {
         Route::resource('users', UserController::class);
         Route::resource('items', ItemController::class);
+        Route::get('barcode', [ItemController::class,'barcode']);
         Route::post('items/{item}', [ItemController::class, 'update'])->name('items-update');
         Route::get('not-in-stock', [ItemController::class, 'notInStock']);
         Route::resource('categories', CategoriesController::class);

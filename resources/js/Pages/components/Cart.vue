@@ -24,6 +24,13 @@
                 <input class="form-control" type="text" v-model="saleForm.customer_phone" placeholder="رقم المحمول">
             </div>
         </div>
+        <div class="cost-section row align-items-center">
+            <div class="col-md-6 col-sm-12">
+                <input type="number" min="0" class="left-cost form-control m-2 me-0" placeholder="المدفوع" @input="totalPrice">
+            </div>
+            <h5 class="col-md-6 col-sm-12 final-price"><span>المتبقي</span> : <span id="leftCost">0</span>
+            </h5>
+        </div>
         <div class="final-price-section row align-items-center">
             <div class="col-md-6 col-sm-12">
                 <input type="number" min="0" class="discount form-control m-2 me-0" placeholder="الخصم" @input="totalPrice"
