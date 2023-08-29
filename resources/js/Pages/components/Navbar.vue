@@ -35,7 +35,7 @@
 <style>
 .navbar {
     height: 60px;
-    position: fixed !important;
+    position: fixed;
     top: 0;
     right: 0;
     width: 100%;
