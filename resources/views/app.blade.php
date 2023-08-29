@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{ asset('css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     {{-- @vite('public/css/main.css') --}}
-    <title>{{$setting->title ?? 'POS'}}</title>
+    <title>م / احمد حرحش . 01152958015</title>
     @inertiaHead
 </head>
 

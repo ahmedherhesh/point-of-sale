@@ -1,5 +1,5 @@
 <template>
-    <div class="sidebar d-flex flex-column flex-shrink-0 p-3 bg-light shadow h-full" style="width: 255px">
+    <div class="sidebar d-flex flex-column flex-shrink-0 p-3 bg-light shadow" style="width: 255px">
         <ul class="nav nav-pills flex-column mb-auto">
             <!-- <li>
                 <Link href="/" class="nav-link link-dark ">
@@ -74,10 +74,11 @@
 .sidebar {
     height: 100vh;
     position: fixed;
-    top: 60px;
+    padding-top: 65px !important;
+    top:0;
     right: 0;
     transition: right .5s;
-    z-index: 1000;
+    z-index: 999;
     overflow-x: hidden;
     overflow-y: scroll ;
 }
