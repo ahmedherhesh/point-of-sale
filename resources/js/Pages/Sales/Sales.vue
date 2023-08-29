@@ -1,5 +1,5 @@
 <template>
-    <Navbar />
+    <Navbar :setting="setting" />
     <Sidebar />
     <div class="content">
         <div class="filter">
@@ -62,7 +62,7 @@ import Pagination from '../components/Pagination.vue';
 import { Link, router } from '@inertiajs/vue3';
 import PrintButton from '../components/PrintButton.vue';
 
-defineProps({ operations: Object })
+defineProps({ operations: Object ,setting:Object})
 let invoice_id;
 const getInvoice = e => {
     router.get(`/sales?invoice_id=${invoice_id}`)

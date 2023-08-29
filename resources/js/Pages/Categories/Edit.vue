@@ -1,5 +1,5 @@
 <template>
-    <Navbar />
+    <Navbar :setting="setting" />
     <Sidebar />
     <div class="content">
         <form @submit.prevent="updateCategory" class="ctm-form mt-0">
@@ -27,7 +27,7 @@ import Navbar from '../components/Navbar.vue';
 import Sidebar from '../components/Sidebar.vue';
 import { router,usePage } from '@inertiajs/vue3';
 
-defineProps({ categories: Object, category: Object, errors: Object })
+defineProps({ categories: Object, category: Object, errors: Object,setting:Object })
 let props = usePage().props;
 
 let categoryForm = {

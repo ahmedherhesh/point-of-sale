@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
             $table->string('title')->default('POS');
+            $table->string('phone');
             $table->string('address');
-            $table->string('phones');
             $table->timestamps();
         });
     }

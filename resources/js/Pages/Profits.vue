@@ -1,5 +1,5 @@
 <template>
-    <navbar />
+    <navbar :setting="setting" />
     <sidebar />
     <div class="content">
         <div class="profit-sections p-2 row gap-2 justify-content-center">
@@ -167,7 +167,8 @@ defineProps({
     threeMonthProfits: Object,
     sixMonthProfits: Object,
     yearProfits: Object,
-    operations: Object
+    operations: Object,
+    setting:Object
 })
 onMounted(() => {
     console.log(window.location.search);

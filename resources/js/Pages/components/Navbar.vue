@@ -6,7 +6,7 @@
                     <!-- <img src="/imgs/logo-80.png" width="45"> -->
                     <span class="menu-btn m-3"><img src="/imgs/menu.svg" alt="" width="30"></span>
                 </div>
-                <Link class="navbar-brand" href="/">فاضل فون</Link>
+                <Link class="navbar-brand" href="/">{{ setting.title || 'POS' }}</Link>
                 <div class="d-flex align-items-center">
                     <div class="dropdown">
                         <span class="rounded dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><img src="/imgs/library_add.svg" alt="" width="45"></span>
@@ -21,6 +21,7 @@
                     <div class="dropdown">
                         <span class="rounded dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><img src="/imgs/manage_accounts.svg" alt="" width="45"></span>
                         <ul class="dropdown-menu">
+                            <li v-if="adminRoles.includes(userSession.role)"><Link href="/settings" class="dropdown-item text-center ">الإعدادات</Link></li>
                             <li><Link href="/change-password" class="dropdown-item text-center ">تغيير كلمة السر</Link></li>
                             <li><Link href="/logout" class="dropdown-item text-center ">تسجيل خروج</Link></li>
                         </ul>
@@ -51,5 +52,8 @@
 }
 </style>
 <script setup>
-import { Link } from "@inertiajs/vue3";
+import { Link, usePage } from "@inertiajs/vue3";
+defineProps({setting:Object})
+let adminRoles = ['super-admin', 'admin'];
+let userSession = usePage().props.userSession;
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <Navbar />
+    <Navbar :setting="setting" />
     <Sidebar />
     <div class="content">
         <form @submit.prevent="addItem" class="ctm-form mt-0" enctype="multipart/form-data">
@@ -77,7 +77,7 @@ import Navbar from '../components/Navbar.vue';
 import Sidebar from '../components/Sidebar.vue';
 import { router } from '@inertiajs/vue3';
 import enums from '../../constants';
-defineProps({ errors: Object, catsTree: Object, companies: Object })
+defineProps({ errors: Object, catsTree: Object, companies: Object ,setting:Object})
 
 let showSubCats = e => {
     let el = $(e.currentTarget).find(':selected');

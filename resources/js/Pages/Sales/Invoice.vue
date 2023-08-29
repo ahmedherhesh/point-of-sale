@@ -1,10 +1,10 @@
 <template>
-    <Navbar />
+    <Navbar :setting="setting" />
     <Sidebar />
     <div class="content">
         <div class="invoice">
             <div class="invoice-header d-flex justify-content-around align-items-center pe-2">
-                <h3 class="">فاضل فون</h3>
+                <h3>{{ setting.title || '' }}</h3>
                 <!-- <img src="/imgs/logo.gif" width="90" alt=""> -->
             </div>
             <p :class="invoice.data.customer_name && invoice.data.customer_phone ? 'd-flex justify-content-between' : ''">
@@ -40,8 +40,8 @@
                 <div class="barcode d-flex flex-column align-items-end" v-html="barcode"></div>
                 <hr>
                 <p class="d-flex flex-column align-items-center">
-                    <span><i class="fa-solid fa-location-dot ms-1"></i> السنبلاوين - المشاية - امام مدرسة الثانوية بنات</span>
-                    <span class="mt-3"><span>للإستفسار -</span> 01050086340 <i class="fa-solid fa-square-phone me-1"></i></span>
+                    <span><i class="fa-solid fa-location-dot ms-1"></i>{{ setting.address || '' }}</span>
+                    <span class="mt-3"><span>للإستفسار -</span> {{ setting.phone || '' }} <i class="fa-solid fa-square-phone me-1"></i></span>
                 </p>
             </div>
         </div>
@@ -79,7 +79,7 @@
 import {onMounted} from 'vue'
 import Navbar from '../components/Navbar.vue';
 import Sidebar from '../components/Sidebar.vue';
-defineProps({ invoice: Object,barcode:String })
+defineProps({ invoice: Object,barcode:String ,setting:Object})
 let totalPrice = 0
 onMounted(() => {
     print()

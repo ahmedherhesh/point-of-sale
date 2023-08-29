@@ -1,5 +1,5 @@
 <template>
-    <Navbar />
+    <Navbar :setting="setting" />
     <Sidebar />
     <div class="content">
         <form @submit.prevent="updateExpense" class="ctm-form mt-3">
@@ -23,7 +23,7 @@ import Navbar from '../components/Navbar.vue';
 import Sidebar from '../components/Sidebar.vue';
 import { router, usePage } from '@inertiajs/vue3';
 let props = usePage().props;
-defineProps({ expenses: Object, errors: Object })
+defineProps({ expenses: Object, errors: Object ,setting:Object})
 
 let expenseForm = {
     title: props.expense.title,

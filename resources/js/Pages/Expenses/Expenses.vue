@@ -1,5 +1,5 @@
 <template>
-    <navbar />
+    <navbar :setting="setting" />
     <sidebar />
     <div class="content">
         <div class="table-responsive shadow" style="min-width: 600px;">
@@ -42,7 +42,7 @@ import Sidebar from '../components/Sidebar.vue'
 import Pagination from '../components/Pagination.vue';
 import { Link, router } from '@inertiajs/vue3';
 import PrintButton from '../components/PrintButton.vue';
-defineProps({ expenses: Object })
+defineProps({ expenses: Object ,setting:Object})
 let deleteExpense = e => {
     let el = e.currentTarget;
     if (confirm('هل انت متأكد من حذف هذا المصروف'))

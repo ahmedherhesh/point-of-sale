@@ -1,5 +1,5 @@
 <template>
-    <Navbar />
+    <Navbar :setting="setting" />
     <Sidebar />
     <div class="content">
         <form @submit.prevent="updateItem" class="ctm-form mt-0" enctype="multipart/form-data">
@@ -81,7 +81,7 @@ import { router, usePage } from '@inertiajs/vue3';
 import { onMounted, reactive } from 'vue';
 import enums from '../../constants';
 
-defineProps({ errors: Object, catsTree: Object, item: Object, companies: Object })
+defineProps({ errors: Object, catsTree: Object, item: Object, companies: Object ,setting:Object})
 let props = usePage().props;
 
 let showSubCats = () => {

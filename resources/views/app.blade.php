@@ -7,8 +7,9 @@
     @vite('resources/js/app.js')
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/all.min.css') }}">
-    {{-- <link rel="stylesheet" href="{{ asset('css/main.css') }}"> --}}
-    @vite('public/css/main.css')
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    {{-- @vite('public/css/main.css') --}}
+    <title>{{$setting->title ?? 'POS'}}</title>
     @inertiaHead
 </head>
 

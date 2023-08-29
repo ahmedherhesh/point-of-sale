@@ -1,5 +1,5 @@
 <template>
-    <Navbar />
+    <Navbar :setting="setting" />
     <Sidebar />
     <div class="content">
         <form @submit.prevent="addUser" class="ctm-form mt-0">
@@ -52,7 +52,7 @@ import Sidebar from '../components/Sidebar.vue';
 import { router } from '@inertiajs/vue3';
 import enums from '../../constants.js';
 
-defineProps({ user: Object, errors: Object })
+defineProps({ user: Object, errors: Object ,setting:Object})
 
 let userForm = {
     name: '',

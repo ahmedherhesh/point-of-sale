@@ -1,8 +1,8 @@
 <template>
-    <Navbar />
+    <Navbar :setting="setting" />
     <Sidebar />
     <div class="content">
-        <form @submit.prevent="changePassword" class="ctm-form" >
+        <form @submit.prevent="changePassword" class="ctm-form">
             <h4 class="text-center mb-4">تغيير كلمة السر</h4>
             <div class="mb-3">
                 <label for="oldPassword" class="form-label">كلمة السر القديمة</label>
@@ -27,22 +27,17 @@
     </div>
 </template>
 <script setup>
-defineProps({ errors: Object })
+defineProps({ errors: Object,setting:Object })
 import { router } from '@inertiajs/vue3';
 import Navbar from '../components/Navbar.vue';
 import Sidebar from '../components/Sidebar.vue';
-import { onMounted } from 'vue';
 
 let passwordForm = {
-    oldPassword : '',
-    password : '',
-    repeatPassword : '',
+    oldPassword: '',
+    password: '',
+    repeatPassword: '',
 }
 const changePassword = () => {
-    router.post('/change-password',passwordForm)
+    router.post('/change-password', passwordForm)
 }
-
-onMounted(() => {
-    document.title = 'فاضل فون | ' + 'تغيير كلمة السر'
-})
 </script>

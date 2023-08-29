@@ -8,7 +8,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\Admin\ItemController;
 use App\Http\Controllers\Admin\ProfitController;
+use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\UserController;
+use App\Models\Setting;
 use Illuminate\Support\Facades\Route;
 use Milon\Barcode\DNS1D;
 
@@ -23,10 +25,12 @@ use Milon\Barcode\DNS1D;
 |
 */
 
+view()->composer(['*'], function ($view) {
+    $view->with('setting', Setting::first() ?? []);
+});
 Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('login', [AuthController::class, '_login'])->name('_login');
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
-
 Route::group(['middleware' => 'auth.web'], function () {
 
     // Route::inertia('/', 'Home')->name('home');
@@ -40,7 +44,7 @@ Route::group(['middleware' => 'auth.web'], function () {
     Route::group(['middleware' => 'roles:super-admin,admin'], function () {
         Route::resource('users', UserController::class);
         Route::resource('items', ItemController::class);
-        Route::get('barcode', [ItemController::class,'barcode']);
+        Route::get('barcode', [ItemController::class, 'barcode']);
         Route::post('items/{item}', [ItemController::class, 'update'])->name('items-update');
         Route::get('not-in-stock', [ItemController::class, 'notInStock']);
         Route::resource('categories', CategoriesController::class);
@@ -48,5 +52,7 @@ Route::group(['middleware' => 'auth.web'], function () {
         Route::resource('expenses', ExpenseController::class);
         Route::get('profits', [ProfitController::class, 'index'])->name('profits');
         Route::post('profits-filter', [ProfitController::class, 'profitsFilter']);
+        Route::get('settings', [SettingsController::class, 'index']);
+        Route::post('settings', [SettingsController::class, 'storeOrUpdate']);
     });
 });

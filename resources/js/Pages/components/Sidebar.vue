@@ -97,7 +97,6 @@ let userSession = usePage().props.userSession;
 let moveActiveBtn = btn => {
     btn.parentElement.classList.add('border-0')
     btn.classList.add('ctm-btn')
-    document.title = 'فاضل فون | ' + btn.innerText
 }
 
 onMounted(() => {

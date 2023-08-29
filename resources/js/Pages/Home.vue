@@ -1,5 +1,5 @@
 <template>
-    <navbar />
+    <navbar :setting="setting" />
     <sidebar />
     <div class="content p-0 rounded-0 d-flex justify-content-center align-items-center">
         <img class="home-logo" src="/imgs/home-logo.jpg" alt="">
@@ -21,4 +21,5 @@
 <script setup>
 import Navbar from './components/Navbar.vue';
 import Sidebar from './components/Sidebar.vue';
+defineProps({setting:Object})
 </script>

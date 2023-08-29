@@ -1,5 +1,5 @@
 <template>
-    <Navbar />
+    <Navbar :setting="setting" />
     <Sidebar />
     <div class="content">
         <form @submit.prevent="addCompany" class="ctm-form mt-0">
@@ -19,7 +19,7 @@ import Navbar from '../components/Navbar.vue';
 import Sidebar from '../components/Sidebar.vue';
 import { router } from '@inertiajs/vue3';
 
-defineProps({ errors: Object })
+defineProps({ errors: Object,setting:Object })
 
 let companyForm = {
     name: '',

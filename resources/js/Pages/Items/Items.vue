@@ -1,5 +1,5 @@
 <template>
-    <Navbar />
+    <Navbar :setting="setting" />
     <Sidebar />
     <div class="content">
         <items-filter :errors="errors" :items="items" :categories="categories" :companies="companies" />
@@ -58,7 +58,7 @@ import ItemsFilter from '../components/ItemsFilter.vue';
 import Pagination from '../components/Pagination.vue';
 import { Link, router } from '@inertiajs/vue3';
 import PrintButton from '../components/PrintButton.vue';
-defineProps({ errors: Object, items: Object, categories: Object, companies: Object })
+defineProps({ errors: Object, items: Object, categories: Object, companies: Object ,setting:Object})
 let deleteItem = e => {
     let el = e.currentTarget;
     if (confirm('هل انت متأكد من حذف هذا المنتج'))

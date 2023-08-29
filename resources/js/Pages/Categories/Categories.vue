@@ -1,5 +1,5 @@
 <template>
-    <navbar />
+    <navbar :setting="setting" />
     <sidebar />
     <div class="content">
         <div class="table-responsive shadow">
@@ -41,7 +41,7 @@ import Pagination from '../components/Pagination.vue';
 import { Link, router } from '@inertiajs/vue3';
 import PrintButton from '../components/PrintButton.vue';
 
-defineProps({ categories: Object })
+defineProps({ categories: Object ,setting:Object})
 let deleteCategory = e => {
     let el = e.currentTarget;
     if (confirm('هل انت متأكد من حذف هذا القسم'))
