@@ -123,8 +123,12 @@ class ItemController extends MasterController
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Item $item)
+    public function destroy($id)
     {
-        $item->delete();
+        $itemHasSale = Item::whereId($id)->has('sale')->first();
+        if ($itemHasSale)
+            $itemHasSale->update(['stock' => 0]);
+        else
+            Item::find($id)->delete();
     }
 }

@@ -32,6 +32,10 @@ class Item extends Model
     {
         return $this->belongsTo(Category::class, 'sub_cat_id');
     }
+    function sale()
+    {
+        return $this->hasMany(Sale::class, 'item_id');
+    }
     function getImageAttribute($image)
     {
         return $this->attributes['image'] ? asset("uploads/images/$image") : null;
