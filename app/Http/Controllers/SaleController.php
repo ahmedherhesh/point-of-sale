@@ -50,7 +50,7 @@ class SaleController extends MasterController
     function index(Request $request)
     {
         $request->validate(['invoice_id' => 'nullable|exists:operations,id']);
-        $operation = Operation::query();
+        $operation = Operation::has('sales');
         if ($request->invoice_id)
             $operation = $operation->whereId($request->invoice_id)->paginate(1);
         else
