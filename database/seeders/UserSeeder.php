@@ -15,12 +15,6 @@ class UserSeeder extends Seeder
     {
         $users = [
             [
-                'name' => 'Manager',
-                'username' => 'owner',
-                'password' => 'secret',
-                'role' => 'super-admin'
-            ],
-            [
                 'name' => 'Admin',
                 'username' => 'admin',
                 'password' => 'secret',
