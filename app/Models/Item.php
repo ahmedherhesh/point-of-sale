@@ -38,7 +38,7 @@ class Item extends Model
     }
     function getImageAttribute($image)
     {
-        return $this->attributes['image'] ? asset("uploads/images/$image") : null;
+        return $this->attributes['image'] ? asset("uploads/images/$image") : asset('imgs/no-image.png');
     }
 
     function setImageAttribute($image)

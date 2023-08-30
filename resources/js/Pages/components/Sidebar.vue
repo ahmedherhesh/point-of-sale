@@ -19,6 +19,12 @@
                 المنتجات
                 </Link>
             </li>
+            <li>
+                <Link href="/damages" class="nav-link link-dark">
+                <img class="me-2" src="/imgs/damage-settings.png" alt="" height="30">
+                المنتجات التالفة
+                </Link>
+            </li>
             <li v-if="adminRoles.includes(userSession.role)">
                 <Link href="/barcode" class="nav-link link-dark">
                 <img src="/imgs/contract.svg" alt="">

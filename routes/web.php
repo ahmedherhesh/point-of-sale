@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\ItemController;
 use App\Http\Controllers\Admin\ProfitController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\DamageItemController;
 use App\Models\Setting;
 use Illuminate\Support\Facades\Route;
 use Milon\Barcode\DNS1D;
@@ -40,6 +41,7 @@ Route::group(['middleware' => 'auth.web'], function () {
     Route::get('change-password', [AuthController::class, 'changePassword']);
     Route::post('change-password', [AuthController::class, '_changePassword']);
     Route::resource('sales', SaleController::class);
+    Route::resource('damages',DamageItemController::class);
     //super-admin,admin
     Route::group(['middleware' => 'roles:super-admin,admin'], function () {
         Route::resource('users', UserController::class);
