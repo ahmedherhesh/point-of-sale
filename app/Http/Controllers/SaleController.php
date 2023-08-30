@@ -100,8 +100,9 @@ class SaleController extends MasterController
             return redirect()->back()->with('operation_id', $operation->id);
     }
 
-    function destroy(Operation $operation)
+    function destroy($id)
     {
+        $operation = Operation::findOrFail($id);
         $this->destroySale($operation);
         $operation->delete();
     }

@@ -71,6 +71,6 @@ const getInvoice = e => {
 let deleteOperation = e => {
     let el = e.currentTarget;
     if (confirm('هل انت متأكد من حذف هذه العملية'))
-        router.delete(`sales/${el.getAttribute('data-operationId')}`)
+        router.delete(`/sales/${el.getAttribute('data-operationId')}`)
 }
 </script>
