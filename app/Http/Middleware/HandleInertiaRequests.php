@@ -41,7 +41,9 @@ class HandleInertiaRequests extends Middleware
             'setting' => Setting::first() ?? [],
             'userSession' => session()->get('user'),
             'flash' => [
-                'operation_id' => session('operation_id')
+                'operation_id' => session('operation_id'),
+                'success' => session('success'),
+                'failed' => session('failed'),
             ],
         ]);
     }
