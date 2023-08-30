@@ -36,12 +36,12 @@ class ItemController extends MasterController
     function itemsFilter(Request $request)
     {
         $request->validate(['code' => 'nullable|exists:items,code']);
-        $items = $this->itemsWithFilter($request)->latest()->paginate(100);
+        $items = $this->itemsWithFilter($request)->orderByDesc('id')->paginate(100);
         return ItemsResource::collection($items);
     }
     function barcode(Request $request)
     {
-        $this->data['items'] = ItemsResource::collection($this->itemsWithFilter($request)->latest()->paginate(100));
+        $this->data['items'] = ItemsResource::collection($this->itemsWithFilter($request)->orderByDesc('id')->paginate(100));
         return inertia('Items/Barcode', $this->data);
     }
     /**
@@ -49,7 +49,7 @@ class ItemController extends MasterController
      */
     public function index(Request $request)
     {
-        $this->data['items'] = ItemsResource::collection($this->itemsWithFilter($request)->latest()->paginate(100));
+        $this->data['items'] = ItemsResource::collection($this->itemsWithFilter($request)->orderByDesc('id')->paginate(100));
         return inertia('Items/Items', $this->data);
     }
 

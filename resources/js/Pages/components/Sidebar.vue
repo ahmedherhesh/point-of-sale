@@ -33,14 +33,14 @@
             </li>
             <li v-if="adminRoles.includes(userSession.role)">
                 <Link href="/not-in-stock" class="nav-link link-dark">
-                    <img src="/imgs/remove_done.svg" alt="">
-                    النواقص
+                <img src="/imgs/remove_done.svg" alt="">
+                النواقص
                 </Link>
             </li>
             <li v-if="adminRoles.includes(userSession.role)">
                 <Link href="/categories" class="nav-link link-dark">
-                    <img src="/imgs/category.svg" alt="">
-                    الأقسام
+                <img src="/imgs/category.svg" alt="">
+                الأقسام
                 </Link>
             </li>
             <li v-if="adminRoles.includes(userSession.role)">
@@ -75,6 +75,14 @@
             </li>
         </ul>
     </div>
+    <div class="messages">
+        <div v-if="flash.success" class="alert alert-success">
+            {{ flash.success }}
+        </div>
+        <div v-if="flash.failed" class="alert alert-danger">
+            {{ flash.failed }}
+        </div>
+    </div>
 </template>
 <style>
 .sidebar {
@@ -82,12 +90,12 @@
     position: fixed;
     padding: 10px;
     padding-top: 65px;
-    top:0;
+    top: 0;
     right: 0;
     transition: right .5s;
     z-index: 999;
     overflow-x: hidden;
-    overflow-y: scroll ;
+    overflow-y: scroll;
 }
 
 .sidebar li {
@@ -95,19 +103,27 @@
     border-bottom: 1px solid #ccc;
     margin: 5px 0;
 }
+.messages{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 3000;
+}
 </style>
 <script setup>
 import { Link, usePage } from "@inertiajs/vue3";
 import { onMounted } from "vue";
 let adminRoles = ['super-admin', 'admin'];
-let userSession = usePage().props.userSession;
-
+let props = usePage().props;
+let {userSession} = props;
+let {flash} = props;
 let moveActiveBtn = btn => {
     btn.parentElement.classList.add('border-0')
     btn.classList.add('ctm-btn')
 }
 
 onMounted(() => {
+    console.log(flash);
     let navLinks = document.querySelectorAll('.nav-link');
     navLinks.forEach(link => {
         let href = link.getAttribute('href');

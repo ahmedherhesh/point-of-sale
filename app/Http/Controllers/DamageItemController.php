@@ -69,7 +69,7 @@ class DamageItemController extends Controller
         $damageItem = DamageItem::findOrFail($id);
         $item = Item::whereCode($request->code)->first();
         if ($item->stock < ($request->stock - $damageItem->stock))
-            return redirect()->back();
+            return redirect()->back()->with('failed','الكمية المطلوبه غير متوفرة في المخزن');
         else {
             if ($request->stock > $damageItem->stock)
                 $item->update(['stock' => $item->stock - ($request->stock - $damageItem->stock)]);
