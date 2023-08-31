@@ -5,10 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
-class Item extends Model
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\Image\Manipulations;
+class Item extends Model implements HasMedia
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, InteractsWithMedia;
     protected $fillable = [
         'user_id',
         'cat_id',
@@ -38,14 +41,21 @@ class Item extends Model
     }
     function getImageAttribute($image)
     {
-        return $this->attributes['image'] ? asset("uploads/images/$image") : asset('imgs/no-image.png');
+        return $this->getMedia('images')->last() ? $this->getMedia('images')->last()->getUrl('preview') : asset('imgs/no-image.png');
     }
 
     function setImageAttribute($image)
     {
         $image_name =  rand(1000, 9999) . time() . '.' . $image->extension();
         $image->move(public_path("uploads/images"), $image_name);
-        $this->attributes['image'] = $image_name;
+        $this->addMedia(public_path("uploads/images/$image_name"))->toMediaCollection('images');
+    }
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this
+            ->addMediaConversion('preview')
+            ->fit(Manipulations::FIT_CONTAIN, 150, 100)
+            ->nonQueued();
     }
     function scopeAllowed($query)
     {
