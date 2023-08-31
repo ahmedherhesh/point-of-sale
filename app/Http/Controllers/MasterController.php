@@ -10,7 +10,7 @@ use App\Models\Item;
 class MasterController extends Controller
 {
     public $data;
-    public $item_count = 30;
+    public $item_count = 50;
     function __construct()
     {
         $this->data = [
