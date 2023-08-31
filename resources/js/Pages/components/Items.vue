@@ -7,7 +7,7 @@
             :data-title="item.title" :data-price="item.sale_price" :data-stock="item.stock">
             <span class="position-absolute top-0 start-0 badge p-1 rounded"
                 :class="item.stock > 10 ? 'bg-dark' : 'bg-danger'">{{ item.stock }}</span>
-            <span class="position-absolute top-0 end-0 badge p-1 rounded bg-primary">${{ item.sale_price
+            <span class="position-absolute top-0 end-0 badge price-badge p-1 rounded">${{ item.sale_price
             }}</span>
             <div class="d-flex justify-content-center">
                 <img :src="item.image" class="rounded" alt="" srcset="">
@@ -29,6 +29,10 @@
     width: 100%;
     height: 100px;
     object-fit: cover;
+}
+.price-badge{
+    background-color: var(--main-color);
+    font-size: 15px;
 }
 </style>
 <script setup>
