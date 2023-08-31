@@ -10,12 +10,13 @@ use App\Models\Item;
 class MasterController extends Controller
 {
     public $data;
+    public $item_count = 30;
     function __construct()
     {
         $this->data = [
-            'categories' => Category::latest()->get(),
-            'companies' => Company::latest()->get(),
-            'items' => ItemsResource::collection(Item::inStock()->latest()->paginate(100)),
+            'categories' => Category::orderByDesc('id')->get(),
+            'companies' => Company::orderByDesc('id')->get(),
+            'items' => ItemsResource::collection(Item::inStock()->orderByDesc('id')->paginate($this->item_count)),
         ];
     }
     public function user()
