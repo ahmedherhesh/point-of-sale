@@ -9,6 +9,12 @@ use Illuminate\Http\Request;
 
 class DamageItemController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('roles:super-admin,admin', ['except' => [
+            'index', 'create', 'store'
+        ]]);
+    }
     /**
      * Display a listing of the resource.
      */

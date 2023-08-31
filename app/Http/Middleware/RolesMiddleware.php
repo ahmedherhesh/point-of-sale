@@ -21,6 +21,6 @@ class RolesMiddleware
                 if ($user->role == $role)
                     return $next($request);
             }
-        return redirect('/');
+        return redirect()->back();
     }
 }
