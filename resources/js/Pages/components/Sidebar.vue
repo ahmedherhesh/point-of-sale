@@ -75,14 +75,14 @@
             </li>
         </ul>
     </div>
-    <div class="messages">
+    <!-- <div class="messages">
         <div v-if="flash.success" class="alert alert-success">
             {{ flash.success }}
         </div>
         <div v-if="flash.failed" class="alert alert-danger">
             {{ flash.failed }}
         </div>
-    </div>
+    </div> -->
 </template>
 <style>
 .sidebar {
@@ -103,7 +103,8 @@
     border-bottom: 1px solid #ccc;
     margin: 5px 0;
 }
-.messages{
+
+.messages {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -115,8 +116,8 @@ import { Link, usePage } from "@inertiajs/vue3";
 import { onMounted } from "vue";
 let adminRoles = ['super-admin', 'admin'];
 let props = usePage().props;
-let {userSession} = props;
-let {flash} = props;
+let { userSession } = props;
+let { flash } = props;
 let moveActiveBtn = btn => {
     btn.parentElement.classList.add('border-0')
     btn.classList.add('ctm-btn')
