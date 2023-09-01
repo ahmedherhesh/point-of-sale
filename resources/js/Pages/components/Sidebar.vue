@@ -67,7 +67,7 @@
                 المصروفات
                 </Link>
             </li>
-            <li v-if="adminRoles.includes(userSession.role)">
+            <li>
                 <Link href="/extra-profits" class="nav-link link-dark">
                 <img src="/imgs/contract.svg" alt="">
                 الأرباح الإضافية
