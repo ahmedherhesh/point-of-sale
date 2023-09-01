@@ -33,6 +33,7 @@
 .price-badge{
     background-color: var(--main-color);
     font-size: 15px;
+    padding: 6px !important;
 }
 </style>
 <script setup>
