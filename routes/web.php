@@ -41,7 +41,7 @@ Route::group(['middleware' => 'auth.web'], function () {
     Route::post('change-password', [AuthController::class, '_changePassword']);
     Route::resource('sales', SaleController::class);
     Route::resource('damages', DamageItemController::class);
-    Route::get('profits', [ProfitController::class, 'index'])->name('profits');
+    Route::resource('extra-profits', ExtraProfitController::class);
     //super-admin,admin
     Route::group(['middleware' => 'roles:super-admin,admin'], function () {
         Route::resource('users', UserController::class);
@@ -52,7 +52,7 @@ Route::group(['middleware' => 'auth.web'], function () {
         Route::resource('categories', CategoriesController::class);
         Route::resource('companies', CompaniesController::class);
         Route::resource('expenses', ExpenseController::class);
-        Route::resource('extra-profits', ExtraProfitController::class);
+        Route::get('profits', [ProfitController::class, 'index'])->name('profits');
         Route::get('settings', [SettingsController::class, 'index']);
         Route::post('settings', [SettingsController::class, 'storeOrUpdate']);
     });
