@@ -54,7 +54,7 @@ class Item extends Model implements HasMedia
     {
         $this
             ->addMediaConversion('preview')
-            ->fit(Manipulations::FIT_CROP, 150, 100)
+            ->fit(Manipulations::FIT_STRETCH, 150, 100)
             ->nonQueued();
     }
     function scopeAllowed($query)
