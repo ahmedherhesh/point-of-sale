@@ -11,12 +11,12 @@
                     <div class="dropdown">
                         <span class="rounded dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><img src="/imgs/library_add.svg" alt="" width="45"></span>
                         <ul class="dropdown-menu">
-                            <li><Link href="/users/create" class="dropdown-item text-center ">اضافة مستخدم</Link></li>
-                            <li><Link href="/categories/create" class="dropdown-item text-center">اضافة قسم</Link></li>
-                            <li><Link href="/companies/create" class="dropdown-item text-center">اضافة شركة</Link></li>
-                            <li><Link href="/items/create" class="dropdown-item text-center">اضافة منتج</Link></li>
+                            <li v-if="adminRoles.includes(userSession.role)"><Link href="/users/create" class="dropdown-item text-center ">اضافة مستخدم</Link></li>
+                            <li v-if="adminRoles.includes(userSession.role)"><Link href="/categories/create" class="dropdown-item text-center">اضافة قسم</Link></li>
+                            <li v-if="adminRoles.includes(userSession.role)"><Link href="/companies/create" class="dropdown-item text-center">اضافة شركة</Link></li>
+                            <li v-if="adminRoles.includes(userSession.role)"><Link href="/items/create" class="dropdown-item text-center">اضافة منتج</Link></li>
                             <li><Link href="/damages/create" class="dropdown-item text-center">اضافة منتج تالف</Link></li>
-                            <li><Link href="/expenses/create" class="dropdown-item text-center">اضافة مصروف</Link></li>
+                            <li v-if="adminRoles.includes(userSession.role)"><Link href="/expenses/create" class="dropdown-item text-center">اضافة مصروف</Link></li>
                         </ul>
                     </div>
                     <div class="dropdown">
