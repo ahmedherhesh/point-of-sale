@@ -46,6 +46,7 @@
                         <th class="text-center" scope="row">اجمالي سعر الشراء</th>
                         <th class="text-center" scope="col">اجمالي المصروفات</th>
                         <th class="text-center" scope="col">اجمالي الخصومات</th>
+                        <th class="text-center" scope="col">اجمالي الأرباح الإضافية</th>
                         <th class="text-center" scope="col">اجمالي الأرباح</th>
                     </tr>
                 </thead>
@@ -55,6 +56,7 @@
                         <td scope="row">{{ allProfits.price }}</td>
                         <td scope="col">{{ expenses }}</td>
                         <td scope="col">{{ allProfits.discounts }}</td>
+                        <td scope="col">{{ extraProfits }}</td>
                         <td scope="col">{{ allProfits.profits }}</td>
                     </tr>
                 </tbody>
@@ -162,13 +164,14 @@ import PrintButton from './components/PrintButton.vue';
 
 defineProps({
     allProfits: Object,
+    extraProfits: Number,
     expenses: Number,
     monthProfits: Object,
     threeMonthProfits: Object,
     sixMonthProfits: Object,
     yearProfits: Object,
     operations: Object,
-    setting:Object
+    setting: Object
 })
 onMounted(() => {
     console.log(window.location.search);

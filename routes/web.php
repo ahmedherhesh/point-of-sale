@@ -53,7 +53,6 @@ Route::group(['middleware' => 'auth.web'], function () {
         Route::resource('expenses', ExpenseController::class);
         Route::resource('extra-profits', ExtraProfitController::class);
         Route::get('profits', [ProfitController::class, 'index'])->name('profits');
-        Route::post('profits-filter', [ProfitController::class, 'profitsFilter']);
         Route::get('settings', [SettingsController::class, 'index']);
         Route::post('settings', [SettingsController::class, 'storeOrUpdate']);
     });
