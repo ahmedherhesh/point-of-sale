@@ -21,7 +21,7 @@ class ItemRequest extends MasterRequest
             'sale_price' => 'required|numeric|max:999999999|min:1|gt:0',
             'stock'   => 'required|numeric|max:999999999|min:1|gt:0',
             'code'    => 'nullable|min:1|gt:0|unique:items,code,' . $id ,
-            'image'   => 'nullable|mimes:png,jpg,jpeg,gif,svg',
+            'image'   => 'nullable|max:9216|mimes:png,jpg,jpeg,gif,svg',
             'status'  => 'required|in:new,used,expired',
         ];
     }
