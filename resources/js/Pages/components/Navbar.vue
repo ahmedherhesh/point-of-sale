@@ -6,7 +6,7 @@
                     <!-- <img src="/imgs/logo-80.png" width="45"> -->
                     <span class="menu-btn m-3"><img src="/imgs/menu.svg" alt="" width="30"></span>
                 </div>
-                <Link class="navbar-brand" href="/">{{ setting.title || 'POS' }}</Link>
+                <Link class="navbar-brand" href="/">{{ $page.props.setting.title || 'POS' }}</Link>
                 <div class="d-flex align-items-center">
                     <div class="dropdown">
                         <span class="rounded dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><img src="/imgs/library_add.svg" alt="" width="45"></span>
@@ -17,6 +17,7 @@
                             <li v-if="adminRoles.includes(userSession.role)"><Link href="/items/create" class="dropdown-item text-center">اضافة منتج</Link></li>
                             <li><Link href="/damages/create" class="dropdown-item text-center">اضافة منتج تالف</Link></li>
                             <li v-if="adminRoles.includes(userSession.role)"><Link href="/expenses/create" class="dropdown-item text-center">اضافة مصروف</Link></li>
+                            <li><Link href="/extra-profits/create" class="dropdown-item text-center">اضافة ربح اضافي</Link></li>
                         </ul>
                     </div>
                     <div class="dropdown">
@@ -54,7 +55,6 @@
 </style>
 <script setup>
 import { Link, usePage } from "@inertiajs/vue3";
-defineProps({setting:Object})
 let adminRoles = ['super-admin', 'admin'];
 let userSession = usePage().props.userSession;
 </script>

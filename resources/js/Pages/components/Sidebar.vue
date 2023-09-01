@@ -68,9 +68,15 @@
                 </Link>
             </li>
             <li v-if="adminRoles.includes(userSession.role)">
+                <Link href="/extra-profits" class="nav-link link-dark">
+                <img src="/imgs/contract.svg" alt="">
+                الأرباح الإضافية
+                </Link>
+            </li>
+            <li v-if="adminRoles.includes(userSession.role)">
                 <Link href="/profits" class="nav-link link-dark">
                 <img src="/imgs/contract.svg" alt="">
-                الأرباح
+                إجمالي الأرباح
                 </Link>
             </li>
         </ul>

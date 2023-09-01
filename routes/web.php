@@ -3,8 +3,8 @@
 use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Admin\CompaniesController;
 use App\Http\Controllers\Admin\ExpenseController;
+use App\Http\Controllers\Admin\ExtraProfitController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\Admin\ItemController;
 use App\Http\Controllers\Admin\ProfitController;
@@ -13,7 +13,6 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\DamageItemController;
 use App\Models\Setting;
 use Illuminate\Support\Facades\Route;
-use Milon\Barcode\DNS1D;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,7 +40,7 @@ Route::group(['middleware' => 'auth.web'], function () {
     Route::get('change-password', [AuthController::class, 'changePassword']);
     Route::post('change-password', [AuthController::class, '_changePassword']);
     Route::resource('sales', SaleController::class);
-    Route::resource('damages',DamageItemController::class);
+    Route::resource('damages', DamageItemController::class);
     //super-admin,admin
     Route::group(['middleware' => 'roles:super-admin,admin'], function () {
         Route::resource('users', UserController::class);
@@ -52,6 +51,7 @@ Route::group(['middleware' => 'auth.web'], function () {
         Route::resource('categories', CategoriesController::class);
         Route::resource('companies', CompaniesController::class);
         Route::resource('expenses', ExpenseController::class);
+        Route::resource('extra-profits', ExtraProfitController::class);
         Route::get('profits', [ProfitController::class, 'index'])->name('profits');
         Route::post('profits-filter', [ProfitController::class, 'profitsFilter']);
         Route::get('settings', [SettingsController::class, 'index']);
