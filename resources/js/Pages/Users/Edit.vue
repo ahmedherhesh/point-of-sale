@@ -60,7 +60,7 @@
 import Navbar from '../components/Navbar.vue';
 import Sidebar from '../components/Sidebar.vue';
 import { router, usePage } from '@inertiajs/vue3';
-import { ref } from 'vue';
+import { ref,onMounted } from 'vue';
 import enums from '../../constants.js';
 
 defineProps({ user: Object, errors: Object, setting: Object })
@@ -75,7 +75,9 @@ let userForm = {
     permissions: [],
     status: props.user.status
 }
-
+onMounted(() => {
+    pushPermission()
+});
 const pushPermission = e => {
     userForm.permissions = permissions._value;
 }
