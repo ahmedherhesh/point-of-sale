@@ -1,7 +1,7 @@
 <template>
     <div class="items-section col-lg-6 col-sm-12 bg-light justify-content-center align-items-center m-0 d-flex flex-wrap gap-2 p-2 mt-2 rounded"
         style="max-height: 500px ;">
-        <div v-for="item in items.data" @click="addToCart" class="item border rounded text-right position-relative"
+        <div v-for="item in items.data" @click="addToCart" class="item overflow-hidden border rounded text-right position-relative"
             :data-id="item.id"
             :style="cartEls.includes(item.id) ? 'border-color:var(--border-color) !important' : 'border:1px solid #dee2e6!important'"
             :data-title="item.title" :data-price="item.sale_price" :data-stock="item.stock">
