@@ -4,7 +4,7 @@
     <div class="content">
         <div class="invoice">
             <div class="invoice-header d-flex justify-content-around align-items-center pe-2">
-                <h3>{{ setting.title || '' }}</h3>
+                <h3>{{ setting.title || 'POS' }}</h3>
                 <!-- <img src="/imgs/logo.gif" width="90" alt=""> -->
             </div>
             <p :class="invoice.data.customer_name && invoice.data.customer_phone ? 'd-flex justify-content-between' : ''">
@@ -53,11 +53,16 @@
 .invoice {
     border: 5px solid gray;
     /* min-height: 500px; */
-    max-width: 500px;
-    min-width: 400px;
+    max-width: 80mm;
+    min-width: 70mm;
+    margin: 50px auto 0;
     position: relative;
     padding: 20px;
-    padding-top: 60px;
+    font-size: 10px;
+}
+
+h5 {
+    font-size: 10px;
 }
 
 .invoice .invoice-header {
