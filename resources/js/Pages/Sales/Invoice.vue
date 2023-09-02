@@ -53,12 +53,11 @@
 .invoice {
     border: 5px solid gray;
     /* min-height: 500px; */
-    max-width: 80mm;
-    min-width: 70mm;
+    width: 75mm;
     margin: 50px auto 0;
     position: relative;
     padding: 20px;
-    font-size: 10px;
+    font-size: 9px;
 }
 
 h5 {
