@@ -11,14 +11,14 @@ class AuthController extends MasterController
 {
     public function login()
     {
-        if (session()->has('user'))
+        if (auth()->user())
             return redirect()->back();
         return inertia('Auth/Login');
     }
     public function _login(LoginRequest $request)
     {
         $user = $request->only('username', 'password');
-        $user = auth()->attempt($user);
+        $user = auth()->attempt($user,true);
         if ($user) {
             $user = auth()->user();
             if ($user->status == 'active') {
@@ -44,7 +44,7 @@ class AuthController extends MasterController
     }
     public function logout()
     {
-        session()->forget('user');
+        auth()->logout();
         return redirect('login');
     }
 }

@@ -11,9 +11,9 @@ class MasterController extends Controller
 {
     public $data;
     public $item_count = 50;
-    function __construct()
+    function data()
     {
-        $this->data = [
+        return [
             'categories' => Category::orderByDesc('id')->get(),
             'companies' => Company::orderByDesc('id')->get(),
             'items' => ItemsResource::collection(Item::inStock()->orderByDesc('id')->paginate($this->item_count)),

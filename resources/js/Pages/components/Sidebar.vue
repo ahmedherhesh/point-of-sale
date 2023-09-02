@@ -7,73 +7,73 @@
                 الصفحة الرئيسية
                 </Link>
             </li> -->
-            <li>
+            <li v-if="$page.props.permissions.includes('اضافة المبيعات')">
                 <Link href="/" class="nav-link link-dark ">
                 <img src="/imgs/library_add.svg" alt="">
                 نقطة بيع
                 </Link>
             </li>
-            <li v-if="adminRoles.includes(userSession.role)">
+            <li v-if="$page.props.permissions.includes('المنتجات')">
                 <Link href="/items" class="nav-link link-dark">
                 <img src="/imgs/widgets.svg" alt="">
                 المنتجات
                 </Link>
             </li>
-            <li>
+            <li v-if="$page.props.permissions.includes('المنتجات التالفة')">
                 <Link href="/damages" class="nav-link link-dark">
                 <img class="me-2" src="/imgs/damage-settings.png" alt="" height="30">
                 المنتجات التالفة
                 </Link>
             </li>
-            <li v-if="adminRoles.includes(userSession.role)">
+            <li v-if="$page.props.permissions.includes('الباركود')">
                 <Link href="/barcode" class="nav-link link-dark">
                 <img src="/imgs/contract.svg" alt="">
                 الباركود
                 </Link>
             </li>
-            <li v-if="adminRoles.includes(userSession.role)">
+            <li v-if="$page.props.permissions.includes('المنتجات')">
                 <Link href="/not-in-stock" class="nav-link link-dark">
                 <img src="/imgs/remove_done.svg" alt="">
                 النواقص
                 </Link>
             </li>
-            <li v-if="adminRoles.includes(userSession.role)">
+            <li v-if="$page.props.permissions.includes('الأقسام')">
                 <Link href="/categories" class="nav-link link-dark">
                 <img src="/imgs/category.svg" alt="">
                 الأقسام
                 </Link>
             </li>
-            <li v-if="adminRoles.includes(userSession.role)">
+            <li v-if="$page.props.permissions.includes('الشركات')">
                 <Link href="/companies" class="nav-link link-dark">
                 <img src="/imgs/apartment.svg" alt="">
                 الشركات
                 </Link>
             </li>
-            <li v-if="adminRoles.includes(userSession.role)">
+            <li v-if="$page.props.permissions.includes('المستخدمين')">
                 <Link href="/users" class="nav-link link-dark">
                 <img src="/imgs/users.svg" alt="">
                 المستخدمين
                 </Link>
             </li>
-            <li>
+            <li v-if="$page.props.permissions.includes('المبيعات')">
                 <Link href="/sales" class="nav-link link-dark">
                 <img src="/imgs/contract.svg" alt="">
                 المبيعات
                 </Link>
             </li>
-            <li v-if="adminRoles.includes(userSession.role)">
+            <li v-if="$page.props.permissions.includes('المصروفات')">
                 <Link href="/expenses" class="nav-link link-dark">
                 <img src="/imgs/contract.svg" alt="">
                 المصروفات
                 </Link>
             </li>
-            <li>
+            <li v-if="$page.props.permissions.includes('الأرباح الإضافية')">
                 <Link href="/extra-profits" class="nav-link link-dark">
                 <img src="/imgs/contract.svg" alt="">
                 الأرباح الإضافية
                 </Link>
             </li>
-            <li v-if="adminRoles.includes(userSession.role)">
+            <li v-if="$page.props.permissions.includes('اجمالي الأرباح')">
                 <Link href="/profits" class="nav-link link-dark">
                 <img src="/imgs/contract.svg" alt="">
                 إجمالي الأرباح
@@ -130,7 +130,7 @@ let moveActiveBtn = btn => {
 }
 
 onMounted(() => {
-    console.log(flash);
+    console.log(userSession);
     let navLinks = document.querySelectorAll('.nav-link');
     navLinks.forEach(link => {
         let href = link.getAttribute('href');

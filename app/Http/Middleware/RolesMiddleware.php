@@ -15,7 +15,7 @@ class RolesMiddleware
      */
     public function handle(Request $request, Closure $next, ...$roles): Response
     {
-        $user = session()->get('user');
+        $user = auth()->user();
         if ($user)
             foreach ($roles as $role) {
                 if ($user->role == $role)

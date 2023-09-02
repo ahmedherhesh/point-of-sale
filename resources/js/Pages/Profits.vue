@@ -52,7 +52,7 @@
                 </thead>
                 <tbody id="tbody">
                     <tr>
-                        <td scope="row">{{ allProfits.sale_price }}</td>
+                        <td scope="row">{{ allProfits.sale_price - allProfits.discounts }}</td>
                         <td scope="row">{{ allProfits.price }}</td>
                         <td scope="col">{{ expenses }}</td>
                         <td scope="col">{{ allProfits.discounts }}</td>
@@ -82,7 +82,7 @@
                         <td scope="row">{{ operation.customer_name ?? '-----' }}</td>
                         <td scope="col">{{ operation.customer_phone ?? '-----' }}</td>
                         <td scope="col">{{ operation.price }}</td>
-                        <td scope="col">{{ operation.sale_price }}</td>
+                        <td scope="col">{{ operation.sale_price - (operation.discount ?? 0)}}</td>
                         <td scope="col">{{ operation.discount ?? 0 }}</td>
                         <td scope="col">{{ operation.profits }}</td>
                         <td scope="col">{{ operation.created_at }}</td>

@@ -15,11 +15,12 @@ class CheckAuth
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (session()->has('user')) {
-            $user_status = session('user')->status;
+        $user = auth()->user();
+        if ($user) {
+            $user_status = $user->status;
             if ($user_status == 'active')
                 return $next($request);
         }
-        return redirect('login');
+        return redirect()->back();
     }
 }
