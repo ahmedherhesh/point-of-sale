@@ -1,15 +1,17 @@
 @import url(cairo_font.css);
-@page{
-    margin: 0;
-    padding: 0;
+
+@page {
+    size: landscape;
+    margin: 10%;
 }
+
 :root {
     /* --main-color: rgb(99 102 241);
     --hover-color: #4f46e5;
     --border-color: #4f46e5; */
-    --main-color:#31beab;
-    --hover-color:var(--main-color);
-    --border-color:var(--main-color);
+    --main-color: #31beab;
+    --hover-color: var(--main-color);
+    --border-color: var(--main-color);
     --box-shadow: 0 5px 20px rgba(173, 181, 189, .2);
     --secondary-color: #6c757d;
     --shadow-color: #ccc;
@@ -70,13 +72,16 @@ a:hover {
     background-color: rgb(150, 151, 231);
     color: #fff;
 }
-.btn-indigo{
+
+.btn-indigo {
     background-color: var(--main-color);
-    color:#fff
+    color: #fff
 }
-.btn-indigo:hover{
-    color:#fff
+
+.btn-indigo:hover {
+    color: #fff
 }
+
 .content {
     --sidebar-width: 255px;
     width: calc(100% - var(--sidebar-width));
@@ -150,18 +155,27 @@ a:hover {
     --bs-table-hover-bg: #d1d2d4;
     border-color: #cbccce;
 }
-.table-indigo tr th{
+
+.table-indigo tr th {
     padding: 10px 0;
 }
-.svg-light{
-    fill:#fff
+
+.svg-light {
+    fill: #fff
 }
 
-@media print{
-    .navbar,.sidebar,.ctm-pagination,.btns-controller,.btn-print,.items-filter{
+@media print {
+
+    .navbar,
+    .sidebar,
+    .ctm-pagination,
+    .btns-controller,
+    .btn-print,
+    .items-filter {
         display: none !important;
     }
-    .content{
+
+    .content {
         width: 100% !important;
     }
 }
