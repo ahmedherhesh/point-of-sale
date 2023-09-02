@@ -56,12 +56,11 @@
     width: 75mm;
     margin: 50px auto 0;
     position: relative;
-    padding: 20px;
-    font-size: 10px;
+    font-size: 11px;
 }
 
 h5 {
-    font-size: 10px;
+    font-size: 11px;
 }
 
 .invoice .invoice-header {
