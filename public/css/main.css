@@ -162,6 +162,7 @@ a:hover {
 @media print {
     body {
         margin: 0 !important;
+        height: fit-content;
     }
     .invoice{
         margin: 0 !important;
