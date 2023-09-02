@@ -160,13 +160,20 @@ a:hover {
 }
 
 @media print {
+    @page {
+        margin: 0;
+        padding: 0;
+    }
+
     body {
         margin: 0 !important;
         height: fit-content;
     }
-    .invoice{
+
+    .invoice {
         margin: 0 !important;
     }
+
     .navbar,
     .sidebar,
     .ctm-pagination,
@@ -177,6 +184,7 @@ a:hover {
     }
 
     .content {
+        top: 0;
         margin: 0 !important;
         padding: 0 !important;
         width: 100% !important;
