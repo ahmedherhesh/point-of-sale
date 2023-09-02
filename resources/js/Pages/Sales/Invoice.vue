@@ -52,7 +52,7 @@
 </template>
 <style>
 .invoice {
-    border: 5px solid gray;
+    /* border: 5px solid gray; */
     width: 75mm;
     margin: 50px auto 0;
     position: relative;
@@ -65,14 +65,14 @@ h5 {
 }
 
 .invoice .invoice-header {
-    --width: calc(100% - 50px);
+    /* --width: calc(100% - 50px);
     position: absolute;
     top: -25px;
-    left: calc(50% - (var(--width)/ 2));
-    background-color: gray;
-    height: 50px;
+    left: calc(50% - (var(--width)/ 2)); */
+    border: 1px solid #ddd;
+    height: 40px;
     width: var(--width);
-    color: #fff;
+    color: #000;
 }
 
 .span-border {
