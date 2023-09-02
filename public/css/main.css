@@ -1,5 +1,8 @@
 @import url(cairo_font.css);
-
+@page{
+    margin: 0;
+    padding: 0;
+}
 :root {
     /* --main-color: rgb(99 102 241);
     --hover-color: #4f46e5;
