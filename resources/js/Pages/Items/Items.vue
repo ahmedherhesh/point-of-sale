@@ -9,6 +9,7 @@
                     <tr>
                         <th class="text-center" scope="row">#</th>
                         <th class="text-center" scope="row">المنتج</th>
+                        <th class="text-center" scope="row">الوصف</th>
                         <th class="text-center" scope="col">الكمية</th>
                         <th class="text-center" scope="col">سعر الشراء</th>
                         <th class="text-center" scope="col">سعر البيع</th>
@@ -21,6 +22,7 @@
                     <tr v-for="(item, i) in items.data">
                         <td scope="row">{{ ++i }}</td>
                         <td scope="row">{{ item.title }}</td>
+                        <td scope="row">{{ item.notes }}</td>
                         <td scope="col">{{ item.stock }}</td>
                         <td scope="col">{{ item.price }}</td>
                         <td scope="col">{{ item.sale_price }}</td>

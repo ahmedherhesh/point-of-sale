@@ -12,7 +12,7 @@
             <div class="d-flex justify-content-center">
                 <img :src="item.image" class="rounded" alt="" srcset="">
             </div>
-            <h5 class="p-1">{{ item.title }}</h5>
+            <p class="p-1 text-center">{{ item.title }}</p>
         </div>
     </div>
 </template>

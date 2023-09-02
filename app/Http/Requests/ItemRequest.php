@@ -12,7 +12,7 @@ class ItemRequest extends MasterRequest
         $id = $this->route('item')->id ?? '';
         return [
             'user_id' => 'nullable|exists:users,id',
-            'title'   => 'required|min:4',
+            'title'   => 'required|min:4|max:20',
             'notes'   => 'nullable|min:4',
             'cat_id'  => 'required|exists:categories,id',
             'sub_cat_id' => 'nullable|exists:categories,id',
