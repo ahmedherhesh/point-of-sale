@@ -27,7 +27,8 @@
                             <td scope="col">{{ sale.item.title }}</td>
                             <td scope="col">{{ sale.qty }}</td>
                             <td scope="col">{{ sale.sale_price }}</td>
-                            <td scope="col" :data-total="totalPrice += (sale.qty * sale.sale_price)">{{ sale.qty * sale.sale_price }}</td>
+                            <td scope="col" :data-total="totalPrice += (sale.qty * sale.sale_price)">{{ sale.qty *
+                                sale.sale_price }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -41,7 +42,8 @@
                 <hr>
                 <p class="d-flex flex-column align-items-center">
                     <span><i class="fa-solid fa-location-dot ms-1"></i>{{ setting.address || '' }}</span>
-                    <span class="mt-3"><span>للإستفسار -</span> {{ setting.phone || '' }} <i class="fa-solid fa-square-phone me-1"></i></span>
+                    <span class="mt-3"><span>للإستفسار -</span> {{ setting.phone || '' }} <i
+                            class="fa-solid fa-square-phone me-1"></i></span>
                 </p>
             </div>
         </div>
@@ -53,11 +55,9 @@
     /* min-height: 500px; */
     max-width: 500px;
     min-width: 400px;
-    margin: 50px auto 0;
     position: relative;
     padding: 20px;
     padding-top: 60px;
-    scale: .5;
 }
 
 .invoice .invoice-header {
@@ -70,16 +70,17 @@
     width: var(--width);
     color: #fff;
 }
-.span-border{
+
+.span-border {
     height: 1px;
     background-color: gray;
 }
 </style>
 <script setup>
-import {onMounted} from 'vue'
+import { onMounted } from 'vue'
 import Navbar from '../components/Navbar.vue';
 import Sidebar from '../components/Sidebar.vue';
-defineProps({ invoice: Object,barcode:String ,setting:Object})
+defineProps({ invoice: Object, barcode: String, setting: Object })
 let totalPrice = 0
 onMounted(() => {
     print()
