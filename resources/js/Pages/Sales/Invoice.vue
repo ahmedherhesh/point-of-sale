@@ -53,16 +53,15 @@
 <style>
 .invoice {
     border: 5px solid gray;
-    /* min-height: 500px; */
     width: 75mm;
     margin: 50px auto 0;
     position: relative;
     padding: 20px;
-    font-size: 9px;
+    font-size: 10px;
 }
 
 h5 {
-    font-size: 9px;
+    font-size: 10px;
 }
 
 .invoice .invoice-header {

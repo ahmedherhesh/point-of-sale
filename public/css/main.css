@@ -1,9 +1,5 @@
 @import url(cairo_font.css);
 
-@page {
-    size: landscape;
-    margin: 10%;
-}
 
 :root {
     /* --main-color: rgb(99 102 241);
@@ -165,7 +161,9 @@ a:hover {
 }
 
 @media print {
-
+    body {
+        margin: 0 !important;
+    }
     .navbar,
     .sidebar,
     .ctm-pagination,
@@ -174,8 +172,8 @@ a:hover {
     .items-filter {
         display: none !important;
     }
-
     .content {
+        margin: 0 !important;
         width: 100% !important;
     }
 }
