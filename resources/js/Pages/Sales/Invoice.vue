@@ -59,7 +59,6 @@
     position: relative;
     padding: 20px;
     font-size: 9px;
-    scale: .85;
 }
 
 h5 {
