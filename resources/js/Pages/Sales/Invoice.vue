@@ -7,7 +7,8 @@
                 <h3>{{ setting.title || 'POS' }}</h3>
                 <!-- <img src="/imgs/logo.gif" width="90" alt=""> -->
             </div>
-            <p class="mt-2" :class="invoice.data.customer_name && invoice.data.customer_phone ? 'd-flex justify-content-between' : ''">
+            <p class="mt-2"
+                :class="invoice.data.customer_name && invoice.data.customer_phone ? 'd-flex justify-content-between' : ''">
                 <span v-if="invoice.data.customer_name">اسم العميل : {{ invoice.data.customer_name }}</span>
                 <span v-if="invoice.data.customer_phone">رقم الهاتف : {{ invoice.data.customer_phone }}</span>
             </p>
@@ -58,6 +59,7 @@
     position: relative;
     padding: 20px;
     font-size: 9px;
+    scale: .85;
 }
 
 h5 {
