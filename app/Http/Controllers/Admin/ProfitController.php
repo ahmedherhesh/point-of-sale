@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\MasterController;
 use App\Http\Resources\OperationsResource;
 use App\Models\Expense;
 use App\Models\ExtraProfit;
 use App\Models\Operation;
 use Illuminate\Http\Request;
 
-class ProfitController extends Controller
+class ProfitController extends MasterController
 {
+    public $permission = 'إجمالي الأرباح';
+    
     function profits($operations, $extraProfits, $expenses)
     {
         $profits = 0;

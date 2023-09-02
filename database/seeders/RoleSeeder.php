@@ -42,12 +42,12 @@ class RoleSeeder extends Seeder
             'المصروفات',
             'المنتجات التالفة',
             'الأرباح الإضافية',
-            'إعدادات التطبيق',
         ];
         foreach ($permissions as $permission) {
             createPermission($permission);
         }
         Permission::create(['name' => 'الباركود']);
-        Permission::create(['name' => 'اجمالي الأرباح']);
+        Permission::create(['name' => 'إجمالي الأرباح']);
+        Permission::create(['name' => 'إعدادات التطبيق']);
     }
 }

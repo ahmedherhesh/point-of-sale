@@ -17,7 +17,7 @@
                     <tr v-for="(user, i) in users.data">
                         <td>{{ i + 1 }}</td>
                         <td>{{ user.name }}</td>
-                        <td>{{ user.role }}</td>
+                        <td>{{ user.roles[0].name}}</td>
                         <td>{{ user.status }}</td>
                         <td class="btns-controller">
                             <div class="d-flex justify-content-center gap-2">
@@ -41,7 +41,7 @@ import Sidebar from '../components/Sidebar.vue'
 import Pagination from '../components/Pagination.vue';
 import { Link, router } from '@inertiajs/vue3';
 import PrintButton from '../components/PrintButton.vue';
-defineProps({ users: Object ,setting:Object})
+defineProps({ users: Object, setting: Object })
 let deleteUser = e => {
     let el = e.currentTarget;
     if (confirm('هل انت متأكد من حذف هذا المستخدم'))

@@ -73,7 +73,7 @@
                 الأرباح الإضافية
                 </Link>
             </li>
-            <li v-if="$page.props.permissions.includes('اجمالي الأرباح')">
+            <li v-if="$page.props.permissions.includes('إجمالي الأرباح')">
                 <Link href="/profits" class="nav-link link-dark">
                 <img src="/imgs/contract.svg" alt="">
                 إجمالي الأرباح
@@ -120,7 +120,6 @@
 <script setup>
 import { Link, usePage } from "@inertiajs/vue3";
 import { onMounted } from "vue";
-let adminRoles = ['super-admin', 'admin'];
 let props = usePage().props;
 let { userSession } = props;
 let { flash } = props;
@@ -130,7 +129,6 @@ let moveActiveBtn = btn => {
 }
 
 onMounted(() => {
-    console.log(userSession);
     let navLinks = document.querySelectorAll('.nav-link');
     navLinks.forEach(link => {
         let href = link.getAttribute('href');

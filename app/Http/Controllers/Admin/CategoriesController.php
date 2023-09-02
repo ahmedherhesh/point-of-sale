@@ -11,6 +11,7 @@ use App\Models\Item;
 
 class CategoriesController extends MasterController
 {
+    public $permission = 'الأقسام';
     /**
      * Display a listing of the resource.
      */

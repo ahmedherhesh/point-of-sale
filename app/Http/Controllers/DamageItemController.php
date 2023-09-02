@@ -5,16 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\DamageItemsRequest;
 use App\Models\DamageItem;
 use App\Models\Item;
-use Illuminate\Http\Request;
 
-class DamageItemController extends Controller
+class DamageItemController extends MasterController
 {
-    public function __construct()
-    {
-        $this->middleware('roles:super-admin,admin', ['except' => [
-            'index', 'create', 'store'
-        ]]);
-    }
+    public $permission = 'المنتجات التالفة';
+
     /**
      * Display a listing of the resource.
      */

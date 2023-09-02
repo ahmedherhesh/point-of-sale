@@ -8,6 +8,10 @@ use App\Models\Setting;
 
 class SettingsController extends MasterController
 {
+    public $permission = 'إعدادات التطبيق';
+    public $can = [
+        'إعدادات التطبيق' => ['index', 'storeOrUpdate'],
+    ];
     function index()
     {
         return inertia('Settings/Create');

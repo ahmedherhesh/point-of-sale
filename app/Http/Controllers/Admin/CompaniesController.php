@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 
 class CompaniesController extends MasterController
 {
+    public $permission = 'الشركات';
     /**
      * Display a listing of the resource.
      */

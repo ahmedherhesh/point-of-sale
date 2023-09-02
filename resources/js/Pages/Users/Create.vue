@@ -21,13 +21,20 @@
                 <span v-if="errors.email" class="text-danger text-direction-rtl mt-1 mb-1">{{ errors.email }}</span>
             </div>
             <div class="mb-3">
-                <label for="role" class="form-label">الصلاحية</label>
+                <label for="role" class="form-label">الوظيفه</label>
                 <select class="form-select" id="role" v-model="userForm.role">
                     <option v-for="(role, key) in enums.user.roles" :value="key" >{{ role }}
                     </option>
                 </select>
                 <span v-if="errors.role" class="text-danger text-direction-rtl mt-1 mb-1">{{ errors.role }}</span>
-
+            </div>
+            <div class="mb-3">
+                <label for="permission" class="form-label">الصلاحيات</label>
+                <p v-if="errors.permissions" class="text-danger text-direction-rtl mt-1 mb-1">{{ errors.permissions }}</p>
+                <div v-for="permission in $page.props.permissions" class="d-inline-block w-50">
+                    <input class="ms-2" type="checkbox" :value="permission" :id="permission" v-model="permissions" @change="pushPermission">
+                    <label :for="permission" class="d-inline-block ms-2">{{ permission }}</label>
+                </div>
             </div>
             <div class="mb-3">
                 <label for="status" class="form-label">الحاله</label>
@@ -50,18 +57,24 @@
 import Navbar from '../components/Navbar.vue';
 import Sidebar from '../components/Sidebar.vue';
 import { router } from '@inertiajs/vue3';
+import { ref } from 'vue';
 import enums from '../../constants.js';
 
 defineProps({ user: Object, errors: Object ,setting:Object})
-
+const permissions = ref([]);
 let userForm = {
     name: '',
     username: '',
     email: '',
     password: '',
     role: '',
+    permissions: [],
     status: ''
 }
+const pushPermission = e => {
+    userForm.permissions = permissions._value;
+}
+
 const addUser = () => {
     router.post('/users', userForm)
 }

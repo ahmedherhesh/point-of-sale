@@ -11,19 +11,19 @@
                     <div class="dropdown">
                         <span class="rounded dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><img src="/imgs/library_add.svg" alt="" width="45"></span>
                         <ul class="dropdown-menu">
-                            <li v-if="adminRoles.includes(userSession.role)"><Link href="/users/create" class="dropdown-item text-center ">اضافة مستخدم</Link></li>
-                            <li v-if="adminRoles.includes(userSession.role)"><Link href="/categories/create" class="dropdown-item text-center">اضافة قسم</Link></li>
-                            <li v-if="adminRoles.includes(userSession.role)"><Link href="/companies/create" class="dropdown-item text-center">اضافة شركة</Link></li>
-                            <li v-if="adminRoles.includes(userSession.role)"><Link href="/items/create" class="dropdown-item text-center">اضافة منتج</Link></li>
-                            <li><Link href="/damages/create" class="dropdown-item text-center">اضافة منتج تالف</Link></li>
-                            <li v-if="adminRoles.includes(userSession.role)"><Link href="/expenses/create" class="dropdown-item text-center">اضافة مصروف</Link></li>
-                            <li><Link href="/extra-profits/create" class="dropdown-item text-center">اضافة ربح اضافي</Link></li>
+                            <li v-if="$page.props.permissions.includes('اضافة المستخدمين')"><Link href="/users/create" class="dropdown-item text-center ">اضافة مستخدم</Link></li>
+                            <li v-if="$page.props.permissions.includes('اضافة الأقسام')"><Link href="/categories/create" class="dropdown-item text-center">اضافة قسم</Link></li>
+                            <li v-if="$page.props.permissions.includes('اضافة الشركات')"><Link href="/companies/create" class="dropdown-item text-center">اضافة شركة</Link></li>
+                            <li v-if="$page.props.permissions.includes('اضافة المنتجات')"><Link href="/items/create" class="dropdown-item text-center">اضافة منتج</Link></li>
+                            <li v-if="$page.props.permissions.includes('اضافة المنتجات التالفة')"><Link href="/damages/create" class="dropdown-item text-center">اضافة منتج تالف</Link></li>
+                            <li v-if="$page.props.permissions.includes('اضافة المصروفات')"><Link href="/expenses/create" class="dropdown-item text-center">اضافة مصروف</Link></li>
+                            <li v-if="$page.props.permissions.includes('اضافة الأرباح الإضافية')"><Link href="/extra-profits/create" class="dropdown-item text-center">اضافة ربح اضافي</Link></li>
                         </ul>
                     </div>
                     <div class="dropdown">
                         <span class="rounded dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><img src="/imgs/manage_accounts.svg" alt="" width="45"></span>
                         <ul class="dropdown-menu">
-                            <li v-if="adminRoles.includes(userSession.role)"><Link href="/settings" class="dropdown-item text-center ">الإعدادات</Link></li>
+                            <li v-if="$page.props.permissions.includes('إعدادات التطبيق')"><Link href="/settings" class="dropdown-item text-center ">الإعدادات</Link></li>
                             <li><Link href="/change-password" class="dropdown-item text-center ">تغيير كلمة السر</Link></li>
                             <li><Link href="/logout" class="dropdown-item text-center ">تسجيل خروج</Link></li>
                         </ul>
@@ -54,7 +54,5 @@
 }
 </style>
 <script setup>
-import { Link, usePage } from "@inertiajs/vue3";
-let adminRoles = ['super-admin', 'admin'];
-let userSession = usePage().props.userSession;
+import { Link} from "@inertiajs/vue3";
 </script>

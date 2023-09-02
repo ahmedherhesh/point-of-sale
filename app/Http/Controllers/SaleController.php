@@ -13,12 +13,8 @@ use Milon\Barcode\DNS1D;
 
 class SaleController extends MasterController
 {
-    function __construct()
-    {
-        // $this->middleware('permission:manage-posts', ['only' => ['create']]);
-        // $this->middleware('permission:edit-posts',   ['only' => ['edit']]);
-        // $this->middleware('permission:view-posts',   ['only' => ['show', 'index']]);
-    }
+    public $permission = 'المبيعات';
+
     function makeSale($request, $operation)
     {
         $price = 0;
@@ -64,7 +60,7 @@ class SaleController extends MasterController
         $operations = SalesResource::collection($operation);
         return inertia('Sales/Sales', compact('operations'));
     }
-    function pos()
+    function create()
     {
         return inertia('Sales/Create', $this->data());
     }

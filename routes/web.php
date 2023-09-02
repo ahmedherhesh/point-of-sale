@@ -30,7 +30,7 @@ view()->composer(['*'], function ($view) {
     $view->with('setting', Setting::first() ?? []);
 });
 Route::get('test', function () {
-    return  auth()->user()->getAllPermissions()->pluck('name');
+    return  auth()->user()->getRoleNames();
 });
 Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('login', [AuthController::class, '_login'])->name('_login');
@@ -38,7 +38,7 @@ Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 Route::group(['middleware' => 'auth.web'], function () {
 
     // Route::inertia('/', 'Home')->name('home');
-    Route::get('/', [SaleController::class, 'pos'])->name('pos');
+    Route::get('/', [SaleController::class, 'create'])->name('pos');
     Route::post('items-filter', [ItemController::class, 'itemsFilter']);
     Route::post('sale', [SaleController::class, 'store'])->name('sale');
     Route::get('change-password', [AuthController::class, 'changePassword']);

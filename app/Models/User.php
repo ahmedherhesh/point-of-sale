@@ -23,7 +23,6 @@ class User extends Authenticatable
         'username',
         'email',
         'password',
-        'role',
         'status',
     ];
 
@@ -49,9 +48,5 @@ class User extends Authenticatable
     function setPasswordAttribute($password)
     {
         return $this->attributes['password'] = bcrypt($password);
-    }
-    function depot()
-    {
-        return $this->belongsTo(Depository::class,'depot_id');
     }
 }

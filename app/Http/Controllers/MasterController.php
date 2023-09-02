@@ -11,6 +11,23 @@ class MasterController extends Controller
 {
     public $data;
     public $item_count = 50;
+    public $permission;
+    public $can = [];
+    function __construct()
+    {
+        $this->can(array_merge([
+            "{$this->permission}" => ['index','show'],
+            "اضافة {$this->permission}" => ['create', 'store'],
+            "تعديل {$this->permission}" => ['edit', 'update'],
+            "حذف {$this->permission}" => ['destroy'],
+        ],$this->can));
+    }
+    function can($permissions = [])
+    {
+        foreach ($permissions as $permission => $functions) {
+            $this->middleware("permission:$permission", ["only" => $functions]);
+        }
+    }
     function data()
     {
         return [
@@ -21,11 +38,11 @@ class MasterController extends Controller
     }
     public function user()
     {
-        return session()->get('user');
+        return auth()->user();
     }
     public function isAdmin()
     {
-        if (in_array($this->user()->role, ['super-admin', 'admin']))
+        if ($this->user() && in_array($this->user()->getRoleNames(), ['super-admin', 'admin']))
             return true;
         return false;
     }

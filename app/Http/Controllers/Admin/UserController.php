@@ -2,22 +2,21 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Http\Controllers\MasterController;
 use App\Http\Requests\Auth\UserRequest;
 use App\Http\Resources\UsersResource;
-use App\Models\Depository;
 use App\Models\User;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends MasterController
 {
+    public $permission = 'المستخدمين';
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $users = User::where('role', '!=', 'super-admin')->latest()->paginate(30);
+        $users = User::with('roles')->paginate(30);
         return inertia('Users/Users', ['users' => UsersResource::collection($users)]);
     }
 
@@ -26,7 +25,8 @@ class UserController extends MasterController
      */
     public function create()
     {
-        return inertia('Users/Create');
+        $permissions = DB::table('permissions')->get()->pluck('name');
+        return inertia('Users/Create', compact('permissions'));
     }
 
     /**
@@ -34,7 +34,9 @@ class UserController extends MasterController
      */
     public function store(UserRequest $request)
     {
-        User::create($request->all());
+        $user = User::create($request->except(['role', 'permissions']));
+        $user->assignRole($request->role);
+        $user->givePermissionTo($request->permissions);
         return redirect()->back();
     }
 
@@ -48,11 +50,11 @@ class UserController extends MasterController
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user)
+    public function edit($id)
     {
-        if ($user->role != 'super-admin')
-            return inertia('Users/Edit', ['user' => $user]);
-        return redirect()->back()->with('failed', 'لا تملك الصلاحية للتعديل على هذا المستخدم');
+        $user = User::with(['roles'])->findOrFail($id);
+        $permissions = DB::table('permissions')->get()->pluck('name');
+        return inertia('Users/Edit', ['user' => $user, 'permissions' => $permissions, 'userPermissions' => $user->getAllPermissions()->pluck('name')]);
     }
 
     /**
@@ -60,15 +62,14 @@ class UserController extends MasterController
      */
     public function update(UserRequest $request, User $user)
     {
-        if ($user->role != 'super-admin') {
-            $data = $request->all();
-            if (!$data['password'])
-                $data = $request->except('password');
-            $update_user = $user->update($data);
-            if ($update_user)
-                return redirect()->back()->with('success', 'تم تحديث المستخدم بنجاح');
-        }
-        return redirect()->back()->with('failed', 'لا تملك الصلاحية للتعديل على هذا المستخدم');
+        $data = $request->except('permissions', 'role');
+        if (!$data['password'])
+            $data = $request->except('password');
+        $update_user = $user->update($data);
+        $user->syncRoles($request->role);
+        $user->syncPermissions($request->permissions);
+        if ($update_user)
+            return redirect()->back()->with('success', 'تم تحديث المستخدم بنجاح');
     }
 
     /**

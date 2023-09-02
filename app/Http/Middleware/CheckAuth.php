@@ -21,6 +21,6 @@ class CheckAuth
             if ($user_status == 'active')
                 return $next($request);
         }
-        return redirect()->back();
+        return redirect('login');
     }
 }

@@ -18,14 +18,9 @@ class AuthController extends MasterController
     public function _login(LoginRequest $request)
     {
         $user = $request->only('username', 'password');
-        $user = auth()->attempt($user,true);
-        if ($user) {
-            $user = auth()->user();
-            if ($user->status == 'active') {
-                $request->session()->put('user', $user);
-                return redirect('/');
-            }
-        }
+        $user = auth()->attempt($user, true);
+        if ($user)
+            return redirect('/');
         return redirect()->back()->with('failed', 'إسم المستخدم أو كلمة السر غير صحيحة');
     }
     public function changePassword()

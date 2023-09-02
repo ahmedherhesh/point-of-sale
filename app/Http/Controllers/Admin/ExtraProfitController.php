@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\MasterController;
 use App\Http\Requests\ExtraProfitRequest;
 use App\Models\ExtraProfit;
-use Illuminate\Http\Request;
 
 class ExtraProfitController extends MasterController
 {
+    public $permission = 'الأرباح الإضافية';
     /**
      * Display a listing of the resource.
      */

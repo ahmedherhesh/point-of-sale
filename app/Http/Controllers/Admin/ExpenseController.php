@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\MasterController;
 use App\Http\Requests\ExpenseRequest;
 use App\Models\Expense;
-use Illuminate\Http\Request;
 
 class ExpenseController extends MasterController
 {
+    public $permission = 'المصروفات';
     /**
      * Display a listing of the resource.
      */

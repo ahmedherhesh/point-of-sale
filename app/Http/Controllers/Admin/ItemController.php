@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Http\Controllers\MasterController;
 use App\Http\Requests\ItemRequest;
 use App\Http\Resources\ItemsResource;
@@ -13,6 +12,12 @@ use Illuminate\Http\Request;
 
 class ItemController extends MasterController
 {
+    public $permission = 'المنتجات';
+    public $can = [
+        'المنتجات' => ['index', 'show', 'notInStock'],
+        'الباركود' => 'barcode'
+    ];
+
     function itemsWithFilter($request)
     {
         $items = Item::query();
