@@ -163,7 +163,9 @@ a:hover {
     body {
         margin: 0 !important;
     }
-
+    .invoice{
+        margin: 0 !important;
+    }
     .navbar,
     .sidebar,
     .ctm-pagination,
