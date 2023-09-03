@@ -87,8 +87,9 @@ class SaleController extends MasterController
 
     function edit($id)
     {
-        $this->data()['operation'] = (new OperationsResource(Operation::findOrFail($id)));
-        return inertia('Sales/Edit', $this->data());
+        $data = $this->data();
+        $data['operation'] = (new OperationsResource(Operation::findOrFail($id)));
+        return inertia('Sales/Edit', $data);
     }
 
     function update(SaleRequest $request, $id)

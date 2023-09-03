@@ -46,16 +46,18 @@ class ItemController extends MasterController
     }
     function barcode(Request $request)
     {
-        $this->data()['items'] = ItemsResource::collection($this->itemsWithFilter($request)->orderByDesc('id')->paginate($this->item_count));
-        return inertia('Items/Barcode', $this->data());
+        $data = $this->data();
+        $data['items'] = ItemsResource::collection($this->itemsWithFilter($request)->orderByDesc('id')->paginate($this->item_count));
+        return inertia('Items/Barcode', $data);
     }
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        $this->data()['items'] = ItemsResource::collection($this->itemsWithFilter($request)->orderByDesc('id')->paginate($this->item_count));
-        return inertia('Items/Items', $this->data());
+        $data = $this->data();
+        $data['items'] = ItemsResource::collection($this->itemsWithFilter($request)->orderByDesc('id')->paginate($this->item_count));
+        return inertia('Items/Items', $data);
     }
 
     /**
@@ -63,8 +65,9 @@ class ItemController extends MasterController
      */
     public function notInStock()
     {
-        $this->data()['items'] = ItemsResource::collection(Item::notInStock()->paginate($this->item_count));
-        return inertia('Items/Items', $this->data());
+        $data = $this->data();
+        $data['items'] = ItemsResource::collection(Item::notInStock()->paginate($this->item_count));
+        return inertia('Items/Items', $data);
     }
     /**
      * Show the form for creating a new resource.
