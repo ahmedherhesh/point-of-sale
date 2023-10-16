@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\MasterController;
 use App\Http\Requests\ExpenseRequest;
+use App\Http\Resources\ExpensesResource;
 use App\Models\Expense;
 
 class ExpenseController extends MasterController
@@ -14,8 +15,8 @@ class ExpenseController extends MasterController
      */
     public function index()
     {
-        $expenses = Expense::paginate(100);
-        return inertia('Expenses/Expenses',compact('expenses'));
+        $expenses = ExpensesResource::collection(Expense::paginate(100));
+        return inertia('Expenses/Expenses', compact('expenses'));
     }
 
     /**
@@ -49,13 +50,13 @@ class ExpenseController extends MasterController
      */
     public function edit(Expense $expense)
     {
-        return inertia('Expenses/Edit',compact('expense'));
+        return inertia('Expenses/Edit', compact('expense'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(ExpenseRequest $request,Expense $expense)
+    public function update(ExpenseRequest $request, Expense $expense)
     {
         $data = $request->all();
         $expense->update($data);
