@@ -15,7 +15,7 @@ class ExpenseController extends MasterController
      */
     public function index()
     {
-        $expenses = ExpensesResource::collection(Expense::paginate(100));
+        $expenses = ExpensesResource::collection(Expense::OrderByDesc('id')->paginate(100));
         return inertia('Expenses/Expenses', compact('expenses'));
     }
 

@@ -15,7 +15,7 @@ class ExtraProfitController extends MasterController
      */
     public function index()
     {
-        $extraProfits = ExtraProfitsResource::collection(ExtraProfit::paginate(100));
+        $extraProfits = ExtraProfitsResource::collection(ExtraProfit::OrderByDesc('id')->paginate(100));
         return inertia('ExtraProfits/ExtraProfits',compact('extraProfits'));
     }
 
