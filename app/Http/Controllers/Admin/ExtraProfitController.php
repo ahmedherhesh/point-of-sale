@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\MasterController;
 use App\Http\Requests\ExtraProfitRequest;
+use App\Http\Resources\ExtraProfitsResource;
 use App\Models\ExtraProfit;
 
 class ExtraProfitController extends MasterController
@@ -14,7 +15,7 @@ class ExtraProfitController extends MasterController
      */
     public function index()
     {
-        $extraProfits = ExtraProfit::paginate(100);
+        $extraProfits = ExtraProfitsResource::collection(ExtraProfit::paginate(100));
         return inertia('ExtraProfits/ExtraProfits',compact('extraProfits'));
     }
 
