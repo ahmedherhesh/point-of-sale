@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 class ProfitController extends MasterController
 {
     public $permission = 'إجمالي الأرباح';
-    
+
     function profits($operations, $extraProfits, $expenses)
     {
         $profits = 0;
@@ -64,6 +64,11 @@ class ProfitController extends MasterController
             $operations = $operations->whereDate('created_at', '<=', $request->to);
             $extraProfits = $extraProfits->whereDate('created_at', '<=', $request->to);
             $expenses = $expenses->whereDate('created_at', '<=', $request->to);
+        }
+        if (!$request->from && !$request->to) {
+            $operations = $operations->whereMonth('created_at',  now()->month);
+            $extraProfits = $extraProfits->whereMonth('created_at',  now()->month);
+            $expenses = $expenses->whereMonth('created_at',  now()->month);
         }
         //profits
         $extraProfits = $extraProfits->sum('amount');

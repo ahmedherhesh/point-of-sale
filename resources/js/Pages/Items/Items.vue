@@ -4,6 +4,10 @@
     <div class="content">
         <items-filter :errors="errors" :items="items" :categories="categories" :companies="companies" />
         <div class="table-responsive shadow">
+            <h4 class="row p-2">
+                <div class="col-md-6 text-center">إجمالي سعر الشراء : {{ totalPrice }}</div>
+                <div class="col-md-6 text-center">اجمالي سعر البيع : {{ totalSalePrice }}</div>
+            </h4>
             <table class="table table-light table-hover table-bordered align-middle text-center m-auto">
                 <thead class="table-indigo">
                     <tr>
@@ -46,12 +50,12 @@
     </div>
 </template>
 <style>
-    #tbody .item-img{
-        width:50px;
-        height: 50px;
-        object-fit: cover;
-        border-radius: 50%;
-    }
+#tbody .item-img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+}
 </style>
 <script setup>
 import Navbar from '../components/Navbar.vue';
@@ -60,7 +64,15 @@ import ItemsFilter from '../components/ItemsFilter.vue';
 import Pagination from '../components/Pagination.vue';
 import { Link, router } from '@inertiajs/vue3';
 import PrintButton from '../components/PrintButton.vue';
-defineProps({ errors: Object, items: Object, categories: Object, companies: Object ,setting:Object})
+defineProps({
+    errors: Object,
+    items: Object,
+    categories: Object,
+    companies: Object,
+    setting: Object,
+    totalSalePrice: Object,
+    totalPrice: Object,
+})
 let deleteItem = e => {
     let el = e.currentTarget;
     if (confirm('هل انت متأكد من حذف هذا المنتج'))

@@ -6,6 +6,7 @@ use App\Http\Controllers\MasterController;
 use App\Http\Requests\ExpenseRequest;
 use App\Http\Resources\ExpensesResource;
 use App\Models\Expense;
+use Illuminate\Http\Request;
 
 class ExpenseController extends MasterController
 {
@@ -13,10 +14,18 @@ class ExpenseController extends MasterController
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $expenses = ExpensesResource::collection(Expense::OrderByDesc('id')->paginate(100));
-        return inertia('Expenses/Expenses', compact('expenses'));
+        $expenses = Expense::query();
+        if ($request->from)
+            $expenses->whereDate('created_at', '>=', $request->from);
+        if ($request->to)
+            $expenses->whereDate('created_at', '<=', $request->to);
+        if (!$request->from && !$request->to)
+            $expenses->whereMonth('created_at', now()->month);
+        $sumExpenses = $expenses->sum('amount');
+        $expenses = ExpensesResource::collection($expenses->latest()->paginate(100));
+        return inertia('Expenses/Expenses', compact('expenses','sumExpenses'));
     }
 
     /**

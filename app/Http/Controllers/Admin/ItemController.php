@@ -56,7 +56,10 @@ class ItemController extends MasterController
     public function index(Request $request)
     {
         $data = $this->data();
-        $data['items'] = ItemsResource::collection($this->itemsWithFilter($request)->orderByDesc('id')->paginate($this->item_count));
+        $items = $this->itemsWithFilter($request);
+        $data['items'] = ItemsResource::collection($items->orderByDesc('id')->paginate($this->item_count));
+        $data['totalSalePrice'] = $items->sum('sale_price');
+        $data['totalPrice'] = $items->sum('price');
         return inertia('Items/Items', $data);
     }
 

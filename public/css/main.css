@@ -159,6 +159,30 @@ a:hover {
     fill: #fff
 }
 
+.date-form-filter {
+    padding: 20px;
+    box-shadow: var(--box-shadow);
+    background-color: #fff;
+    border-radius: 10px;
+    width: fit-content;
+    max-width: 30rem;
+    transition: height .5s;
+}
+
+.spinner {
+    animation: spinner 60s;
+}
+
+@keyframes spinner {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360000000deg);
+    }
+}
+
 @media print {
     @page {
         margin: 0;
@@ -189,4 +213,10 @@ a:hover {
         padding: 0 !important;
         width: 100% !important;
     }
+
+    .profit-sections,
+    .date-form-filter {
+        display: none !important;
+    }
+
 }

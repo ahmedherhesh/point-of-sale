@@ -2,7 +2,9 @@
     <navbar :setting="setting" />
     <sidebar />
     <div class="content">
+        <DateFilter path="expenses" />
         <div class="table-responsive shadow" style="min-width: 600px;">
+           <h4 class="text-center p-2"> إجمالي المصروفات : {{ sumExpenses }}</h4> 
             <table class="table table-light table-hover table-bordered align-middle text-center m-auto">
                 <thead class="table-indigo">
                     <tr>
@@ -22,7 +24,7 @@
                         <td class="btns-controller">
                             <div class="d-flex justify-content-center gap-2">
                                 <Link :href="`/expenses/${expense.id}/edit`" class="text-secondary btn p-0 edit-btn"><i
-                                        class="fa-solid fa-pen-to-square"></i></Link>
+                                    class="fa-solid fa-pen-to-square"></i></Link>
                                 <button class="text-secondary btn delete-btn p-0" @click="deleteExpense"
                                     :data-expenseId="expense.id"><i class="fa-solid fa-trash"></i></button>
                             </div>
@@ -42,7 +44,8 @@ import Sidebar from '../components/Sidebar.vue'
 import Pagination from '../components/Pagination.vue';
 import { Link, router } from '@inertiajs/vue3';
 import PrintButton from '../components/PrintButton.vue';
-defineProps({ expenses: Object ,setting:Object})
+import DateFilter from '../components/DateFilter.vue';
+defineProps({ expenses: Object, sumExpenses: Object, setting: Object })
 let deleteExpense = e => {
     let el = e.currentTarget;
     if (confirm('هل انت متأكد من حذف هذا المصروف'))

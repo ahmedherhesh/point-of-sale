@@ -15,7 +15,7 @@ class DamageItemController extends MasterController
      */
     public function index()
     {
-        $damageItems = DamageItem::with('item')->paginate(50);
+        $damageItems = DamageItem::with('item')->latest()->paginate(50);
         return inertia('Damages/Damages', compact('damageItems'));
     }
 
@@ -44,7 +44,10 @@ class DamageItemController extends MasterController
                 $item->update(['stock' => $item->stock - $damageItem->stock]);
         }
     }
-
+    public function item($id)
+    {
+        return Item::whereId($id)->first(['title']);
+    }
     /**
      * Display the specified resource.
      */
@@ -70,7 +73,7 @@ class DamageItemController extends MasterController
         $damageItem = DamageItem::findOrFail($id);
         $item = Item::whereCode($request->code)->first();
         if ($item->stock < ($request->stock - $damageItem->stock))
-            return redirect()->back()->with('failed','الكمية المطلوبه غير متوفرة في المخزن');
+            return redirect()->back()->with('failed', 'الكمية المطلوبه غير متوفرة في المخزن');
         else {
             if ($request->stock > $damageItem->stock)
                 $item->update(['stock' => $item->stock - ($request->stock - $damageItem->stock)]);

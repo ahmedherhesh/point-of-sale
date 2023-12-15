@@ -29,9 +29,7 @@ use Spatie\Permission\Contracts\Permission;
 view()->composer(['*'], function ($view) {
     $view->with('setting', Setting::first() ?? []);
 });
-Route::get('test', function () {
-    return  auth()->user()->getRoleNames();
-});
+
 Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('login', [AuthController::class, '_login'])->name('_login');
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
@@ -45,9 +43,9 @@ Route::group(['middleware' => 'auth.web'], function () {
     Route::post('change-password', [AuthController::class, '_changePassword']);
     Route::resource('sales', SaleController::class);
     Route::resource('damages', DamageItemController::class);
+    Route::get('item/{id}',[DamageItemController::class,'item']);
     Route::resource('extra-profits', ExtraProfitController::class);
-    //super-admin,admin
-    // Route::group(['middleware' => 'roles:super-admin,admin'], function () {
+
     Route::resource('users', UserController::class);
     Route::resource('items', ItemController::class);
     Route::get('barcode', [ItemController::class, 'barcode']);
@@ -59,5 +57,5 @@ Route::group(['middleware' => 'auth.web'], function () {
     Route::get('profits', [ProfitController::class, 'index'])->name('profits');
     Route::get('settings', [SettingsController::class, 'index']);
     Route::post('settings', [SettingsController::class, 'storeOrUpdate']);
-    // });
+    
 });
