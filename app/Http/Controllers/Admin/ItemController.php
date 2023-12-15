@@ -60,9 +60,9 @@ class ItemController extends MasterController
         $data['items'] = ItemsResource::collection($items->orderByDesc('id')->paginate($this->item_count));
         $data['totalSalePrice'] = 0;
         $data['totalPrice'] = 0;
-        foreach ($items->get(['price','sale_price']) as $item) {
-            $data['totalSalePrice'] += $item->sale_price * $item->sale_price;
-            $data['totalPrice'] += $item->price * $item->price;
+        foreach ($items->get(['price','sale_price','stock']) as $item) {
+            $data['totalSalePrice'] += $item->sale_price * $item->stock;
+            $data['totalPrice'] += $item->price * $item->stock;
         }
         return inertia('Items/Items', $data);
     }
