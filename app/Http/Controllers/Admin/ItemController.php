@@ -57,13 +57,13 @@ class ItemController extends MasterController
     {
         $data = $this->data();
         $items = $this->itemsWithFilter($request);
-        $data['items'] = ItemsResource::collection($items->orderByDesc('id')->paginate($this->item_count));
         $data['totalSalePrice'] = 0;
         $data['totalPrice'] = 0;
         foreach ($items->get(['price','sale_price','stock']) as $item) {
             $data['totalSalePrice'] += $item->sale_price * $item->stock;
             $data['totalPrice'] += $item->price * $item->stock;
         }
+        $data['items'] = ItemsResource::collection($items->orderByDesc('id')->paginate($this->item_count));
         return inertia('Items/Items', $data);
     }
 
