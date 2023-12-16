@@ -4,10 +4,10 @@
     <div class="content">
         <items-filter :errors="errors" :items="items" :categories="categories" :companies="companies" />
         <div class="table-responsive shadow">
-            <h4 class="row p-2">
-                <div class="col-md-6 text-center">إجمالي سعر الشراء : {{ totalPrice }}</div>
-                <div class="col-md-6 text-center">اجمالي سعر البيع : {{ totalSalePrice }}</div>
-            </h4>
+            <div class="row p-2">
+                <h4 class="col-md-6 col-sm-12 text-center">إجمالي سعر الشراء : {{ totalPrice }}</h4>
+                <h4 class="col-md-6 col-sm-12 text-center">اجمالي سعر البيع : {{ totalSalePrice }}</h4>
+            </div>
             <table class="table table-light table-hover table-bordered align-middle text-center m-auto">
                 <thead class="table-indigo">
                     <tr>
