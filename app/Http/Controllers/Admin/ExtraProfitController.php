@@ -6,6 +6,7 @@ use App\Http\Controllers\MasterController;
 use App\Http\Requests\ExtraProfitRequest;
 use App\Http\Resources\ExtraProfitsResource;
 use App\Models\ExtraProfit;
+use Illuminate\Http\Request;
 
 class ExtraProfitController extends MasterController
 {
@@ -13,10 +14,18 @@ class ExtraProfitController extends MasterController
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $extraProfits = ExtraProfitsResource::collection(ExtraProfit::OrderByDesc('id')->paginate(100));
-        return inertia('ExtraProfits/ExtraProfits',compact('extraProfits'));
+        $extraProfits = ExtraProfit::query();
+        if ($request->from)
+            $extraProfits->whereDate('created_at', '>=', $request->from);
+        if ($request->to)
+            $extraProfits->whereDate('created_at', '<=', $request->to);
+        if (!$request->from && !$request->to)
+            $extraProfits->whereMonth('created_at', now()->month);
+        $sumExtraProfits = $extraProfits->sum('amount');
+        $extraProfits = ExtraProfitsResource::collection($extraProfits->latest()->paginate(100));
+        return inertia('ExtraProfits/ExtraProfits', compact('extraProfits', 'sumExtraProfits'));
     }
 
     /**
@@ -50,13 +59,13 @@ class ExtraProfitController extends MasterController
      */
     public function edit(ExtraProfit $extraProfit)
     {
-        return inertia('ExtraProfits/Edit',compact('extraProfit'));
+        return inertia('ExtraProfits/Edit', compact('extraProfit'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(ExtraProfitRequest $request,ExtraProfit $extraProfit)
+    public function update(ExtraProfitRequest $request, ExtraProfit $extraProfit)
     {
         $extraProfit->update($request->all());
     }

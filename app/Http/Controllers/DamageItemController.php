@@ -15,7 +15,7 @@ class DamageItemController extends MasterController
      */
     public function index()
     {
-        $damageItems = DamageItem::with('item')->latest()->paginate(50);
+        $damageItems = DamageItem::with('item')->has('item')->latest()->paginate(50);
         return inertia('Damages/Damages', compact('damageItems'));
     }
 

@@ -2,7 +2,9 @@
     <navbar :setting="setting" />
     <sidebar />
     <div class="content">
+        <DateFilter path="extra-profits" />
         <div class="table-responsive shadow" style="min-width: 600px;">
+            <h4 class="text-center p-2"> إجمالي الأرباح الإضافية : {{ sumExtraProfits }}</h4>
             <table class="table table-light table-hover table-bordered align-middle text-center m-auto">
                 <thead class="table-indigo">
                     <tr>
@@ -42,7 +44,8 @@ import Sidebar from '../components/Sidebar.vue'
 import Pagination from '../components/Pagination.vue';
 import { Link, router } from '@inertiajs/vue3';
 import PrintButton from '../components/PrintButton.vue';
-defineProps({ extraProfits: Object})
+import DateFilter from '../components/DateFilter.vue';
+defineProps({ extraProfits: Object, sumExtraProfits: String })
 let deleteExtraProfit = e => {
     let el = e.currentTarget;
     if (confirm('هل انت متأكد من حذف هذا الربح الإضافي'))
