@@ -32,7 +32,7 @@
                         <th class="text-center" scope="row">اجمالي سعر البيع</th>
                         <th class="text-center" scope="row">اجمالي سعر الشراء</th>
                         <th class="text-center" scope="col">اجمالي المصروفات</th>
-                        <th class="text-center" scope="col">اجمالي الخصومات</th>
+                        <!-- <th class="text-center" scope="col">اجمالي الخصومات</th> -->
                         <th class="text-center" scope="col">اجمالي الأرباح الإضافية</th>
                         <th class="text-center" scope="col">اجمالي الأرباح</th>
                     </tr>
@@ -42,7 +42,7 @@
                         <td scope="row">{{ allProfits.sale_price - allProfits.discounts }}</td>
                         <td scope="row">{{ allProfits.price }}</td>
                         <td scope="col">{{ expenses }}</td>
-                        <td scope="col">{{ allProfits.discounts }}</td>
+                        <!-- <td scope="col">{{ allProfits.discounts }}</td> -->
                         <td scope="col">{{ extraProfits }}</td>
                         <td scope="col">{{ allProfits.profits }}</td>
                     </tr>

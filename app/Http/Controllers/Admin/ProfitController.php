@@ -19,6 +19,7 @@ class ProfitController extends MasterController
         foreach ($operations as $operation) {
             $profits += $operation->sale_price - ($operation->price + $operation->discount);
         }
+        //profits = ((sale price - (price + discount)) + extra profits ) - expenses
         return [
             'profits' => ($profits + $extraProfits) - $expenses,
             'discounts' => $operations->sum('discount'),
