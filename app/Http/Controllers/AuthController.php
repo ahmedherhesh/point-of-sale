@@ -30,7 +30,7 @@ class AuthController extends MasterController
     public function _changePassword(ChangePasswordRequest $request)
     {
         $user = User::find($this->user()->id);
-        if (Hash::check($request->oldPassword, $user->password)) {
+        if (Hash::check($request->oldPassword, $this->user()->password)) {
             $user = $user->update(['password' => $request->password]);
             if ($user)
                 return redirect()->back()->with('success', 'تم تغيير كلمة السر بنجاح');

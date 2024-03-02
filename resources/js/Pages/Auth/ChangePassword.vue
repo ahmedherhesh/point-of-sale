@@ -28,16 +28,17 @@
 </template>
 <script setup>
 defineProps({ errors: Object,setting:Object })
-import { router } from '@inertiajs/vue3';
+import { useForm } from '@inertiajs/vue3';
 import Navbar from '../components/Navbar.vue';
 import Sidebar from '../components/Sidebar.vue';
 
-let passwordForm = {
+let passwordForm = useForm({
     oldPassword: '',
     password: '',
     repeatPassword: '',
-}
+})
 const changePassword = () => {
-    router.post('/change-password', passwordForm)
+    passwordForm.post('/change-password')
+    passwordForm.reset()
 }
 </script>
