@@ -37,19 +37,20 @@ class ProfitController extends MasterController
         $expenses = Expense::query();
         $extraProfits = ExtraProfit::query();
         $monthProfits = $this->profits(
-            operations: Operation::whereMonth('created_at', date('m'))->get(),
-            extraProfits: ExtraProfit::whereMonth('created_at', date('m'))->sum('amount'),
-            expenses: Expense::whereMonth('created_at', date('m'))->sum('amount')
+            operations: Operation::whereMonth('created_at', now()->month)->get(),
+            extraProfits: ExtraProfit::whereMonth('created_at', now()->month)->sum('amount'),
+            expenses: Expense::whereMonth('created_at', now()->month)->sum('amount')
         );
+        echo now();
         $threeMonthProfits = $this->profits(
-            operations: Operation::whereMonth('created_at', '>', date('m', strtotime('-3months')))->get(),
-            extraProfits: ExtraProfit::whereMonth('created_at', '>', date('m', strtotime('-3months')))->sum('amount'),
-            expenses: Expense::whereMonth('created_at', '>', date('m', strtotime('-3months')))->sum('amount')
+            operations: Operation::whereBetween('created_at',  [now()->subMonths(3), now()])->whereYear('created_at', now()->year)->get(),
+            extraProfits: ExtraProfit::whereBetween('created_at',  [now()->subMonths(3), now()])->whereYear('created_at', now()->year)->sum('amount'),
+            expenses: Expense::whereBetween('created_at',  [now()->subMonths(3), now()])->whereYear('created_at', now()->year)->sum('amount')
         );
         $sixMonthProfits = $this->profits(
-            operations: Operation::whereMonth('created_at', '>', date('m', strtotime('-6months')))->get(),
-            extraProfits: ExtraProfit::whereMonth('created_at', '>', date('m', strtotime('-6months')))->sum('amount'),
-            expenses: Expense::whereMonth('created_at', '>', date('m', strtotime('-6months')))->sum('amount')
+            operations: Operation::whereBetween('created_at',  [now()->subMonths(6), now()])->whereYear('created_at', now()->year)->get(),
+            extraProfits: ExtraProfit::whereBetween('created_at',  [now()->subMonths(6), now()])->whereYear('created_at', now()->year)->sum('amount'),
+            expenses: Expense::whereBetween('created_at',  [now()->subMonths(6), now()])->whereYear('created_at', now()->year)->sum('amount')
         );
         $yearProfits = $this->profits(
             operations: Operation::whereYear('created_at', date('Y'))->get(),
