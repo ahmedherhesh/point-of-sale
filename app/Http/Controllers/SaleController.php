@@ -53,6 +53,10 @@ class SaleController extends MasterController
     {
         $request->validate(['invoice_id' => 'nullable|exists:operations,id']);
         $operations = Operation::has('sales')->latest();
+
+        if (empty($request->all()))
+            $operations = $operations->whereMonth('created_at', now()->month);
+
         if ($request->from)
             $operations = $operations->whereDate('created_at', '>=', $request->from);
 
@@ -63,6 +67,7 @@ class SaleController extends MasterController
             $operations = $operations->whereId($request->invoice_id)->paginate(1);
         else
             $operations = $operations->paginate(50);
+        
         $operations = SalesResource::collection($operations);
         return inertia('Sales/Sales', compact('operations'));
     }
