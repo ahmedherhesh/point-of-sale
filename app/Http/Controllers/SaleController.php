@@ -52,12 +52,18 @@ class SaleController extends MasterController
     function index(Request $request)
     {
         $request->validate(['invoice_id' => 'nullable|exists:operations,id']);
-        $operation = Operation::has('sales')->latest();
+        $operations = Operation::has('sales')->latest();
+        if ($request->from)
+            $operations = $operations->whereDate('created_at', '>=', $request->from);
+
+        if ($request->to)
+            $operations = $operations->whereDate('created_at', '<=', $request->to);
+
         if ($request->invoice_id)
-            $operation = $operation->whereId($request->invoice_id)->paginate(1);
+            $operations = $operations->whereId($request->invoice_id)->paginate(1);
         else
-            $operation = $operation->paginate(50);
-        $operations = SalesResource::collection($operation);
+            $operations = $operations->paginate(50);
+        $operations = SalesResource::collection($operations);
         return inertia('Sales/Sales', compact('operations'));
     }
     function create()

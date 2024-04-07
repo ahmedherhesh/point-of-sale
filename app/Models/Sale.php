@@ -22,10 +22,6 @@ class Sale extends Model
     {
         return $this->belongsTo(Item::class);
     }
-    public function itemReturn()
-    {
-        return $this->hasMany(ItemReturn::class);
-    }
     public function scopeAllowed($query)
     {
         $user = session()->get('user');
