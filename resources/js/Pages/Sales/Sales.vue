@@ -10,6 +10,7 @@
                 </form>
             </div>
         </div>
+        <DateFilter path='sales'/>
         <div class="table-responsive shadow">
             <table class="table table-light table-hover table-bordered align-middle text-center m-auto">
                 <thead class="table-indigo">
@@ -61,6 +62,7 @@ import Sidebar from '../components/Sidebar.vue';
 import Pagination from '../components/Pagination.vue';
 import { Link, router } from '@inertiajs/vue3';
 import PrintButton from '../components/PrintButton.vue';
+import DateFilter from '../components/DateFilter.vue';
 
 defineProps({ operations: Object ,setting:Object})
 let invoice_id;
