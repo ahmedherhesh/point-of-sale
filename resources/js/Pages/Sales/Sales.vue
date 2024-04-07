@@ -2,6 +2,7 @@
     <Navbar :setting="setting" />
     <Sidebar />
     <div class="content">
+        <DateFilter path='sales'/>
         <div class="filter">
             <div class="mb-3">
                 <form @submit.prevent="getInvoice">
@@ -10,7 +11,6 @@
                 </form>
             </div>
         </div>
-        <DateFilter path='sales'/>
         <div class="table-responsive shadow">
             <table class="table table-light table-hover table-bordered align-middle text-center m-auto">
                 <thead class="table-indigo">
