@@ -6,9 +6,9 @@ on:
       - master
 
 jobs:
-  update:
-    name: Update
+  build-and-push:
     runs-on: ubuntu-latest
+    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
