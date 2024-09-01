@@ -37,9 +37,9 @@ class ProfitController extends MasterController
         $expenses = Expense::query();
         $extraProfits = ExtraProfit::query();
         $monthProfits = $this->profits(
-            operations: Operation::whereMonth('created_at', now()->month)->get(),
-            extraProfits: ExtraProfit::whereMonth('created_at', now()->month)->sum('amount'),
-            expenses: Expense::whereMonth('created_at', now()->month)->sum('amount')
+            operations: Operation::whereYear('created_at',date('Y'))->whereMonth('created_at', now()->month)->get(),
+            extraProfits: ExtraProfit::whereYear('created_at',date('Y'))->whereMonth('created_at', now()->month)->sum('amount'),
+            expenses: Expense::whereYear('created_at',date('Y'))->whereMonth('created_at', now()->month)->sum('amount')
         );
         $threeMonthProfits = $this->profits(
             operations: Operation::whereBetween('created_at',  [now()->subMonths(3), now()])->whereYear('created_at', now()->year)->get(),
