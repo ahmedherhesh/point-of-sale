@@ -37,9 +37,9 @@ class ProfitController extends MasterController
         $expenses = Expense::query();
         $extraProfits = ExtraProfit::query();
         $monthProfits = $this->profits(
-            operations: Operation::whereYear('created_at',date('Y'))->whereMonth('created_at', now()->month)->get(),
-            extraProfits: ExtraProfit::whereYear('created_at',date('Y'))->whereMonth('created_at', now()->month)->sum('amount'),
-            expenses: Expense::whereYear('created_at',date('Y'))->whereMonth('created_at', now()->month)->sum('amount')
+            operations: Operation::whereYear('created_at', date('Y'))->whereMonth('created_at', now()->month)->get(),
+            extraProfits: ExtraProfit::whereYear('created_at', date('Y'))->whereMonth('created_at', now()->month)->sum('amount'),
+            expenses: Expense::whereYear('created_at', date('Y'))->whereMonth('created_at', now()->month)->sum('amount')
         );
         $threeMonthProfits = $this->profits(
             operations: Operation::whereBetween('created_at',  [now()->subMonths(3), now()])->whereYear('created_at', now()->year)->get(),
@@ -67,9 +67,9 @@ class ProfitController extends MasterController
             $expenses = $expenses->whereDate('created_at', '<=', $request->to);
         }
         if (!$request->from && !$request->to) {
-            $operations = $operations->whereMonth('created_at',  now()->month);
-            $extraProfits = $extraProfits->whereMonth('created_at',  now()->month);
-            $expenses = $expenses->whereMonth('created_at',  now()->month);
+            $operations = $operations->whereYear('created_at',  now()->year)->whereMonth('created_at',  now()->month);
+            $extraProfits = $extraProfits->whereYear('created_at',  now()->year)->whereMonth('created_at',  now()->month);
+            $expenses = $expenses->whereYear('created_at',  now()->year)->whereMonth('created_at',  now()->month);
         }
         //profits
         $extraProfits = $extraProfits->sum('amount');
