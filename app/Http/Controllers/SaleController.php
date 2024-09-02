@@ -55,7 +55,7 @@ class SaleController extends MasterController
         $operations = Operation::has('sales')->latest();
 
         if (empty($request->all()))
-            $operations = $operations->whereYear('created_at', now()->y)->whereMonth('created_at', now()->month);
+            $operations = $operations->whereYear('created_at', now()->year)->whereMonth('created_at', now()->month);
 
         if ($request->from)
             $operations = $operations->whereDate('created_at', '>=', $request->from);
