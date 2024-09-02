@@ -22,7 +22,7 @@ class ExpenseController extends MasterController
         if ($request->to)
             $expenses->whereDate('created_at', '<=', $request->to);
         if (!$request->from && !$request->to)
-            $expenses->whereMonth('created_at', now()->month);
+            $expenses->whereYear('created_at', now()->year)->whereMonth('created_at', now()->month);
         $sumExpenses = $expenses->sum('amount');
         $expenses = ExpensesResource::collection($expenses->latest()->paginate(100));
         return inertia('Expenses/Expenses', compact('expenses','sumExpenses'));

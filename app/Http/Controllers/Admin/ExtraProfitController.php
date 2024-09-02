@@ -22,7 +22,7 @@ class ExtraProfitController extends MasterController
         if ($request->to)
             $extraProfits->whereDate('created_at', '<=', $request->to);
         if (!$request->from && !$request->to)
-            $extraProfits->whereMonth('created_at', now()->month);
+            $extraProfits->whereYear('created_at', now()->year)->whereMonth('created_at', now()->month);
         $sumExtraProfits = $extraProfits->sum('amount');
         $extraProfits = ExtraProfitsResource::collection($extraProfits->latest()->paginate(100));
         return inertia('ExtraProfits/ExtraProfits', compact('extraProfits', 'sumExtraProfits'));
