@@ -37,7 +37,7 @@ class DamageItemController extends MasterController
             return redirect()->back();
         $damageItem = DamageItem::whereCode($request->code)->first();
         if ($damageItem)
-            $this->update($request, $damageItem->id);
+            return redirect()->route('damages.edit', $damageItem->id);
         else {
             $damageItem = DamageItem::create($request->all());
             if ($damageItem)
