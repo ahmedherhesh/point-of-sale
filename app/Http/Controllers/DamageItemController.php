@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\DamageItemsRequest;
 use App\Models\DamageItem;
 use App\Models\Item;
+use App\Http\Resources\DemageItemResource;
 
 class DamageItemController extends MasterController
 {
@@ -15,7 +16,7 @@ class DamageItemController extends MasterController
      */
     public function index()
     {
-        $damageItems = DamageItem::with('item')->has('item')->latest()->paginate(50);
+        $damageItems = DemageItemResource::collection(DamageItem::with('item')->has('item')->latest()->paginate(50)) ;
         return inertia('Damages/Damages', compact('damageItems'));
     }
 
