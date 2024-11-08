@@ -3,12 +3,13 @@ import { Link, usePage } from "@inertiajs/vue3";
 import { onMounted } from "vue";
 import WidgetsIcon from '../Icons/WidgetsIcon.vue';
 import LibraryAddIcon from '../Icons/LibraryAddIcon.vue';
-import ContractIcon from '../Icons/ContractIcon.vue';
+import BarcodeIcon from '../Icons/BarcodeIcon.vue';
 import RemoveDoneIcon from '../Icons/RemoveDoneIcon.vue';
 import CategoryIcon from '../Icons/CategoryIcon.vue';
 import ApartmentIcon from '../Icons/ApartmentIcon.vue';
 import UsersIcon from '../Icons/UsersIcon.vue';
 import DamageItemIcon from "../Icons/DamageItemIcon.vue";
+import ContractIcon from '../Icons/ContractIcon.vue';
 
 
 let props = usePage().props;
@@ -62,7 +63,7 @@ onMounted(() => {
             </li>
             <li v-if="$page.props.permissions.includes('الباركود')">
                 <Link href="/barcode" class="nav-link link-dark">
-                <ContractIcon />
+                <BarcodeIcon />
                 الباركود
                 </Link>
             </li>
