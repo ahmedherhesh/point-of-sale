@@ -1,0 +1,3 @@
+<template>
+    <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+</template>

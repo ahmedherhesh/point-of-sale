@@ -16,6 +16,7 @@
     "dependencies": {
         "@inertiajs/vue3": "^1.0.9",
         "@vitejs/plugin-vue": "^4.2.3",
+        "primeicons": "^7.0.0",
         "vue": "^3.2.36",
         "vue-loader": "^17.2.2"
     }
