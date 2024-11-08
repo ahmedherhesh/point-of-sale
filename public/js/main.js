@@ -13,11 +13,11 @@ $(".delete-btn").on("click", function (e) {
     let result = confirm(`هل انت متأكد من حذف ${$(this).data("type")}`);
     if (!result) e.preventDefault();
 });
-
+const contentWidthOnSmScreen = 640
 const toggleSidebar = () => {
     let sidebar = $('.sidebar');
     let content = $('.content');
-    if ($(window).width() < 640) {
+    if ($(window).width() < contentWidthOnSmScreen) {
         sidebar.css({ right: '-255px' });
         content.css('width', '100%')
     }
@@ -35,6 +35,9 @@ $('body').on('click', '.menu-btn', function () {
     }
     else {
         sidebar.css({ right: '0px' });
+        if ($(window).width() < contentWidthOnSmScreen) {
+            content.css('width', '100%')
+        } else
         content.css('width', `calc(100% - 255px)`)
     }
 })
@@ -63,5 +66,5 @@ window.onbeforeprint = function () {
 }
 //after print
 window.onafterprint = function () {
-    
+
 }
