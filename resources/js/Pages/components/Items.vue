@@ -1,3 +1,35 @@
+<script setup>
+defineProps({ items: Object })
+import { watch } from 'vue';
+import { totalPrice, cartEls } from '../../main';
+watch(cartEls, () => {
+    console.log(cartEls);
+    
+})
+const addToCart = e => {
+    let el = e.currentTarget;
+    let itemId = parseInt(el.dataset.id);
+    if (!cartEls.includes(itemId)) {
+        cartEls.push(itemId)
+        tbody.innerHTML += ` <tr class='cart-item' data-id="${itemId}">
+                                <td class='text-center'>${el.dataset.title}</td>
+                                <td class='price text-center'>${el.dataset.price}</td>
+                                <td class='d-flex justify-content-center'>
+                                    <span class='increment-btn bg-dark'>+</span>
+                                    <span class="ms-2 me-2 qty" data-max='${el.dataset.stock}'>1</span>
+                                    <span class='decrement-btn bg-dark'>-</span>
+                                </td>
+                                <td class='total-price text-center'>${el.dataset.price}</td>
+                                <td class="close-btn text-center" data-id="${itemId}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="40" viewBox="0 -960 960 960" width="30">
+                                        <path d="m249-207-42-42 231-231-231-231 42-42 231 231 231-231 42 42-231 231 231 231-42 42-231-231-231 231Z" />
+                                    </svg>
+                                </td>
+                             </tr>`
+    }
+    totalPrice();
+}
+</script>
 <template>
     <div class="items-section col-lg-6 col-sm-12 bg-light justify-content-center align-items-center m-0 d-flex flex-wrap gap-2 p-2 mt-2 rounded"
         style="max-height: 500px ;">
@@ -38,30 +70,3 @@
     padding: 6px !important;
 }
 </style>
-<script setup>
-defineProps({ items: Object })
-import { totalPrice, cartEls } from '../../main';
-const addToCart = e => {
-    let el = e.currentTarget;
-    let itemId = parseInt(el.dataset.id);
-    if (!cartEls.includes(itemId)) {
-        cartEls.push(itemId)
-        tbody.innerHTML += ` <tr class='cart-item' data-id="${itemId}">
-                                <td class='text-center'>${el.dataset.title}</td>
-                                <td class='price text-center'>${el.dataset.price}</td>
-                                <td class='d-flex justify-content-center'>
-                                    <span class='increment-btn bg-dark'>+</span>
-                                    <span class="ms-2 me-2 qty" data-max='${el.dataset.stock}'>1</span>
-                                    <span class='decrement-btn bg-dark'>-</span>
-                                </td>
-                                <td class='total-price text-center'>${el.dataset.price}</td>
-                                <td class="close-btn text-center" data-id="${itemId}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="40" viewBox="0 -960 960 960" width="30">
-                                        <path d="m249-207-42-42 231-231-231-231 42-42 231 231 231-231 42 42-231 231 231 231-42 42-231-231-231 231Z" />
-                                    </svg>
-                                </td>
-                             </tr>`
-    }
-    totalPrice();
-}
-</script>

@@ -177,7 +177,11 @@ const sale = e => {
 const removeFromCart = e => {
     let el = e.currentTarget;
     let itemId = el.dataset.id;
-    cartEls.pop(itemId)
+    const index = cartEls.findIndex(item => item == itemId);
+    
+    if (index !== -1) {
+        cartEls.splice(index, 1);
+    }
     el.parentElement.remove()
     totalPrice();
 }
