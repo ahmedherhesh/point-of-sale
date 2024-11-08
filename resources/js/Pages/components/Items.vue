@@ -1,11 +1,7 @@
 <script setup>
 defineProps({ items: Object })
-import { watch } from 'vue';
 import { totalPrice, cartEls } from '../../main';
-watch(cartEls, () => {
-    console.log(cartEls);
-    
-})
+
 const addToCart = e => {
     let el = e.currentTarget;
     let itemId = parseInt(el.dataset.id);
@@ -14,10 +10,12 @@ const addToCart = e => {
         tbody.innerHTML += ` <tr class='cart-item' data-id="${itemId}">
                                 <td class='text-center'>${el.dataset.title}</td>
                                 <td class='price text-center'>${el.dataset.price}</td>
-                                <td class='d-flex justify-content-center'>
-                                    <span class='increment-btn bg-dark'>+</span>
-                                    <span class="ms-2 me-2 qty" data-max='${el.dataset.stock}'>1</span>
-                                    <span class='decrement-btn bg-dark'>-</span>
+                                <td class='counter'>
+                                    <div class='d-flex justify-content-center'>
+                                        <span class='increment-btn bg-dark'>+</span>
+                                        <span class="ms-2 me-2 qty" data-max='${el.dataset.stock}'>1</span>
+                                        <span class='decrement-btn bg-dark'>-</span>
+                                    </div>
                                 </td>
                                 <td class='total-price text-center'>${el.dataset.price}</td>
                                 <td class="close-btn text-center" data-id="${itemId}">

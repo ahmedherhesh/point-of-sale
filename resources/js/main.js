@@ -1,3 +1,4 @@
+import { useForm } from "@inertiajs/vue3";
 import { reactive } from "vue";
 function getParams() {
     let params = window.location.search.replace("?", "");
@@ -9,7 +10,7 @@ function getParams() {
     });
     return paramsObj;
 }
-let saleForm = reactive({
+let saleForm = useForm({
     discount: '',
     customer_name: '',
     customer_phone: '',

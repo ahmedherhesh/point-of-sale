@@ -10,7 +10,7 @@
                 <label for="to" class="mb-1 w-25">إلى:</label>
                 <input class="form-control w-75" name="to" id="to" type="date" v-model="dateForm.to" min="2000-01-01">
             </div>
-            <button class="btn btn-indigo" id="submitBtn">بحث</button>
+            <button class="btn btn-indigo d-flex justify-content-center align-items-center" id="submitBtn">بحث</button>
         </form>
     </div>
 </template>

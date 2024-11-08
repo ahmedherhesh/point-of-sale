@@ -18,23 +18,32 @@
                 <label for="cat_id" class="form-label">القسم الرئيسي</label>
                 <select v-model="itemForm.cat_id" id="cat_id" class="form-select categories" @change="showSubCats">
                     <option v-for="cat in catsTree" :value="cat.id" :selected="cat.id == itemForm.cat_id"
-                        :data-children="JSON.stringify(cat.children)">{{
-                            cat.name }}</option>
+                        :data-children="JSON.stringify(cat.children)">
+                        {{ cat.name }}
+                    </option>
                 </select>
+                <span v-if="errors.cat_id" class="text-danger text-direction-rtl mt-1 mb-1">{{ errors.cat_id }}</span>
             </div>
             <div class="mb-3">
                 <label for="sub_cat_id" class="form-label">القسم الفرعي</label>
                 <select v-model="itemForm.sub_cat_id" id="sub_cat_id" class="form-select sub-cats">
                     <option value=""></option>
                 </select>
+                <span v-if="errors.sub_cat_id" class="text-danger text-direction-rtl mt-1 mb-1">
+                    {{ errors.sub_cat_id }}
+                </span>
             </div>
             <div class="mb-3">
                 <label for="company_id" class="form-label">الشركات</label>
                 <select v-model="itemForm.company_id" id="company_id" class="form-select">
                     <option value=""></option>
-                    <option v-for="company in companies" :value="company.id" :selected="company.id == itemForm.company_id">{{
-                        company.name }}</option>
+                    <option v-for="company in companies" :value="company.id"
+                        :selected="company.id == itemForm.company_id">{{
+                            company.name }}</option>
                 </select>
+                <span v-if="errors.company_id" class="text-danger text-direction-rtl mt-1 mb-1">
+                    {{ errors.company_id }}
+                </span>
             </div>
             <div class="mb-3">
                 <label for="price" class="form-label">السعر الأصلي</label>
@@ -45,7 +54,7 @@
                 <label for="sale_price" class="form-label">سعر البيع</label>
                 <input type="number" class="form-control" id="sale_price" v-model="itemForm.sale_price">
                 <span v-if="errors.sale_price" class="text-danger text-direction-rtl mt-1 mb-1">{{ errors.sale_price
-                }}</span>
+                    }}</span>
             </div>
             <div class="mb-3">
                 <label for="stock" class="form-label">الكمية</label>
@@ -69,7 +78,10 @@
                 </select>
                 <span v-if="errors.status" class="text-danger text-direction-rtl mt-1 mb-1">{{ errors.status }}</span>
             </div>
-            <button class="btn ctm-btn">حفظ</button>
+            <button class="btn ctm-btn">
+                <span>حفظ</span>
+                <Loading v-if="itemForm.processing" />
+            </button>
         </form>
     </div>
 </template>
@@ -77,11 +89,12 @@
 
 import Navbar from '../components/Navbar.vue';
 import Sidebar from '../components/Sidebar.vue';
-import { router, usePage } from '@inertiajs/vue3';
-import { onMounted, reactive } from 'vue';
+import { router, useForm, usePage } from '@inertiajs/vue3';
+import { onMounted } from 'vue';
 import enums from '../../constants';
+import Loading from '../components/Loading.vue';
 
-defineProps({ errors: Object, catsTree: Object, item: Object, companies: Object ,setting:Object})
+defineProps({ errors: Object, catsTree: Object, item: Object, companies: Object, setting: Object })
 let props = usePage().props;
 
 let showSubCats = () => {
@@ -97,7 +110,7 @@ let showSubCats = () => {
     }
 }
 
-let itemForm = {
+let itemForm = useForm({
     cat_id: props.item.cat_id,
     sub_cat_id: props.item.sub_cat_id,
     company_id: props.item.company_id,
@@ -109,9 +122,10 @@ let itemForm = {
     image: '',
     code: props.item.code,
     status: props.item.status,
-}
+})
 const updateItem = () => {
-    router.post(`/items/${props.item.id}`, itemForm)
+    !itemForm.processing &&
+        itemForm.post(`/items/${props.item.id}`)
 }
 onMounted(() => {
     showSubCats();

@@ -15,7 +15,10 @@
                 <input type="number" class="form-control" min="0" id="stock" v-model="damageForm.stock">
                 <span v-if="errors.stock" class="text-danger text-direction-rtl mt-1 mb-1">{{ errors.stock }}</span>
             </div>
-            <button class="btn ctm-btn">إضافة</button>
+            <button class="btn ctm-btn">
+                <span>إضافة</span>
+                <Loading v-if="damageForm.processing" />
+            </button>
         </form>
     </div>
 </template>
@@ -23,24 +26,30 @@
 import axios from 'axios';
 import Navbar from '../components/Navbar.vue';
 import Sidebar from '../components/Sidebar.vue';
-import { router } from '@inertiajs/vue3';
+import { useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
-defineProps({ errors: Object, setting: Object });
-let damageForm = {
+import Loading from '../components/Loading.vue';
+const props = defineProps({ errors: Object, setting: Object });
+let damageForm = useForm({
     code: null,
     stock: null
-}
+})
 let itemTitle = ref('');
 
 const getTitle = () => {
     if (damageForm.code)
         axios.get(`/item/${damageForm.code}`).then(res => {
             itemTitle.value = res.data.title;
+            props.errors.code = null
         })
 }
 const addDamageItem = () => {
-    router.post('/damages', damageForm)
-    for (let key in damageForm)
-        damageForm[key] = null
+    !damageForm.processing &&
+        damageForm.post('/damages', {
+            onSuccess: () => {
+                damageForm.reset();
+                itemTitle.value = '';
+            }
+        })
 }
 </script>

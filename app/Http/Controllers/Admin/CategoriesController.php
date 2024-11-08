@@ -55,7 +55,7 @@ class CategoriesController extends MasterController
      */
     public function edit(Category $category)
     {
-        $categories = Category::whereParentId(null)->latest()->get();
+        $categories = Category::whereParentId(null)->whereNot('id' ,$category->id)->latest()->get();
         return inertia('Categories/Edit', compact('categories','category'));
     }
 

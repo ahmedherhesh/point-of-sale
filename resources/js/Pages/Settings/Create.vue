@@ -26,16 +26,16 @@
 <script setup>
 import Navbar from '../components/Navbar.vue';
 import Sidebar from '../components/Sidebar.vue';
-import { router, usePage } from '@inertiajs/vue3';
+import { useForm, usePage } from '@inertiajs/vue3';
 defineProps({ errors: Object, setting: Object })
 let setting = usePage().props.setting;
-let settingForm = {
+let settingForm = useForm({
     title: setting.title || '',
     phone: setting.phone || '',
     address: setting.address || ''
-}
+})
 const setSettings = () => {
-    console.log(settingForm);
-    router.post('/settings', settingForm);
+    !settingForm.processing &&
+        settingForm.post('/settings');
 }
 </script>

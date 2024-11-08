@@ -14,23 +14,28 @@
                 <input type="number" min="0" class="form-control" id="amount" v-model="extraProfitForm.amount">
                 <span v-if="errors.amount" class="text-danger text-direction-rtl mt-1 mb-1">{{ errors.amount }}</span>
             </div>
-            <button class="btn ctm-btn">إضافة</button>
+            <button class="btn ctm-btn">
+                <span>حفظ</span>
+                <Loading v-if="extraProfitForm.processing" />
+            </button>
         </form>
     </div>
 </template>
 <script setup>
+import Loading from '../components/Loading.vue';
 import Navbar from '../components/Navbar.vue';
 import Sidebar from '../components/Sidebar.vue';
 
-import { router, usePage } from '@inertiajs/vue3';
+import { useForm, usePage } from '@inertiajs/vue3';
 let props = usePage().props;
-defineProps({ extraProfit: Object, errors: Object})
+defineProps({ extraProfit: Object, errors: Object })
 
-let extraProfitForm = {
+let extraProfitForm = useForm({
     title: props.extraProfit.title,
     amount: props.extraProfit.amount,
-}
+})
 const updateExtraProfit = () => {
-    router.put(`/extra-profits/${props.extraProfit.id}`, extraProfitForm)
+    !extraProfitForm.processing &&
+        extraProfitForm.put(`/extra-profits/${props.extraProfit.id}`)
 }
 </script>

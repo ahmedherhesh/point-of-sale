@@ -1,3 +1,116 @@
+<script setup>
+defineProps({ operation: Object })
+import { totalPrice, saleForm, cartEls } from '../../main';
+import { usePage, Link,  router } from '@inertiajs/vue3';
+import { onMounted, reactive } from 'vue';
+import Loading from '../components/Loading.vue';
+let props = usePage().props;
+let invoice_data = reactive({ invoice_id: 0 });
+onMounted(() => {
+    cancel();
+    if (props.operation) {
+        let { customer_name, customer_phone, discount, sales } = props.operation.data
+        saleForm.customer_name = customer_name;
+        saleForm.customer_phone = customer_phone;
+        saleForm.discount = discount || '';
+        let operation_sales = sales;
+        operation_sales.forEach(sale => {
+            let itemId = parseFloat(sale.item_id)
+            if (!cartEls.includes(sale.item_id)) {
+                cartEls.push(itemId)
+                tbody.innerHTML += ` <tr class='cart-item' data-id="${itemId}">
+                                        <td class='text-center'>${sale.item.title}</td>
+                                        <td class='price text-center'>${sale.sale_price}</td>
+                                        <td class='counter'>
+                                            <div class='d-flex justify-content-center'>
+                                                <span class='increment-btn bg-dark'>+</span>
+                                                <span class="ms-2 me-2 qty" data-max='${sale.item.stock + sale.qty}'>${sale.qty}</span>
+                                                <span class='decrement-btn bg-dark'>-</span>
+                                            </div>
+                                        </td>
+                                        <td class='total-price text-center'>${sale.sale_price * sale.qty}</td>
+                                        <td class="close-btn text-center" data-id="${itemId}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="40" viewBox="0 -960 960 960" width="30">
+                                                <path d="m249-207-42-42 231-231-231-231 42-42 231 231 231-231 42 42-231 231 231 231-42 42-231-231-231 231Z" />
+                                            </svg>
+                                        </td>
+                                     </tr>`
+            }
+            totalPrice();
+        })
+    }
+})
+
+// controller for cart qty 
+const qtyController = (el, operator) => {
+    const parent = el.parentElement;
+    let qty = parseInt(el.innerText)
+    let maxQty = parseInt(el.dataset.max)
+    if (operator == '+' && qty != maxQty)
+        el.innerText = qty + 1;
+    else if (operator == '-' && qty > 1)
+        el.innerText = qty - 1;
+    const grandParent = parent.parentElement
+    grandParent.querySelector('.total-price').innerText = parseInt(grandParent.querySelector('.price').innerText) * parseInt(el.innerText)
+}
+
+const sale = e => {
+    if (saleForm.processing) return;
+    let btn = e.target;
+    saleForm.items = []
+    let cartItems = document.querySelectorAll('.cart-item');
+    cartItems.forEach(el => {
+        let id = parseFloat(el.dataset.id);
+        let qty = parseFloat(el.querySelector('.qty').innerText);
+        saleForm.items.push({ id, qty })
+    })
+    saleForm.discount = saleForm.discount || 0
+    if (saleForm.items.length) {
+        if (props.operation) {
+            saleForm.put(`/sales/${props.operation.data.id}`)
+        }
+        else {
+            saleForm.post('/sale')
+            cancel();
+        }
+    }
+}
+
+const removeFromCart = e => {
+    let el = e.currentTarget;
+    let itemId = el.dataset.id;
+    const index = cartEls.findIndex(item => item == itemId);
+
+    if (index !== -1) {
+        cartEls.splice(index, 1);
+    }
+    el.parentElement.remove()
+    totalPrice();
+}
+
+const cancel = e => {
+    cartEls.splice(0, cartEls.length)
+    tbody.innerHTML = '';
+    saleForm.customer_name = ''
+    saleForm.customer_phone = ''
+    saleForm.discount = ''
+}
+const cancelPrint = () => {
+    router.get('/')
+}
+document.onclick = e => {
+    let el = e.target;
+    if (el.classList.contains('increment-btn')) {
+        const next = el.nextElementSibling;
+        qtyController(next, '+')
+    } else if (el.classList.contains('decrement-btn')) {
+        const prev = el.previousElementSibling;
+        qtyController(prev, '-')
+    }
+    totalPrice()
+}
+$('body').on('click', '.close-btn', removeFromCart);
+</script>
 <template>
     <div class="cart-section col-lg-5 col-sm-12 mt-2 p-2 bg-light rounded">
         <div class="cart-items">
@@ -41,9 +154,10 @@
             </h5>
         </div>
         <div class="cart-controller d-flex justify-content-center align-items-center gap-2">
-            <button class="btn ctm-btn" @click="sale" :data-title="operation ? 'حفظ' : 'بيع'">{{ operation ? 'حفظ' :
-                'بيع'
-                }}</button>
+            <button class="btn ctm-btn" @click="sale" :data-title="operation ? 'حفظ' : 'بيع'">
+                <span>{{ operation ? 'حفظ' : 'بيع' }}</span>
+                <!-- <Loading v-if="saleForm.processing" /> -->
+            </button>
             <button class="btn btn-danger" @click="cancel">إلغاء</button>
         </div>
     </div>
@@ -99,113 +213,3 @@
     box-shadow: var(--box-shadow);
 }
 </style>
-<script setup>
-defineProps({ operation: Object })
-import { totalPrice, saleForm, cartEls } from '../../main';
-import { usePage, Link, useForm, router } from '@inertiajs/vue3';
-import { onMounted, reactive } from 'vue';
-import axios from 'axios';
-let props = usePage().props;
-let invoice_data = reactive({ invoice_id: 0 });
-onMounted(() => {
-    cancel();
-    if (props.operation) {
-        let { customer_name, customer_phone, discount, sales } = props.operation.data
-        saleForm.customer_name = customer_name;
-        saleForm.customer_phone = customer_phone;
-        saleForm.discount = discount || '';
-        let operation_sales = sales;
-        operation_sales.forEach(sale => {
-            let itemId = parseFloat(sale.item_id)
-            if (!cartEls.includes(sale.item_id)) {
-                cartEls.push(itemId)
-                tbody.innerHTML += ` <tr class='cart-item' data-id="${itemId}">
-                                        <td class='text-center'>${sale.item.title}</td>
-                                        <td class='price text-center'>${sale.sale_price}</td>
-                                        <td class='d-flex justify-content-center'>
-                                            <span class='increment-btn bg-dark'>+</span>
-                                            <span class="ms-2 me-2 qty" data-max='${sale.item.stock + sale.qty}'>${sale.qty}</span>
-                                            <span class='decrement-btn bg-dark'>-</span>
-                                        </td>
-                                        <td class='total-price text-center'>${sale.sale_price * sale.qty}</td>
-                                        <td class="close-btn text-center" data-id="${itemId}">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="40" viewBox="0 -960 960 960" width="30">
-                                                <path d="m249-207-42-42 231-231-231-231 42-42 231 231 231-231 42 42-231 231 231 231-42 42-231-231-231 231Z" />
-                                            </svg>
-                                        </td>
-                                     </tr>`
-            }
-            totalPrice();
-        })
-    }
-})
-
-// controller for cart qty 
-const qtyController = (el, operator) => {
-    const parent = el.parentElement;
-    let qty = parseInt(el.innerText)
-    let maxQty = parseInt(el.dataset.max)
-    if (operator == '+' && qty != maxQty)
-        el.innerText = qty + 1;
-    else if (operator == '-' && qty > 1)
-        el.innerText = qty - 1;
-    const grandParent = parent.parentElement
-    grandParent.querySelector('.total-price').innerText = parseInt(grandParent.querySelector('.price').innerText) * parseInt(el.innerText)
-}
-
-const sale = e => {
-    let btn = e.target;
-    saleForm.items = []
-    let cartItems = document.querySelectorAll('.cart-item');
-    cartItems.forEach(el => {
-        let id = parseFloat(el.dataset.id);
-        let qty = parseFloat(el.querySelector('.qty').innerText);
-        saleForm.items.push({ id, qty })
-    })
-    saleForm.discount = saleForm.discount || 0
-    if (saleForm.items.length) {
-        if (props.operation) {
-            router.put(`/sales/${props.operation.data.id}`, saleForm)
-        }
-        else {
-            useForm(saleForm).post('/sale')
-            cancel();
-        }
-    }
-}
-
-const removeFromCart = e => {
-    let el = e.currentTarget;
-    let itemId = el.dataset.id;
-    const index = cartEls.findIndex(item => item == itemId);
-    
-    if (index !== -1) {
-        cartEls.splice(index, 1);
-    }
-    el.parentElement.remove()
-    totalPrice();
-}
-
-const cancel = e => {
-    cartEls.splice(0, cartEls.length)
-    tbody.innerHTML = '';
-    saleForm.customer_name = ''
-    saleForm.customer_phone = ''
-    saleForm.discount = ''
-}
-const cancelPrint = () => {
-    router.get('/')
-}
-document.onclick = e => {
-    let el = e.target;
-    if (el.classList.contains('increment-btn')) {
-        const next = el.nextElementSibling;
-        qtyController(next, '+')
-    } else if (el.classList.contains('decrement-btn')) {
-        const prev = el.previousElementSibling;
-        qtyController(prev, '-')
-    }
-    totalPrice()
-}
-$('body').on('click', '.close-btn', removeFromCart);
-</script>

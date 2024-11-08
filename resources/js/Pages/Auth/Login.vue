@@ -16,11 +16,14 @@
                 :class="errors.password ? 'border-red-400' : 'border-gray-400'" :placeholder="errors.password"
                 id="password">
         </div>
-        <button class="btn ctm-btn w-100">تسجيل دخول</button>
+        <button class="btn ctm-btn w-100">
+           <span>تسجيل الدخول</span>
+            <Loading v-if="form.processing" />
+        </button>
+
     </form>
 </template>
 <style>
-
 @media(max-width:33rem) {
     .ctm-form {
         width: 100%;
@@ -30,11 +33,13 @@
 <script setup>
 defineProps({ errors: Object })
 import { useForm } from "@inertiajs/vue3";
-let form = {
+import Loading from '../components/Loading.vue';
+const form = useForm({
     username: null,
     password: null
-}
+});
 const login = () => {
-    useForm(form).post('login')
+    !form.processing &&
+        form.post('login')
 }
 </script>

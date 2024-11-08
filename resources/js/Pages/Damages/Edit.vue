@@ -14,19 +14,26 @@
                 <input type="number" class="form-control" min="0" id="stock" v-model="damageForm.stock">
                 <span v-if="errors.stock" class="text-danger text-direction-rtl mt-1 mb-1">{{ errors.stock }}</span>
             </div>
-            <button class="btn ctm-btn">حفظ</button>
+            <button class="btn ctm-btn">
+                <span>حفظ</span>
+                <Loading v-if="damageForm.processing" />
+            </button>
         </form>
     </div>
 </template>
 <script setup>
+import Loading from '../components/Loading.vue';
 import Navbar from '../components/Navbar.vue';
 import Sidebar from '../components/Sidebar.vue';
-import { router,usePage } from '@inertiajs/vue3';
+import { useForm, usePage } from '@inertiajs/vue3';
 defineProps({ errors: Object, setting: Object });
 let props = usePage().props;
-let damageForm = {
+let damageForm = useForm({
     code: props.damageItem.code,
     stock: props.damageItem.stock
+})
+const editDamageItem = () => {
+    !damageForm.processing &&
+        damageForm.put(`/damages/${props.damageItem.id}`);
 }
-const editDamageItem = e => router.put(`/damages/${props.damageItem.id}`, damageForm);
 </script>

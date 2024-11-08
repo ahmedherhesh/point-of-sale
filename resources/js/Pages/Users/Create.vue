@@ -13,11 +13,13 @@
                 <label for="username" class="form-label">اسم المستخدم</label>
                 <input type="text" class="form-control" id="username" v-model="userForm.username"
                     aria-describedby="emailHelp">
-                <span v-if="errors.username" class="text-danger text-direction-rtl mt-1 mb-1">{{ errors.username }}</span>
+                <span v-if="errors.username" class="text-danger text-direction-rtl mt-1 mb-1">{{ errors.username
+                    }}</span>
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">الإيميل</label>
-                <input type="text" class="form-control" id="email" v-model="userForm.email" aria-describedby="emailHelp">
+                <input type="text" class="form-control" id="email" v-model="userForm.email"
+                    aria-describedby="emailHelp">
                 <span v-if="errors.email" class="text-danger text-direction-rtl mt-1 mb-1">{{ errors.email }}</span>
             </div>
             <div class="mb-3">
@@ -30,7 +32,8 @@
             </div>
             <div class="mb-3">
                 <label for="permission" class="form-label">الصلاحيات</label>
-                <p v-if="errors.permissions" class="text-danger text-direction-rtl mt-1 mb-1">{{ errors.permissions }}</p>
+                <p v-if="errors.permissions" class="text-danger text-direction-rtl mt-1 mb-1">{{ errors.permissions }}
+                </p>
                 <div v-for="permission in $page.props.permissions" class="d-inline-block w-50">
                     <input class="ms-2" type="checkbox" :value="permission" :id="permission" v-model="permissions"
                         @change="pushPermission">
@@ -41,29 +44,34 @@
                 <label for="status" class="form-label">الحاله</label>
                 <select class="form-select" id="status" v-model="userForm.status">
                     <option v-for="(status, key) in enums.user.status" :value="key">{{ status
-                    }}</option>
+                        }}</option>
                 </select>
                 <span v-if="errors.status" class="text-danger text-direction-rtl mt-1 mb-1">{{ errors.status }}</span>
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">كلمة السر</label>
                 <input type="password" class="form-control" id="password" v-model="userForm.password">
-                <span v-if="errors.password" class="text-danger text-direction-rtl mt-1 mb-1">{{ errors.password }}</span>
+                <span v-if="errors.password" class="text-danger text-direction-rtl mt-1 mb-1">{{ errors.password
+                    }}</span>
             </div>
-            <button class="btn ctm-btn">إضافة</button>
+            <button class="btn ctm-btn">
+                <span>اضافة</span>
+                <Loading v-if="userForm.processing" />
+            </button>
         </form>
     </div>
 </template>
 <script setup>
 import Navbar from '../components/Navbar.vue';
 import Sidebar from '../components/Sidebar.vue';
-import { router } from '@inertiajs/vue3';
+import {  useForm } from '@inertiajs/vue3';
 import { ref, onMounted } from 'vue';
 import enums from '../../constants.js';
+import Loading from '../components/Loading.vue';
 
 defineProps({ user: Object, errors: Object, setting: Object })
 const permissions = ref([]);
-let userForm = {
+let userForm = useForm({
     name: '',
     username: '',
     email: '',
@@ -71,7 +79,7 @@ let userForm = {
     role: '',
     permissions: [],
     status: ''
-}
+})
 onMounted(() => {
     pushPermission()
 });
@@ -80,7 +88,8 @@ const pushPermission = e => {
 }
 
 const addUser = () => {
-    router.post('/users', userForm)
+    !userForm.processing &&
+        userForm.post('/users')
 }
 
 </script>

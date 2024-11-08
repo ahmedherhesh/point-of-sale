@@ -17,22 +17,31 @@
             <div class="mb-3">
                 <label for="cat_id" class="form-label">القسم الرئيسي</label>
                 <select v-model="itemForm.cat_id" id="cat_id" class="form-select categories" @change="showSubCats">
-                    <option v-for="cat in catsTree" :value="cat.id" :data-children="JSON.stringify(cat.children)">{{
-                        cat.name }}</option>
+                    <option v-for="cat in catsTree" :value="cat.id" :data-children="JSON.stringify(cat.children)">
+                        {{ cat.name }}
+                    </option>
                 </select>
+                <span v-if="errors.cat_id" class="text-danger text-direction-rtl mt-1 mb-1">
+                    {{ errors.cat_id }}
+                </span>
             </div>
             <div class="mb-3">
                 <label for="sub_cat_id" class="form-label">القسم الفرعي</label>
                 <select v-model="itemForm.sub_cat_id" id="sub_cat_id" class="form-select sub-cats">
 
                 </select>
+                <span v-if="errors.sub_cat_id" class="text-danger text-direction-rtl mt-1 mb-1">
+                    {{ errors.sub_cat_id }}
+                </span>
             </div>
             <div class="mb-3">
                 <label for="company_id" class="form-label">الشركات</label>
                 <select v-model="itemForm.company_id" id="company_id" class="form-select">
-                    <option v-for="company in companies" :value="company.id">{{
-                        company.name }}</option>
+                    <option v-for="company in companies" :value="company.id">{{ company.name }}</option>
                 </select>
+                <span v-if="errors.company_id" class="text-danger text-direction-rtl mt-1 mb-1">
+                    {{ errors.company_id }}
+                </span>
             </div>
             <div class="mb-3">
                 <label for="price" class="form-label">السعر الأصلي</label>
@@ -42,8 +51,9 @@
             <div class="mb-3">
                 <label for="sale_price" class="form-label">سعر البيع</label>
                 <input type="number" class="form-control" id="sale_price" v-model="itemForm.sale_price">
-                <span v-if="errors.sale_price" class="text-danger text-direction-rtl mt-1 mb-1">{{ errors.sale_price
-                }}</span>
+                <span v-if="errors.sale_price" class="text-danger text-direction-rtl mt-1 mb-1">
+                    {{ errors.sale_price }}
+                </span>
             </div>
             <div class="mb-3">
                 <label for="stock" class="form-label">الكمية</label>
@@ -63,21 +73,26 @@
             <div class="mb-3">
                 <label for="status" class="form-label">حالة المنتج</label>
                 <select v-model="itemForm.status" id="status" class="form-select">
-                    <option v-for="(status, key) in enums.item.status" :value="key" :selected="key == 'new'">{{ status }}
+                    <option v-for="(status, key) in enums.item.status" :value="key" :selected="key == 'new'">{{ status
+                        }}
                     </option>
                 </select>
                 <span v-if="errors.status" class="text-danger text-direction-rtl mt-1 mb-1">{{ errors.status }}</span>
             </div>
-            <button class="btn ctm-btn">إضافة</button>
+            <button class="btn ctm-btn">
+                <span>اضافة</span>
+                <Loading v-if="itemForm.processing" />
+            </button>
         </form>
     </div>
 </template>
 <script setup>
 import Navbar from '../components/Navbar.vue';
 import Sidebar from '../components/Sidebar.vue';
-import { router } from '@inertiajs/vue3';
+import Loading from '../components/Loading.vue';
+import { useForm } from '@inertiajs/vue3';
 import enums from '../../constants';
-defineProps({ errors: Object, catsTree: Object, companies: Object ,setting:Object})
+defineProps({ errors: Object, catsTree: Object, companies: Object, setting: Object })
 
 let showSubCats = e => {
     let el = $(e.currentTarget).find(':selected');
@@ -91,7 +106,7 @@ let showSubCats = e => {
     }
 }
 
-let itemForm = {
+let itemForm = useForm({
     cat_id: '',
     sub_cat_id: '',
     company_id: '',
@@ -103,11 +118,13 @@ let itemForm = {
     image: '',
     code: '',
     status: '',
-}
+})
 const addItem = () => {
-    router.post('/items', itemForm)
-    for (let key in itemForm)
-        itemForm[key] = ''
+    !itemForm.processing &&
+        itemForm.post('/items', {
+            onSuccess: () => {
+                itemForm.reset();
+            }
+        })
 }
-
 </script>

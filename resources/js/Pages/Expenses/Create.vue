@@ -14,25 +14,32 @@
                 <input type="number" min="0" class="form-control" id="amount" v-model="expenseForm.amount">
                 <span v-if="errors.amount" class="text-danger text-direction-rtl mt-1 mb-1">{{ errors.amount }}</span>
             </div>
-            <button class="btn ctm-btn">إضافة</button>
+            <button class="btn ctm-btn">
+                <span>اضافة</span>
+                <Loading v-if="expenseForm.processing" />
+            </button>
         </form>
     </div>
 </template>
 <script setup>
 import Navbar from '../components/Navbar.vue';
 import Sidebar from '../components/Sidebar.vue';
-import { router } from '@inertiajs/vue3';
+import { router, useForm } from '@inertiajs/vue3';
+import Loading from '../components/Loading.vue';
+defineProps({ errors: Object, setting: Object })
 
-defineProps({errors: Object,setting:Object})
-
-let expenseForm = {
+let expenseForm = useForm({
     title: '',
     amount: '',
-}
+})
 const addExpense = () => {
-    router.post('/expenses', expenseForm)
-    expenseForm.title = ''
-    expenseForm.amount = ''
+    !expenseForm.processing &&
+        expenseForm.post('/expenses', {
+            onSuccess: () => {
+                expenseForm.reset()
+            }
+        })
+
 }
 
 </script>

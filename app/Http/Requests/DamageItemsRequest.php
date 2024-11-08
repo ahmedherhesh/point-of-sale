@@ -21,7 +21,7 @@ class DamageItemsRequest extends MasterRequest
                 'gt:0',
                 function ($attribute, $value, $fail) {
                     $item = Item::where('code', request('code'))->first();
-                    if ($item && $value > $item->stock) {
+                    if ($item && ($value > $item->stock) && !$this->damage) {
                         $fail("The {$attribute} must not be greater than available stock ({$item->stock}).");
                     }
                 },
