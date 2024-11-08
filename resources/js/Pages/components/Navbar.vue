@@ -22,25 +22,25 @@ import ManageAccountsIcon from "../Icons/ManageAccountsIcon.vue";
                         </span>
                         <ul class="dropdown-menu">
                             <li v-if="$page.props.permissions.includes('اضافة المستخدمين')">
-                                <Link href="/users/create" class="dropdown-item text-center ">اضافة مستخدم</Link>
+                                <Link href="/users/create" class="dropdown-item text-end ">اضافة مستخدم</Link>
                             </li>
                             <li v-if="$page.props.permissions.includes('اضافة الأقسام')">
-                                <Link href="/categories/create" class="dropdown-item text-center">اضافة قسم</Link>
+                                <Link href="/categories/create" class="dropdown-item text-end">اضافة قسم</Link>
                             </li>
                             <li v-if="$page.props.permissions.includes('اضافة الشركات')">
-                                <Link href="/companies/create" class="dropdown-item text-center">اضافة شركة</Link>
+                                <Link href="/companies/create" class="dropdown-item text-end">اضافة شركة</Link>
                             </li>
                             <li v-if="$page.props.permissions.includes('اضافة المنتجات')">
-                                <Link href="/items/create" class="dropdown-item text-center">اضافة منتج</Link>
+                                <Link href="/items/create" class="dropdown-item text-end">اضافة منتج</Link>
                             </li>
                             <li v-if="$page.props.permissions.includes('اضافة المنتجات التالفة')">
-                                <Link href="/damages/create" class="dropdown-item text-center">اضافة منتج تالف</Link>
+                                <Link href="/damages/create" class="dropdown-item text-end">اضافة منتج تالف</Link>
                             </li>
                             <li v-if="$page.props.permissions.includes('اضافة المصروفات')">
-                                <Link href="/expenses/create" class="dropdown-item text-center">اضافة مصروف</Link>
+                                <Link href="/expenses/create" class="dropdown-item text-end">اضافة مصروف</Link>
                             </li>
                             <li v-if="$page.props.permissions.includes('اضافة الأرباح الإضافية')">
-                                <Link href="/extra-profits/create" class="dropdown-item text-center">اضافة ربح اضافي
+                                <Link href="/extra-profits/create" class="dropdown-item text-end">اضافة ربح اضافي
                                 </Link>
                             </li>
                         </ul>
