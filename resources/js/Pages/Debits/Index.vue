@@ -64,7 +64,7 @@ defineProps({
 })
 let deleteDebit = e => {
     let el = e.currentTarget;
-    if (confirm('هل انت متأكد من حذف هذا المنتج'))
-        router.delete(`items/${el.getAttribute('data-itemId')}`)
+    if (confirm('هل انت متأكد من حذف هذا الدين'))
+        router.delete(`debits/${el.getAttribute('data-debitId')}`)
 }
 </script>

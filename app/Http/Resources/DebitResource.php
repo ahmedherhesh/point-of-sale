@@ -15,12 +15,14 @@ class DebitResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'name' => 'required|string|min:2|max:254',
-            'phone' => 'required|string|min:2|max:254',
-            'amount' => 'required|numeric',
-            'notes' => 'nullable|min:2|max:254',
-            'status' => 'required|in:unpaid,paid',
-            'type' => 'required|in:debit,credit',
+            'id' => $this->id,
+            'name' => $this->name,
+            'phone' => $this->phone,
+            'amount' => $this->amount,
+            'notes' => $this->notes,
+            'status' => $this->status,
+            'type' => $this->type == 'debit' ? 'دين' : 'مدين',
+            'created_at' => $this->created_at->format('Y-m-d'),
         ];
     }
 }

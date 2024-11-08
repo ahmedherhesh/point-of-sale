@@ -43,6 +43,9 @@ import ManageAccountsIcon from "../Icons/ManageAccountsIcon.vue";
                                 <Link href="/extra-profits/create" class="dropdown-item text-end">اضافة ربح اضافي
                                 </Link>
                             </li>
+                            <li v-if="$page.props.permissions.includes('اضافة الديون')">
+                                <Link href="/debits/create" class="dropdown-item text-end">اضافة دين</Link>
+                            </li>
                         </ul>
                     </div>
                     <div class="dropdown">

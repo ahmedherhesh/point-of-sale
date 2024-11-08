@@ -11,7 +11,7 @@ class DebitRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,12 @@ class DebitRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string|min:2|max:254',
+            'phone' => 'required|string|min:2|max:254',
+            'amount' => 'required|numeric|min:0|max:99999999999.99',
+            'notes' => 'nullable|min:2|max:254',
+            'status' => 'nullable|in:unpaid,paid',
+            'type' => 'required|in:debit,credit',
         ];
     }
 }

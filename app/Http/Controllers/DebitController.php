@@ -14,10 +14,8 @@ class DebitController extends Controller
      */
     public function index()
     {
-        $debits = Debit::whereDate('created_at', now()->today()->toDateString())->paginate(50);
-        return inertia('Debits/Index', [
-            'debits' => DebitResource::collection($debits)
-        ]);
+        $debits = DebitResource::collection(Debit::latest()->paginate(50));
+        return inertia('Debits/Index', compact('debits'));
     }
 
     /**
@@ -44,18 +42,13 @@ class DebitController extends Controller
     {
         //
     }
-    public function payOfTheDebit(Debit $debit)
-    {
-        
-    }
+    public function payOfTheDebit(Debit $debit) {}
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Debit $debit)
     {
-        return inertia('Debits/Edit', [
-            'debit' => new DebitResource($debit)
-        ]);
+        return inertia('Debits/Edit', compact('debit'));
     }
 
     /**
