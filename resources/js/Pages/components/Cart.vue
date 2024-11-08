@@ -26,22 +26,24 @@
         </div>
         <div class="cost-section row align-items-center">
             <div class="col-md-6 col-sm-12">
-                <input type="number" min="0" class="left-cost form-control m-2 me-0" placeholder="المدفوع" @input="totalPrice">
+                <input type="number" min="0" class="left-cost form-control m-2 me-0" placeholder="المدفوع"
+                    @input="totalPrice">
             </div>
             <h5 class="col-md-6 col-sm-12 final-price"><span>المتبقي</span> : <span id="leftCost">0</span>
             </h5>
         </div>
         <div class="final-price-section row align-items-center">
             <div class="col-md-6 col-sm-12">
-                <input type="number" min="0" class="discount form-control m-2 me-0" placeholder="الخصم" @input="totalPrice"
-                    v-model="saleForm.discount">
+                <input type="number" min="0" class="discount form-control m-2 me-0" placeholder="الخصم"
+                    @input="totalPrice" v-model="saleForm.discount">
             </div>
             <h5 class="col-md-6 col-sm-12 final-price"><span>الإجمالي</span> : <span id="finalPrice">0</span>
             </h5>
         </div>
         <div class="cart-controller d-flex justify-content-center align-items-center gap-2">
-            <button class="btn ctm-btn" @click="sale" :data-title="operation ? 'حفظ' : 'بيع'">{{ operation ? 'حفظ' : 'بيع'
-            }}</button>
+            <button class="btn ctm-btn" @click="sale" :data-title="operation ? 'حفظ' : 'بيع'">{{ operation ? 'حفظ' :
+                'بيع'
+                }}</button>
             <button class="btn btn-danger" @click="cancel">إلغاء</button>
         </div>
     </div>
@@ -126,7 +128,11 @@ onMounted(() => {
                                             <span class='decrement-btn bg-dark'>-</span>
                                         </td>
                                         <td class='total-price text-center'>${sale.sale_price * sale.qty}</td>
-                                        <td class="close-btn text-center" data-id="${itemId}"><img src="/imgs/close.svg" width="30"></td>
+                                        <td class="close-btn text-center" data-id="${itemId}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="40" viewBox="0 -960 960 960" width="30">
+                                                <path d="m249-207-42-42 231-231-231-231 42-42 231 231 231-231 42 42-231 231 231 231-42 42-231-231-231 231Z" />
+                                            </svg>
+                                        </td>
                                      </tr>`
             }
             totalPrice();
