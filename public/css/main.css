@@ -160,12 +160,10 @@ a:hover {
 }
 
 .date-form-filter {
-    padding: 20px;
+    padding: 2px 8px;
     box-shadow: var(--box-shadow);
     background-color: #fff;
     border-radius: 10px;
-    width: fit-content;
-    max-width: 30rem;
     transition: height .5s;
 }
 

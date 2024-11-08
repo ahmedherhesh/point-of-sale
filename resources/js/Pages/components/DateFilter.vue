@@ -1,7 +1,7 @@
 <template>
     <div class="date-form-filter d-flex align-items-center flex-column m-auto mt-3 mb-3">
         <form @submit.prevent="dateFormFilter($props.path)"
-            class="date-filter mt-2 mb-2 d-flex justfy-content-center gap-2">
+            class="date-filter mt-2 mb-2 d-flex justify-content-enter gap-2 flex-wrap">
             <div class="d-flex justify-content-center">
                 <label for="from" class="mb-1 w-25">من:</label>
                 <input class="form-control w-75" name="from" id="from" type="date" v-model="dateForm.from" min="2000-01-01">
