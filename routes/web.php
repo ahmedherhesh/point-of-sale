@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\ProfitController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\DamageItemController;
+use App\Http\Controllers\DebitController;
 use App\Models\Setting;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Contracts\Permission;
@@ -54,6 +55,7 @@ Route::group(['middleware' => 'auth.web'], function () {
     Route::resource('categories', CategoriesController::class);
     Route::resource('companies', CompaniesController::class);
     Route::resource('expenses', ExpenseController::class);
+    Route::resource('debits', DebitController::class);
     Route::get('profits', [ProfitController::class, 'index'])->name('profits');
     Route::get('settings', [SettingsController::class, 'index']);
     Route::post('settings', [SettingsController::class, 'storeOrUpdate']);

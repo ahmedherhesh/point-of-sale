@@ -10,7 +10,7 @@ import ApartmentIcon from '../Icons/ApartmentIcon.vue';
 import UsersIcon from '../Icons/UsersIcon.vue';
 import DamageItemIcon from "../Icons/DamageItemIcon.vue";
 import ContractIcon from '../Icons/ContractIcon.vue';
-
+import DebitIcon from '../Icons/DebitIcon.vue';
 
 let props = usePage().props;
 let { userSession } = props;
@@ -107,6 +107,12 @@ onMounted(() => {
                 <Link href="/extra-profits" class="nav-link link-dark">
                 <ContractIcon />
                 الأرباح الإضافية
+                </Link>
+            </li>
+            <li v-if="$page.props.permissions.includes('الديون')">
+                <Link href="/debits" class="nav-link link-dark">
+                <DebitIcon />
+                الديون
                 </Link>
             </li>
             <li v-if="$page.props.permissions.includes('إجمالي الأرباح')">

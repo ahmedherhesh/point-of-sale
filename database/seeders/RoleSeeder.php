@@ -2,12 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
-class RoleSeeder extends Seeder
+class RoleSeeder extends PermissionMasterSeeder
 {
     /**
      * Run the database seeds.
@@ -21,18 +19,6 @@ class RoleSeeder extends Seeder
         foreach ($roles as $role) {
             Role::create($role);
         }
-        function createPermission($permission)
-        {
-            $permissions = [
-                ['name' => "$permission"],
-                ['name' => "اضافة $permission"],
-                ['name' => "تعديل $permission"],
-                ['name' => "حذف $permission"],
-            ];
-            foreach ($permissions as $permission) {
-                Permission::create($permission);
-            }
-        }
         $permissions = [
             'المستخدمين',
             'الأقسام',
@@ -44,7 +30,7 @@ class RoleSeeder extends Seeder
             'الأرباح الإضافية',
         ];
         foreach ($permissions as $permission) {
-            createPermission($permission);
+            $this->createPermission($permission);
         }
         Permission::create(['name' => 'الباركود']);
         Permission::create(['name' => 'إجمالي الأرباح']);
