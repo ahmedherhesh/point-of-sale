@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Item;
 use Illuminate\Foundation\Http\FormRequest;
 
 class DamageItemsRequest extends MasterRequest
@@ -15,7 +16,16 @@ class DamageItemsRequest extends MasterRequest
     {
         return [
             'code'  => 'required|exists:items,code',
-            'stock' => 'required|gt:0'
+            'stock' => [
+                'required',
+                'gt:0',
+                function ($attribute, $value, $fail) {
+                    $item = Item::where('code', request('code'))->first();
+                    if ($item && $value > $item->stock) {
+                        $fail("The {$attribute} must not be greater than available stock ({$item->stock}).");
+                    }
+                },
+            ],
         ];
     }
 }

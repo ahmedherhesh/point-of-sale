@@ -16,7 +16,11 @@ class DamageItemController extends MasterController
      */
     public function index()
     {
-        $damageItems = DemageItemResource::collection(DamageItem::with('item')->has('item')->latest()->paginate(50)) ;
+        $damageItems = DamageItem::with('item')->has('item')
+            ->whereDate('created_at', now()->today()->toDateString())
+            ->latest()
+            ->paginate(50);
+        $damageItems = DemageItemResource::collection($damageItems);
         return inertia('Damages/Damages', compact('damageItems'));
     }
 
