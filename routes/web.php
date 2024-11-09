@@ -58,6 +58,8 @@ Route::group(['middleware' => 'auth.web'], function () {
     Route::resource('companies', CompaniesController::class);
     Route::resource('expenses', ExpenseController::class);
     Route::resource('debits', DebitController::class);
+    Route::get('debits/{debit}/pay', [DebitController::class, 'payOfTheDebit'])->name('debit.pay');
+    Route::post('debits/pay', [DebitController::class, 'payOfTheDebitStore'])->name('debit.pay.store');
     Route::get('profits', [ProfitController::class, 'index'])->name('profits');
     Route::get('settings', [SettingsController::class, 'index']);
     Route::post('settings', [SettingsController::class, 'storeOrUpdate']);

@@ -24,12 +24,23 @@ class PayOfTheDebitRequest extends FormRequest
     {
         return [
             'debit_id' => 'required|exists:debits,id',
-            'amount' => ['required', 'numeric', function ($attribute, $value, $fail) {
-                $debit = Debit::where('id', request('debit_id'))->first();
-                if ($value > $debit->amount) {
-                    $fail("The {$attribute} must not be greater than available amount ({$debit->amount}).");
-                }
-            }],
+            'type' => 'required|in:full,partial',
+            'amount' => 'nullable|required_if:type,partial|numeric|min:0|max:99999999999.99',
         ];
+    }
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            $debit = Debit::find($this->debit_id);
+            if ($this->type == 'partial') {
+                if ($this->amount > $debit->left_amount) {
+                    $validator->errors()->add('amount', 'المبلغ المدفوع يجب ان يكون اقل من او يساوي المبلغ المتبقي');
+                }
+            }
+            // merge debit 
+            $this->merge([
+                'debit' => $debit
+            ]);
+        });
     }
 }

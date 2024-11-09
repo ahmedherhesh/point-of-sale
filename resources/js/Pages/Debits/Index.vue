@@ -14,6 +14,7 @@
                         <th class="text-center" scope="col">باقي</th>
                         <th class="text-center" scope="col">نوع الدين</th>
                         <th class="text-center" scope="col">التاريخ</th>
+                        <th class="text-center btns-controller" scope="col">دفع</th>
                         <th class="text-center btns-controller" scope="col">تعديل</th>
                     </tr>
                 </thead>
@@ -27,12 +28,18 @@
                         <td scope="col">{{ debit.left_amount }}</td>
                         <td scope="col">{{ debit.type == 'debit' ? 'مدين' : 'دائن' }}</td>
                         <td scope="col">{{ debit.created_at }}</td>
+                        <td scope="col">
+                            <Link v-if="debit.left_amount > 0" :href="`/debits/${debit.id}/pay`" class="text-secondary btn p-0">
+                                <i class="fa-solid fa-money-bill-transfer"></i>
+                            </Link>
+                            <span v-else>تم السداد</span>
+                        </td>
                         <td scope="col" class="btns-controller">
                             <div class="d-flex justify-content-center gap-2">
                                 <Link :href="`/debits/${debit.id}/edit`" class="text-secondary btn p-0 edit-btn"><i
                                     class="fa-solid fa-pen-to-square"></i></Link>
                                 <button @click="deleteDebit" class="text-secondary btn delete-btn p-0"
-                                    :data-debitId="debit.id" ><i class="fa-solid fa-trash"></i></button>
+                                    :data-debitId="debit.id"><i class="fa-solid fa-trash"></i></button>
                             </div>
                         </td>
                     </tr>

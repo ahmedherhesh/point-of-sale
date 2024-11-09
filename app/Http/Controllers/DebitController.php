@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DebitRequest;
+use App\Http\Requests\PayOfTheDebitRequest;
 use App\Http\Resources\DebitResource;
 use App\Models\Client;
 use App\Models\Debit;
+use App\Models\PayOfTheDebit;
 use Illuminate\Http\Request;
 
 class DebitController extends Controller
@@ -44,7 +46,19 @@ class DebitController extends Controller
     {
         //
     }
-    public function payOfTheDebit(Debit $debit) {}
+    public function payOfTheDebit(Debit $debit)
+    {
+        $debit = DebitResource::make($debit);
+        return inertia('Debits/Pay', compact('debit'));
+    }
+    public function payOfTheDebitStore(PayOfTheDebitRequest $request)
+    {
+        $amount = $request->type == 'full' ? $request->debit->left_amount : $request->amount;
+        PayOfTheDebit::create(
+            array_merge($request->validated(), ['amount' => $amount])
+        );
+        return redirect()->to(route('debits.index'))->with('success', 'تم دفع الدين بنجاح');
+    }
     /**
      * Show the form for editing the specified resource.
      */
@@ -52,7 +66,7 @@ class DebitController extends Controller
     {
         $debit = DebitResource::make($debit);
         $clients = Client::take(15)->latest()->get();
-        return inertia('Debits/Edit', compact('debit','clients'));
+        return inertia('Debits/Edit', compact('debit', 'clients'));
     }
 
     /**
