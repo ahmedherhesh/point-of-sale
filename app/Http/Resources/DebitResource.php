@@ -20,6 +20,8 @@ class DebitResource extends JsonResource
             'notes' => $this->notes,
             'status' => $this->status,
             'type' => $this->type,
+            'paid_amount' => $this->paid_amount,
+            'left_amount' => $this->left_amount,
             'created_at' => $this->created_at->format('Y-m-d'),
             'client' => ClientResource::make($this->client),
         ];

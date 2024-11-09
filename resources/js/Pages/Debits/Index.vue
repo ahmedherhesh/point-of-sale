@@ -23,8 +23,8 @@
                         <td scope="row">{{ debit.client.name }}</td>
                         <td scope="row">{{ debit.client.phone ?? '-----' }}</td>
                         <td scope="row">{{ debit.amount }}</td>
-                        <td scope="col">0</td>
-                        <td scope="col">0</td>
+                        <td scope="col">{{ debit.paid_amount }}</td>
+                        <td scope="col">{{ debit.left_amount }}</td>
                         <td scope="col">{{ debit.type == 'debit' ? 'مدين' : 'دائن' }}</td>
                         <td scope="col">{{ debit.created_at }}</td>
                         <td scope="col" class="btns-controller">
