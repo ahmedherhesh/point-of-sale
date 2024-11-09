@@ -15,10 +15,19 @@ class DebitController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $debits = DebitResource::collection(Debit::latest()->paginate(50));
-        return inertia('Debits/Index', compact('debits'));
+        $debits = DebitResource::collection(
+            Debit::when(trim($request->q), function ($query,$terms) {
+                $query->whereHas('client', function ($query) use ($terms) {
+                    $query->where('name', 'like', "%{$terms}%");
+                });
+            })->latest()->paginate(50)
+        );
+        return match($request->output_type) {
+            'json' => $debits,
+            default => inertia('Debits/Index', compact('debits')),
+        };
     }
 
     /**
