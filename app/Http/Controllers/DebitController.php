@@ -24,7 +24,7 @@ class DebitController extends Controller
      */
     public function create()
     {
-        $clients = Client::take(2)->latest()->get();
+        $clients = Client::take(15)->latest()->get();
         return inertia('Debits/Create', compact('clients'));
     }
 
@@ -50,6 +50,7 @@ class DebitController extends Controller
      */
     public function edit(Debit $debit)
     {
+        $debit = DebitResource::make($debit);
         $clients = Client::take(15)->latest()->get();
         return inertia('Debits/Edit', compact('debit','clients'));
     }

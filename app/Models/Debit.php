@@ -15,11 +15,19 @@ class Debit extends Model
 
     protected $fillable = [
         'user_id',
-        'name',
-        'phone',
+        'client_id',
         'amount',
         'notes',
         'status',
         'type'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
+    }
 }

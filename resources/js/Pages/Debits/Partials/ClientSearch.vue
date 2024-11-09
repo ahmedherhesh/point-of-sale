@@ -11,14 +11,19 @@ import { AutoComplete } from "primevue";
 import { ref, watch } from "vue";
 const props = defineProps({
     suggestions: Object,
-    value: String
+    value: String | Number
 })
 const emit = defineEmits(["change"]);
 const value = ref(props.value);
 const items = ref([]);
 const suggestions = ref(props.suggestions);
 watch(value, (newVal) => {
-    emit("change", newVal);
+    if (newVal.id)
+        emit("change", newVal);
+})
+watch(() => props.value, (newVal) => {
+    if (!newVal)
+        value.value = ''
 })
 const search = (event) => {
     items.value = suggestions.value

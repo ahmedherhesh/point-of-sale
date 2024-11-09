@@ -11,8 +11,7 @@ defineProps({
 })
 
 let form = useForm({
-    name: '',
-    phone: '',
+    client_id: '',
     type: '',
     amount: '',
     notes: '',
@@ -33,7 +32,7 @@ const submit = () => {
             <h4 class="text-center mb-3">إضافة دين</h4>
             <div class="mb-3">
                 <label for="name" class="form-label">الاسم</label>
-                <ClientSearch @change="value => form.client_id = value.id" :suggestions="clients" />
+                <ClientSearch @change="value => form.client_id = value.id" :value="form.client_id" :suggestions="clients" />
                 <span v-if="errors.client_id" class="text-danger text-direction-rtl mt-1 mb-1">
                     {{ errors.client_id }}
                 </span>
@@ -41,8 +40,8 @@ const submit = () => {
             <div class="mb-3">
                 <label for="type" class="form-label">نوع الدين</label>
                 <select name="type" class="form-control" id="type" v-model="form.type">
-                    <option value="debit">دائن</option>
-                    <option value="credit">مدين</option>
+                    <option value="debit">مدين</option>
+                    <option value="credit">دائن</option>
                 </select>
                 <span v-if="errors.type" class="text-danger text-direction-rtl mt-1 mb-1">{{ errors.type }}</span>
             </div>

@@ -20,12 +20,12 @@
                 <tbody id="tbody">
                     <tr v-for="(debit, i) in debits.data">
                         <td scope="row">{{ debit.id }}</td>
-                        <td scope="row">{{ debit.name }}</td>
-                        <td scope="row">{{ debit.phone }}</td>
+                        <td scope="row">{{ debit.client.name }}</td>
+                        <td scope="row">{{ debit.client.phone ?? '-----' }}</td>
                         <td scope="row">{{ debit.amount }}</td>
                         <td scope="col">0</td>
                         <td scope="col">0</td>
-                        <td scope="col">{{ debit.type }}</td>
+                        <td scope="col">{{ debit.type == 'debit' ? 'مدين' : 'دائن' }}</td>
                         <td scope="col">{{ debit.created_at }}</td>
                         <td scope="col" class="btns-controller">
                             <div class="d-flex justify-content-center gap-2">

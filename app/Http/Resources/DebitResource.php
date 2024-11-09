@@ -16,13 +16,12 @@ class DebitResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'phone' => $this->phone,
             'amount' => $this->amount,
             'notes' => $this->notes,
             'status' => $this->status,
-            'type' => $this->type == 'debit' ? 'دين' : 'مدين',
+            'type' => $this->type,
             'created_at' => $this->created_at->format('Y-m-d'),
+            'client' => ClientResource::make($this->client),
         ];
     }
 }
