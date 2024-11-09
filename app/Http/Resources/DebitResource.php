@@ -18,7 +18,6 @@ class DebitResource extends JsonResource
             'id' => $this->id,
             'amount' => $this->amount,
             'notes' => $this->notes,
-            'status' => $this->status,
             'type' => $this->type,
             'paid_amount' => $this->paid_amount,
             'left_amount' => $this->left_amount,

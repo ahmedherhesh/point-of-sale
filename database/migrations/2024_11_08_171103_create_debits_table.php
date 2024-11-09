@@ -17,7 +17,6 @@ return new class extends Migration
             $table->foreignId('client_id')->constrained()->onDelete('cascade');
             $table->double('amount');
             $table->longText('notes')->nullable();
-            $table->enum('status', ['unpaid', 'paid'])->default('unpaid');
             $table->enum('type', ['debit', 'credit'])->default('debit');
             $table->softDeletes();
             $table->timestamps();

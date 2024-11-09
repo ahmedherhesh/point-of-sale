@@ -19,7 +19,6 @@ class Debit extends Model
         'client_id',
         'amount',
         'notes',
-        'status',
         'type'
     ];
 

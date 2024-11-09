@@ -9,14 +9,24 @@ import axios from 'axios';
 const props = defineProps({
     errors: Object,
     debits: Object,
+    totalDebit: Number,
+    totalCredit: Number,
     setting: Object
 })
 const debits = ref(props.debits);
-const cache = {};
+const totalDebit = ref(props.totalDebit);
+const totalCredit = ref(props.totalCredit);
+const cache = {
+    debits: {},
+    totalDebit: {},
+    totalCredit: {}
+};
 const search = (e) => {
     const val = e.target.value.trim();
-    if (cache[val]) {
-        debits.value = cache[val];
+    if (cache['debits'][val]) {
+        debits.value = cache['debits'][val];
+        totalDebit.value = cache['totalDebit'][val];
+        totalCredit.value = cache['totalCredit'][val];
         return;
     }
     if (val.length < 2) {
@@ -25,7 +35,11 @@ const search = (e) => {
     }
     axios.get(`/debits?q=${val}&output_type=json`).then(res => {
         debits.value = res.data;
-        cache[val] = res.data;
+        totalDebit.value = res.data.totalDebit;
+        totalCredit.value = res.data.totalCredit;
+        cache['debits'][val] = res.data;
+        cache['totalDebit'][val] = res.data.totalDebit;
+        cache['totalCredit'][val] = res.data.totalCredit;
     });
 };
 const deleteDebit = e => {

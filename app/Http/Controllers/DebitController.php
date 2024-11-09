@@ -18,15 +18,41 @@ class DebitController extends Controller
     public function index(Request $request)
     {
         $debits = DebitResource::collection(
-            Debit::when(trim($request->q), function ($query,$terms) {
+            Debit::when(trim($request->q), function ($query, $terms) {
                 $query->whereHas('client', function ($query) use ($terms) {
                     $query->where('name', 'like', "%{$terms}%");
+                    $query->orWhere('phone', 'like', "%{$terms}%");
+                    $query->orWhere('national_id', '=', "%{$terms}%");
                 });
             })->latest()->paginate(50)
         );
-        return match($request->output_type) {
-            'json' => $debits,
-            default => inertia('Debits/Index', compact('debits')),
+        // get total debit
+        $totalDebit = Debit::where('type', 'debit')->when($request->q, function ($query, $terms) {
+            $query->whereHas('client', function ($query) use ($terms) {
+                $query->where('name', 'like', "%{$terms}%");
+                $query->orWhere('phone', 'like', "%{$terms}%");
+                $query->orWhere('national_id', '=', "%{$terms}%");
+            });
+        })->get()->sum(function (Debit $debit) {
+            return $debit->left_amount;
+        });
+        // get total credit
+        $totalCredit = Debit::where('type', 'credit')->when($request->q, function ($query, $terms) {
+            $query->whereHas('client', function ($query) use ($terms) {
+                $query->where('name', 'like', "%{$terms}%");
+                $query->orWhere('phone', 'like', "%{$terms}%");
+                $query->orWhere('national_id', '=', "%{$terms}%");
+            });
+        })->get()->sum(function (Debit $debit) {
+            return $debit->left_amount;
+        });
+        // return data
+        return match ($request->output_type) {
+            'json' => $debits->additional([
+                'totalDebit' => $totalDebit,
+                'totalCredit' => $totalCredit
+            ]),
+            default => inertia('Debits/Index', compact('debits', 'totalDebit', 'totalCredit')),
         };
     }
 

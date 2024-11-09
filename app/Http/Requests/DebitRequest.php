@@ -25,7 +25,6 @@ class DebitRequest extends FormRequest
             'client_id' => 'required|exists:clients,id',
             'amount' => 'required|numeric|min:0|max:99999999999.99',
             'notes' => 'nullable|min:2|max:254',
-            'status' => 'nullable|in:unpaid,paid',
             'type' => 'required|in:debit,credit',
         ];
     }
