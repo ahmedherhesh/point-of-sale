@@ -1,3 +1,30 @@
+<script setup>
+import Loading from '../components/Loading.vue';
+import Navbar from '../components/Navbar.vue';
+import Sidebar from '../components/Sidebar.vue';
+import { useForm } from '@inertiajs/vue3';
+import ClientSearch from './Partials/ClientSearch.vue';
+
+defineProps({
+    clients: Object,
+    errors: Object
+})
+
+let form = useForm({
+    name: '',
+    phone: '',
+    type: '',
+    amount: '',
+    notes: '',
+})
+const submit = () => {
+    !form.processing &&
+        form.post('/debits', {
+            onSuccess: () => form.reset()
+        })
+}
+</script>
+
 <template>
     <Navbar />
     <Sidebar />
@@ -5,19 +32,16 @@
         <form @submit.prevent="submit" class="ctm-form mt-3">
             <h4 class="text-center mb-3">إضافة دين</h4>
             <div class="mb-3">
-                <label for="name" class="form-label">اسم الشخص</label>
-                <input type="text" class="form-control" id="name" v-model="form.name">
-                <span v-if="errors.name" class="text-danger text-direction-rtl mt-1 mb-1">{{ errors.name }}</span>
-            </div>
-            <div class="mb-3">
-                <label for="phone" class="form-label">رقم المحمول</label>
-                <input type="text" class="form-control" id="phone" v-model="form.phone">
-                <span v-if="errors.phone" class="text-danger text-direction-rtl mt-1 mb-1">{{ errors.phone }}</span>
+                <label for="name" class="form-label">الاسم</label>
+                <ClientSearch @change="value => form.client_id = value.id" :suggestions="clients" />
+                <span v-if="errors.client_id" class="text-danger text-direction-rtl mt-1 mb-1">
+                    {{ errors.client_id }}
+                </span>
             </div>
             <div class="mb-3">
                 <label for="type" class="form-label">نوع الدين</label>
                 <select name="type" class="form-control" id="type" v-model="form.type">
-                    <option value="debit">دين</option>
+                    <option value="debit">دائن</option>
                     <option value="credit">مدين</option>
                 </select>
                 <span v-if="errors.type" class="text-danger text-direction-rtl mt-1 mb-1">{{ errors.type }}</span>
@@ -39,26 +63,3 @@
         </form>
     </div>
 </template>
-<script setup>
-import Loading from '../components/Loading.vue';
-import Navbar from '../components/Navbar.vue';
-import Sidebar from '../components/Sidebar.vue';
-import { useForm } from '@inertiajs/vue3';
-
-defineProps({ errors: Object })
-
-let form = useForm({
-    name: '',
-    phone: '',
-    type: '',
-    amount: '',
-    notes: '',
-})
-const submit = () => {
-    !form.processing &&
-        form.post('/debits', {
-            onSuccess: () => form.reset()
-        })
-}
-
-</script>

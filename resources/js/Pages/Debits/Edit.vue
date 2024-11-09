@@ -17,7 +17,7 @@
             <div class="mb-3">
                 <label for="type" class="form-label">نوع الدين</label>
                 <select name="type" class="form-control" id="type" v-model="form.type">
-                    <option value="debit">دين</option>
+                    <option value="debit">دائن</option>
                     <option value="credit">مدين</option>
                 </select>
                 <span v-if="errors.type" class="text-danger text-direction-rtl mt-1 mb-1">{{ errors.type }}</span>

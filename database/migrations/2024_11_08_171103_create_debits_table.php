@@ -14,8 +14,7 @@ return new class extends Migration
         Schema::create('debits', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->string('name');
-            $table->string('phone')->nullable();
+            $table->foreignId('client_id')->constrained()->onDelete('cascade');
             $table->double('amount');
             $table->longText('notes')->nullable();
             $table->enum('status', ['unpaid', 'paid'])->default('unpaid');

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DebitRequest extends FormRequest
+class ClientRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,11 +22,10 @@ class DebitRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'client_id' => 'required|exists:clients,id',
-            'amount' => 'required|numeric|min:0|max:99999999999.99',
-            'notes' => 'nullable|min:2|max:254',
-            'status' => 'nullable|in:unpaid,paid',
-            'type' => 'required|in:debit,credit',
+            'name' => 'required|min:2|max:255',
+            'phone' => 'nullable|min:2|max:255',
+            'address' => 'nullable|min:2|max:255',
+            'national_id' => 'nullable|min:14|max:20',
         ];
     }
 }

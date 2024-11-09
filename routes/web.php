@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\ItemController;
 use App\Http\Controllers\Admin\ProfitController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DamageItemController;
 use App\Http\Controllers\DebitController;
 use App\Models\Setting;
@@ -48,6 +49,7 @@ Route::group(['middleware' => 'auth.web'], function () {
     Route::resource('extra-profits', ExtraProfitController::class);
 
     Route::resource('users', UserController::class);
+    Route::resource('clients', ClientController::class);
     Route::resource('items', ItemController::class);
     Route::get('barcode', [ItemController::class, 'barcode']);
     Route::post('items/{item}', [ItemController::class, 'update'])->name('items-update');

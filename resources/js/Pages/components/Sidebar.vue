@@ -91,6 +91,12 @@ onMounted(() => {
                 المستخدمين
                 </Link>
             </li>
+            <li v-if="$page.props.permissions.includes('العملاء')">
+                <Link href="/clients" class="nav-link link-dark">
+                <UsersIcon />
+                العملاء
+                </Link>
+            </li>
             <li v-if="$page.props.permissions.includes('المبيعات')">
                 <Link href="/sales" class="nav-link link-dark">
                 <ContractIcon />

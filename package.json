@@ -6,6 +6,7 @@
         "build": "vite build"
     },
     "devDependencies": {
+        "@primevue/nuxt-module": "^4.2.1",
         "@vue/compiler-sfc": "^3.3.4",
         "autoprefixer": "^10.4.14",
         "axios": "^1.1.2",
@@ -15,8 +16,10 @@
     },
     "dependencies": {
         "@inertiajs/vue3": "^1.0.9",
+        "@primevue/themes": "^4.2.1",
         "@vitejs/plugin-vue": "^4.2.3",
         "primeicons": "^7.0.0",
+        "primevue": "^4.2.1",
         "vue": "^3.2.36",
         "vue-loader": "^17.2.2"
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\DebitRequest;
 use App\Http\Resources\DebitResource;
+use App\Models\Client;
 use App\Models\Debit;
 use Illuminate\Http\Request;
 
@@ -23,7 +24,8 @@ class DebitController extends Controller
      */
     public function create()
     {
-        return inertia('Debits/Create');
+        $clients = Client::take(2)->latest()->get();
+        return inertia('Debits/Create', compact('clients'));
     }
 
     /**
@@ -48,7 +50,8 @@ class DebitController extends Controller
      */
     public function edit(Debit $debit)
     {
-        return inertia('Debits/Edit', compact('debit'));
+        $clients = Client::take(15)->latest()->get();
+        return inertia('Debits/Edit', compact('debit','clients'));
     }
 
     /**

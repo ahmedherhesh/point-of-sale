@@ -7,7 +7,7 @@ import ManageAccountsIcon from "../Icons/ManageAccountsIcon.vue";
 <template>
     <nav class="navbar navbar-expand-lg bg-light ">
         <div class="container">
-            <div class="d-flex justify-content-between w-100">
+            <div class="d-flex justify-content-between align-items-center w-100">
                 <div class="d-flex align-items-center">
                     <!-- <img src="/imgs/logo-80.png" width="45"> -->
                     <span class="menu-btn m-3">
@@ -22,29 +22,58 @@ import ManageAccountsIcon from "../Icons/ManageAccountsIcon.vue";
                         </span>
                         <ul class="dropdown-menu">
                             <li v-if="$page.props.permissions.includes('اضافة المستخدمين')">
-                                <Link href="/users/create" class="dropdown-item text-end ">اضافة مستخدم</Link>
+                                <Link href="/users/create" class="dropdown-item text-end d-flex gap-2 align-items-center">
+                                    <i class="pi pi-plus-circle"></i>
+                                    <span>اضافة مستخدم</span>
+                                </Link>
+                            </li>
+                            <li v-if="$page.props.permissions.includes('اضافة العملاء')">
+                                <Link href="/clients/create" class="dropdown-item text-end d-flex gap-2 align-items-center">
+                                    <i class="pi pi-plus-circle"></i>
+                                    <span>اضافة عميل</span>
+                                </Link>
                             </li>
                             <li v-if="$page.props.permissions.includes('اضافة الأقسام')">
-                                <Link href="/categories/create" class="dropdown-item text-end">اضافة قسم</Link>
+                                <Link href="/categories/create" class="dropdown-item text-end d-flex gap-2 align-items-center">
+                                    <i class="pi pi-plus-circle"></i>
+                                    <span>اضافة قسم</span>
+                                </Link>
                             </li>
                             <li v-if="$page.props.permissions.includes('اضافة الشركات')">
-                                <Link href="/companies/create" class="dropdown-item text-end">اضافة شركة</Link>
+                                <Link href="/companies/create" class="dropdown-item text-end d-flex gap-2 align-items-center">
+                                    <i class="pi pi-plus-circle"></i>
+                                    <span>اضافة شركة</span>
+                                </Link>
                             </li>
                             <li v-if="$page.props.permissions.includes('اضافة المنتجات')">
-                                <Link href="/items/create" class="dropdown-item text-end">اضافة منتج</Link>
+                                <Link href="/items/create" class="dropdown-item text-end d-flex gap-2 align-items-center">
+                                    <i class="pi pi-plus-circle"></i>
+                                    <span>اضافة منتج</span>
+                                </Link>
                             </li>
                             <li v-if="$page.props.permissions.includes('اضافة المنتجات التالفة')">
-                                <Link href="/damages/create" class="dropdown-item text-end">اضافة منتج تالف</Link>
+                                <Link href="/damages/create" class="dropdown-item text-end d-flex gap-2 align-items-center">
+                                    <i class="pi pi-plus-circle"></i>
+                                    <span>اضافة منتج تالف</span>
+                                </Link>
                             </li>
                             <li v-if="$page.props.permissions.includes('اضافة المصروفات')">
-                                <Link href="/expenses/create" class="dropdown-item text-end">اضافة مصروف</Link>
+                                <Link href="/expenses/create" class="dropdown-item text-end d-flex gap-2 align-items-center">
+                                    <i class="pi pi-plus-circle"></i>
+                                    <span>اضافة مصروف</span>
+                                </Link>
                             </li>
                             <li v-if="$page.props.permissions.includes('اضافة الأرباح الإضافية')">
-                                <Link href="/extra-profits/create" class="dropdown-item text-end">اضافة ربح اضافي
+                                <Link href="/extra-profits/create" class="dropdown-item text-end d-flex gap-2 align-items-center">
+                                    <i class="pi pi-plus-circle"></i>
+                                    <span>اضافة ربح اضافي</span>  
                                 </Link>
                             </li>
                             <li v-if="$page.props.permissions.includes('اضافة الديون')">
-                                <Link href="/debits/create" class="dropdown-item text-end">اضافة دين</Link>
+                                <Link href="/debits/create" class="dropdown-item text-end d-flex gap-2 align-items-center">
+                                    <i class="pi pi-plus-circle"></i>
+                                    <span>اضافة دين</span>
+                                </Link>
                             </li>
                         </ul>
                     </div>
