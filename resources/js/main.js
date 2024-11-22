@@ -11,9 +11,10 @@ function getParams() {
     return paramsObj;
 }
 let saleForm = useForm({
-    discount: '',
     customer_name: '',
     customer_phone: '',
+    discount: '',
+    is_whole_sale: false,
     items: []
 });
 let cartEls = reactive([]);
@@ -24,6 +25,6 @@ const totalPrice = () => {
     })
     result = result - (parseFloat(saleForm.discount) || 0);
     $('#finalPrice').text(result);
-    $('#leftCost').text((parseFloat($('.left-cost').val()) - result) || 0)
+    $('#leftCost').text((parseFloat($('.left-cost').val()) - result) || 0)    
 };
 export { totalPrice, getParams, saleForm, cartEls };

@@ -24,6 +24,7 @@ class OperationsResource extends JsonResource
             'price' =>  $this->price,
             'sale_price' =>  $this->sale_price,
             'discount' =>  $this->discount,
+            'is_whole_sale' => $this->is_whole_sale,
             'profits' => $this->sale_price - ($this->price + $this->discount),
             'created_at' =>  $this->created_at->format('Y-m-d'),
             'sales' => $this->sales,

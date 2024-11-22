@@ -1,18 +1,20 @@
 <script setup>
 defineProps({ operation: Object })
 import { totalPrice, saleForm, cartEls } from '../../main';
-import { usePage, Link,  router } from '@inertiajs/vue3';
-import { onMounted, reactive } from 'vue';
+import { usePage, Link, router } from '@inertiajs/vue3';
+import { onMounted, reactive, ref, watch } from 'vue';
+import ToggleSwitch from 'primevue/toggleswitch';
 import Loading from '../components/Loading.vue';
 let props = usePage().props;
 let invoice_data = reactive({ invoice_id: 0 });
 onMounted(() => {
     cancel();
     if (props.operation) {
-        let { customer_name, customer_phone, discount, sales } = props.operation.data
+        let { customer_name, customer_phone, discount, is_whole_sale, sales } = props.operation.data
         saleForm.customer_name = customer_name;
         saleForm.customer_phone = customer_phone;
         saleForm.discount = discount || '';
+        saleForm.is_whole_sale = is_whole_sale;
         let operation_sales = sales;
         operation_sales.forEach(sale => {
             let itemId = parseFloat(sale.item_id)
@@ -112,6 +114,10 @@ $('body').on('click', '.close-btn', removeFromCart);
 </script>
 <template>
     <div class="cart-section col-lg-5 col-sm-12 mt-2 p-2 bg-light rounded">
+        <div class="is-whole-sale d-flex align-items-center gap-2">
+            <ToggleSwitch v-model="saleForm.is_whole_sale" @change="totalPrice" />
+            <h4 class="text-center font-bold">بيع بالجملة</h4>
+        </div>
         <div class="cart-items">
             <div class="table-responsive">
                 <table class="table">

@@ -24,16 +24,17 @@ class SaleController extends MasterController
             $item = Item::find($ordered_item['id']);
             if ($item->stock >= $ordered_item['qty']) {
                 $qty = (float)($ordered_item['qty']);
+                $sale_price = $request->is_whole_sale == true ? $item->whole_sale_price : $item->sale_price;
                 $sales[] = [
                     'item_id' => $item->id,
                     'operation_id' => $operation->id,
                     'status' => $item->status,
                     'price' => $item->price,
-                    'sale_price' => $item->sale_price,
+                    'sale_price' => $sale_price,
                     'qty' => $ordered_item['qty'],
                 ];
                 $price += ((float)$item->price * $qty);
-                $sale_price += ((float)$item->sale_price * $qty);
+                $sale_price += ((float)$sale_price * $qty);
                 $item->update(['stock' => (float)$item->stock - $qty]);
             }
         }
@@ -67,7 +68,7 @@ class SaleController extends MasterController
             $operations = $operations->whereId($request->invoice_id)->paginate(1);
         else
             $operations = $operations->paginate(50);
-        
+
         $operations = SalesResource::collection($operations);
         return inertia('Sales/Sales', compact('operations'));
     }

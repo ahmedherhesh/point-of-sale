@@ -12,4 +12,7 @@ class Operation extends Model
     function sales(){
         return $this->hasMany(Sale::class,'operation_id');
     }
+    protected $casts = [
+        'is_whole_sale' => 'boolean',
+    ];
 }
