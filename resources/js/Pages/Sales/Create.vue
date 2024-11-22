@@ -5,7 +5,7 @@
         <items-filter :errors="errors" :items="items" :categories="categories" :companies="companies" />
         <div class="row justify-content-around align-items-start">
             <items :items="items" />
-            <cart :key="key" />
+            <cart />
         </div>
     </div>
 </template>
@@ -17,11 +17,4 @@ import Sidebar from '../components/Sidebar.vue';
 import Cart from '../components/Cart.vue';
 import ItemsFilter from '../components/ItemsFilter.vue';
 import Items from '../components/Items.vue';
-import { saleForm } from '../../main';
-import { ref, watch } from 'vue';
-const key = ref(0);
-watch(() => saleForm.is_whole_sale, () => {
-    key.value++;
-})
-
 </script>

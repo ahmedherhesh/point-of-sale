@@ -2,11 +2,12 @@
 defineProps({ operation: Object })
 import { totalPrice, saleForm, cartEls } from '../../main';
 import { usePage, Link, router } from '@inertiajs/vue3';
-import { onMounted, reactive } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 import ToggleSwitch from 'primevue/toggleswitch';
 import Loading from '../components/Loading.vue';
 let props = usePage().props;
 let invoice_data = reactive({ invoice_id: 0 });
+const isWholeSale = ref(false);
 onMounted(() => {
     cancel();
     if (props.operation) {
@@ -94,7 +95,8 @@ const cancel = e => {
     tbody.innerHTML = '';
     saleForm.customer_name = ''
     saleForm.customer_phone = ''
-    saleForm.discount = ''
+    saleForm.discount = '';
+    totalPrice();
 }
 const cancelPrint = () => {
     router.get(window.location.href)
@@ -115,8 +117,12 @@ $('body').on('click', '.close-btn', removeFromCart);
 <template>
     <div class="cart-section col-lg-5 col-sm-12 mt-2 p-2 bg-light rounded">
         <div class="is-whole-sale d-flex align-items-center gap-2">
-            <ToggleSwitch v-if="!props.operation" v-model="saleForm.is_whole_sale" @change="totalPrice" />
-            <h4 v-if="(props.operation && saleForm.is_whole_sale) || !props.operation" class="text-center font-bold">بيع بالجملة</h4>
+            <ToggleSwitch v-if="!props.operation" v-model="isWholeSale" @change="(e) => {
+                saleForm.is_whole_sale = isWholeSale;
+                cancel()
+            }" />
+            <h4 v-if="(props.operation && saleForm.is_whole_sale) || !props.operation" class="text-center font-bold">بيع
+                بالجملة</h4>
         </div>
         <div class="cart-items">
             <div class="table-responsive">
