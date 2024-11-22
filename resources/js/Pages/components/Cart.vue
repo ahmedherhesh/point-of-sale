@@ -115,8 +115,8 @@ $('body').on('click', '.close-btn', removeFromCart);
 <template>
     <div class="cart-section col-lg-5 col-sm-12 mt-2 p-2 bg-light rounded">
         <div class="is-whole-sale d-flex align-items-center gap-2">
-            <ToggleSwitch v-model="saleForm.is_whole_sale" @change="totalPrice" />
-            <h4 class="text-center font-bold">بيع بالجملة</h4>
+            <ToggleSwitch v-if="!props.operation" v-model="saleForm.is_whole_sale" @change="totalPrice" />
+            <h4 v-if="(props.operation && saleForm.is_whole_sale) || !props.operation" class="text-center font-bold">بيع بالجملة</h4>
         </div>
         <div class="cart-items">
             <div class="table-responsive">
