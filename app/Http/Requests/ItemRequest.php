@@ -19,10 +19,11 @@ class ItemRequest extends MasterRequest
             'company_id' => 'nullable|exists:companies,id',
             'price'   => 'required|numeric|max:999999999|min:1|gt:0',
             'sale_price' => 'required|numeric|max:999999999|min:1|gt:0',
+            'whole_sale_price' => 'required|numeric|max:999999999|min:1|gt:0',
             'stock'   => 'required|numeric|max:999999999|min:1|gt:0',
             'code'    => 'nullable|min:1|gt:0|unique:items,code,' . $id ,
             'image'   => 'nullable|max:9216|mimes:png,jpg,jpeg,gif,svg',
-            'status'  => 'required|in:new,used,expired',
+            'status'  => 'nullable|in:new,used,expired',
         ];
     }
 }

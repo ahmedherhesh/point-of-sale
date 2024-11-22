@@ -23,6 +23,7 @@ class Item extends Model implements HasMedia
         'code',
         'price',
         'sale_price',
+        'whole_sale_price',
         'stock',
         'status',
         'created_at'
