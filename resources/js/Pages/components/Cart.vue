@@ -43,15 +43,14 @@ onMounted(() => {
 
 // controller for cart qty 
 const qtyController = (el, operator) => {
-    const parent = el.parentElement;
     let qty = parseInt(el.innerText)
     let maxQty = parseInt(el.dataset.max)
     if (operator == '+' && qty != maxQty)
         el.innerText = qty + 1;
     else if (operator == '-' && qty > 1)
         el.innerText = qty - 1;
-    const grandParent = parent.parentElement
-    grandParent.querySelector('.total-price').innerText = parseInt(grandParent.querySelector('.price').innerText) * parseInt(el.innerText)
+    const cartItem = el.closest('.cart-item');
+    cartItem.querySelector('.total-price').innerText = parseInt(cartItem.querySelector('.price').innerText) * parseInt(el.innerText)
 }
 
 const sale = e => {
@@ -98,7 +97,7 @@ const cancel = e => {
 const cancelPrint = () => {
     router.get('/')
 }
-document.onclick = e => {
+document.body.onclick = e => {
     let el = e.target;
     if (el.classList.contains('increment-btn')) {
         const next = el.nextElementSibling;
