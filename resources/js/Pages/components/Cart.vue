@@ -2,7 +2,7 @@
 defineProps({ operation: Object })
 import { totalPrice, saleForm, cartEls } from '../../main';
 import { usePage, Link, router } from '@inertiajs/vue3';
-import { onMounted, reactive, ref, watch } from 'vue';
+import { onMounted, reactive } from 'vue';
 import ToggleSwitch from 'primevue/toggleswitch';
 import Loading from '../components/Loading.vue';
 let props = usePage().props;
