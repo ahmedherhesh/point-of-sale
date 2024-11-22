@@ -97,7 +97,7 @@ const cancel = e => {
     saleForm.discount = ''
 }
 const cancelPrint = () => {
-    router.get('/')
+    router.get(window.location.href)
 }
 document.body.onclick = e => {
     let el = e.target;

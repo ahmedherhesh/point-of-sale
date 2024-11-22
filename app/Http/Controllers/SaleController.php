@@ -24,17 +24,17 @@ class SaleController extends MasterController
             $item = Item::find($ordered_item['id']);
             if ($item->stock >= $ordered_item['qty']) {
                 $qty = (float)($ordered_item['qty']);
-                $sale_price = $request->is_whole_sale == true ? $item->whole_sale_price : $item->sale_price;
+                $itemSalePrice = $request->is_whole_sale == true ? $item->whole_sale_price : $item->sale_price;
                 $sales[] = [
                     'item_id' => $item->id,
                     'operation_id' => $operation->id,
                     'status' => $item->status,
                     'price' => $item->price,
-                    'sale_price' => $sale_price,
+                    'sale_price' => $itemSalePrice,
                     'qty' => $ordered_item['qty'],
                 ];
                 $price += ((float)$item->price * $qty);
-                $sale_price += ((float)$sale_price * $qty);
+                $sale_price += ((float)$itemSalePrice * $qty);
                 $item->update(['stock' => (float)$item->stock - $qty]);
             }
         }

@@ -22,7 +22,6 @@ import { ref, watch } from 'vue';
 const key = ref(0);
 watch(() => saleForm.is_whole_sale, () => {
     key.value++;
-    console.log(key.value);
 })
 
 </script>
