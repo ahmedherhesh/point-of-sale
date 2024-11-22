@@ -16,7 +16,8 @@
                         <th class="text-center" scope="row">الوصف</th>
                         <th class="text-center" scope="col">الكمية</th>
                         <th class="text-center" scope="col">سعر الشراء</th>
-                        <th class="text-center" scope="col">سعر البيع</th>
+                        <th class="text-center" scope="col">سعر البيع قطاعي</th>
+                        <th class="text-center" scope="col">سعر البيع بالجملة</th>
                         <th class="text-center" scope="col">البار كود</th>
                         <th class="text-center" scope="col">صورة المنتج</th>
                         <th class="text-center btns-controller" scope="col">تعديل</th>
@@ -26,10 +27,11 @@
                     <tr v-for="(item, i) in items.data">
                         <td scope="row">{{ ++i }}</td>
                         <td scope="row">{{ item.title }}</td>
-                        <td scope="row">{{ item.notes }}</td>
+                        <td scope="row">{{ item.notes ?? '-----' }}</td>
                         <td scope="col">{{ item.stock }}</td>
                         <td scope="col">{{ item.price }}</td>
                         <td scope="col">{{ item.sale_price }}</td>
+                        <td scope="col">{{ item.whole_sale_price }}</td>
                         <td class="d-flex align-items-center  flex-column" scope="col" v-html="item.barcode"></td>
                         <td scope="col"><img class="item-img" :src="item.image" alt=""></td>
                         <td scope="col" class="btns-controller">

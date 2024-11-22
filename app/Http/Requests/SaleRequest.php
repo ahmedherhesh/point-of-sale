@@ -19,6 +19,7 @@ class SaleRequest extends MasterRequest
             'customer_name'  => 'nullable|string',
             'customer_phone' => 'nullable|string',
             'discount'       => 'nullable|numeric|max:999999999',
+            'is_whole_sale'  => 'nullable|boolean',
             'items'          => 'required',
         ];
     }

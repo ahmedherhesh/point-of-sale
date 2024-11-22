@@ -51,10 +51,18 @@
                 <span v-if="errors.price" class="text-danger text-direction-rtl mt-1 mb-1">{{ errors.price }}</span>
             </div>
             <div class="mb-3">
-                <label for="sale_price" class="form-label">سعر البيع</label>
+                <label for="sale_price" class="form-label">سعر البيع قطاعي</label>
                 <input type="number" class="form-control" id="sale_price" v-model="itemForm.sale_price">
-                <span v-if="errors.sale_price" class="text-danger text-direction-rtl mt-1 mb-1">{{ errors.sale_price
-                    }}</span>
+                <span v-if="errors.sale_price" class="text-danger text-direction-rtl mt-1 mb-1">
+                    {{ errors.sale_price }}
+                </span>
+            </div>
+            <div class="mb-3">
+                <label for="whole_sale_price" class="form-label">سعر البيع بالجملة</label>
+                <input type="number" class="form-control" id="whole_sale_price" v-model="itemForm.whole_sale_price">
+                <span v-if="errors.whole_sale_price" class="text-danger text-direction-rtl mt-1 mb-1">
+                    {{ errors.whole_sale_price }}
+                </span>
             </div>
             <div class="mb-3">
                 <label for="stock" class="form-label">الكمية</label>
@@ -118,6 +126,7 @@ let itemForm = useForm({
     notes: props.item.notes,
     price: props.item.price,
     sale_price: props.item.sale_price,
+    whole_sale_price: props.item.whole_sale_price,
     stock: props.item.stock,
     image: '',
     code: props.item.code,
