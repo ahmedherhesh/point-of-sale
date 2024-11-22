@@ -33,14 +33,13 @@
                         </tr>
                     </tbody>
                 </table>
-                <hr>
 
-                <div class="total-price">
+                <div class="total-price mt-3">
                     <h5> الخصم : {{ invoice.data.discount ?? '0.00' }}</h5>
                     <h5> الإجمالي : {{ totalPrice - invoice.data.discount }}</h5>
                 </div>
                 <div class="barcode d-flex flex-column align-items-end" v-html="barcode"></div>
-                <hr>
+                <div class="span-border mt-3 mb-3"></div>
                 <p class="d-flex flex-column align-items-center">
                     <span><i class="fa-solid fa-location-dot ms-1"></i>{{ setting.address || '' }}</span>
                     <span class="mt-3"><span>للإستفسار -</span> {{ setting.phone || '' }} <i
@@ -50,33 +49,31 @@
         </div>
     </div>
 </template>
-<style>
+<style scoped>
 .invoice {
     /* border: 5px solid gray; */
-    width: 75mm;
-    margin: 50px auto 0;
+    padding-right: 10px;
+    margin: 50px auto;
     position: relative;
-    font-size: 11px;
+    font-size: 14px;
 }
 
 h5 {
-    font-size: 11px;
+    font-size: 14px;
 }
 
 .invoice .invoice-header {
-    /* --width: calc(100% - 50px);
-    position: absolute;
-    top: -25px;
-    left: calc(50% - (var(--width)/ 2)); */
-    border: 1px solid #ddd;
+    border: 1px solid #000;
     height: 40px;
     width: var(--width);
     color: #000;
 }
-
+th,td{
+    border: 1px solid #000;
+}
 .span-border {
     height: 1px;
-    background-color: gray;
+    background-color: #000;
 }
 </style>
 <script setup>

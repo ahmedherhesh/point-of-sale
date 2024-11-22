@@ -188,20 +188,7 @@ form .ctm-btn{
 }
 
 @media print {
-    @page {
-        margin: 0;
-        padding: 0;
-    }
-
-    body {
-        margin: 0 !important;
-        height: fit-content;
-    }
-
-    .invoice {
-        margin: 0 !important;
-    }
-
+    .no-print,
     .navbar,
     .sidebar,
     .ctm-pagination,
@@ -212,9 +199,7 @@ form .ctm-btn{
     }
 
     .content {
-        top: 0;
-        margin: 0 !important;
-        padding: 0 !important;
+
         width: 100% !important;
     }
 
