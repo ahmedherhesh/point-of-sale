@@ -49,7 +49,11 @@
         </div>
     </div>
 </template>
-<style scoped>
+<style>
+.content {
+    padding: 0;
+}
+
 .invoice {
     /* border: 5px solid gray; */
     padding-right: 10px;
@@ -57,6 +61,8 @@
     position: relative;
     font-size: 14px;
 }
+
+
 
 h5 {
     font-size: 14px;
@@ -68,9 +74,12 @@ h5 {
     width: var(--width);
     color: #000;
 }
-th,td{
+
+th,
+td {
     border: 1px solid #000;
 }
+
 .span-border {
     height: 1px;
     background-color: #000;

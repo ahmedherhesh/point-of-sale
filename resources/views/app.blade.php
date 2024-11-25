@@ -5,6 +5,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    @if (Route::is('sales.show'))
+        <link rel="stylesheet" href="{{ asset('css/invoice.css') }}">
+    @endif
+
     <link rel="stylesheet" href="{{ asset('css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     @vite('resources/js/app.js')
