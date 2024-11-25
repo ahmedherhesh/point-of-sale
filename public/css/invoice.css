@@ -6,5 +6,6 @@
     .invoice td {
         padding:5px 3px;
         max-width: 40px;
+        word-wrap: break-word;
     }
 }
