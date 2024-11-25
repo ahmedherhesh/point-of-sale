@@ -75,12 +75,12 @@ h5 {
     color: #000;
 }
 
-th,
-td {
+.invoice th,
+.invoice td {
     border: 1px solid #000;
 }
 
-.span-border {
+.invoice .span-border {
     height: 1px;
     background-color: #000;
 }

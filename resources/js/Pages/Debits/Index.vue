@@ -4,7 +4,7 @@ import Sidebar from '../components/Sidebar.vue';
 import Pagination from '../components/Pagination.vue';
 import { Link, router } from '@inertiajs/vue3';
 import PrintButton from '../components/PrintButton.vue';
-import { ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import axios from 'axios';
 const props = defineProps({
     errors: Object,
@@ -13,9 +13,9 @@ const props = defineProps({
     totalCredit: Number,
     setting: Object
 })
-const debits = ref(props.debits);
-const totalDebit = ref(props.totalDebit);
-const totalCredit = ref(props.totalCredit);
+const debits = computed(() => props.debits);
+const totalDebit = computed(() => props.totalDebit);
+const totalCredit = computed(() => props.totalCredit);
 const cache = {
     debits: {},
     totalDebit: {},
@@ -47,6 +47,7 @@ const deleteDebit = e => {
     if (confirm('هل انت متأكد من حذف هذا الدين'))
         router.delete(`debits/${el.getAttribute('data-debitId')}`)
 }
+
 </script>
 <template>
     <Navbar :setting="setting" />
@@ -83,7 +84,7 @@ const deleteDebit = e => {
                         <td scope="col">{{ debit.left_amount }}</td>
                         <td scope="col">{{ debit.type == 'debit' ? 'مدين' : 'دائن' }}</td>
                         <td scope="col">{{ debit.created_at }}</td>
-                        <td scope="col">
+                        <td scope="col" class="btns-controller">
                             <Link v-if="debit.left_amount > 0" :href="`/debits/${debit.id}/pay`"
                                 class="text-secondary btn p-0">
                             <i class="fa-solid fa-money-bill-transfer"></i>
